@@ -64,6 +64,5 @@ public class ConectorMySql {
         }catch (SQLException ex){
             Logger.getLogger(ConectorMySql.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
+    }    
     }

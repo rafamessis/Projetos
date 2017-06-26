@@ -41,14 +41,16 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="checkBoxUsuario" min="-2" max="-2" attributes="0"/>
                                   <Component id="campoSenhaNome" min="-2" pref="75" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="botaoInserirUsuario" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                                      <Component id="botaoApagarUsuario" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                                      <Component id="botaoAlterarUsuario" min="-2" max="-2" attributes="0"/>
-                                  </Group>
                               </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="botaoInserirUsuario" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                              <Component id="botaoApagarUsuario" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                              <Component id="botaoAlterarUsuario" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                              <Component id="CancelarCamposUsuario" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -81,8 +83,9 @@
                   <Component id="botaoInserirUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="botaoApagarUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="botaoAlterarUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="CancelarCamposUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="35" max="32767" attributes="0"/>
+              <EmptySpace pref="39" max="32767" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="191" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -173,6 +176,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoAlterarUsuarioActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="CancelarCamposUsuario">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cancelar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CancelarCamposUsuarioActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

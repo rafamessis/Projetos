@@ -7,8 +7,10 @@ package HBFTelas;
 import Controller.UsuarioController;
 import Model.Usuario;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -16,14 +18,37 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
 
+    ArrayList valores = new ArrayList();//criação da arrayList para salvar os dados na tabela
+    //int posicao=0;//Criei a posição para reconhecer qual posição da tabela foi selecionada
+    UsuarioController ucontroller = new UsuarioController();
+    List<Usuario> usuarios = null;
+    String NomeTeste = "";
     //ArrayList valores = new ArrayList();//criação da arrayList para salvar os dados na tabela
     //int posicao=0;//Criei a posição para reconhecer qual posição da tabela foi selecionada
-    
+    public void preencheTabela(){
+        
+        DefaultTableModel tabela = (DefaultTableModel)tabelaUsuario.getModel();
+        tabelaUsuario.setRowSorter(new TableRowSorter(tabela));
+        tabela.setNumRows(0);
+        usuarios = ucontroller.read();
+        for(int i=0;i<usuarios.size();i++){
+            tabela.addRow(new Object[]{usuarios.get(i).getNomeUsuario(), usuarios.get(i).getTipo(), usuarios.get(i).getSenhaUsuario()});
+        }    
+    }
     /**
      * Creates new form TelaConsultaUsuario
      */
     public TelaConsultaUsuario() {
         initComponents();
+        usuarios = ucontroller.read();
+        
+        preencheTabela();
+        botaoAlterarUsuario.setEnabled(false);
+        botaoApagarUsuario.setEnabled(false);
+//      DefaultTableModel val = (DefaultTableModel) tabelaUsuario.getModel();//val = valores da tabela
+//      for(int i=0;i<usuarios.size();i++){
+//        val.addRow(new Object[]{usuarios.get(i).getNomeUsuario(),usuarios.get(i).getTipo(),usuarios.get(i).getSenhaUsuario()});//((String[]) valores.get(valores.size()-1));
+//        }
     }
 
     /**
@@ -45,6 +70,7 @@ public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
         tabelaUsuario = new javax.swing.JTable();
         checkBoxUsuario = new javax.swing.JCheckBox();
         botaoAlterarUsuario = new javax.swing.JButton();
+        CancelarCamposUsuario = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -99,6 +125,13 @@ public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
             }
         });
 
+        CancelarCamposUsuario.setText("Cancelar");
+        CancelarCamposUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelarCamposUsuarioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,13 +150,15 @@ public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(checkBoxUsuario)
-                                    .addComponent(campoSenhaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(botaoInserirUsuario)
-                                        .addGap(45, 45, 45)
-                                        .addComponent(botaoApagarUsuario)
-                                        .addGap(44, 44, 44)
-                                        .addComponent(botaoAlterarUsuario))))))
+                                    .addComponent(campoSenhaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(botaoInserirUsuario)
+                                .addGap(42, 42, 42)
+                                .addComponent(botaoApagarUsuario)
+                                .addGap(44, 44, 44)
+                                .addComponent(botaoAlterarUsuario)
+                                .addGap(43, 43, 43)
+                                .addComponent(CancelarCamposUsuario))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -146,8 +181,9 @@ public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoInserirUsuario)
                     .addComponent(botaoApagarUsuario)
-                    .addComponent(botaoAlterarUsuario))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                    .addComponent(botaoAlterarUsuario)
+                    .addComponent(CancelarCamposUsuario))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -159,7 +195,8 @@ public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
         String nome = campoCadastroNome.getText().trim();//gravando o que esta no campo para a variavel senha
         String senha = campoSenhaNome.getText().trim();//gravando o que esta no campo para a variavel senha
         String tipo = "";
-       
+        
+        
         if(nome.isEmpty()){//Verificando se o Campo nome esta com algum valor
             JOptionPane.showMessageDialog(null, "Por favor insira o nome");
             return;
@@ -168,9 +205,15 @@ public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Por favor insira a senha");
             return;
         }
-        
+        usuarios = ucontroller.read();
+        for(int i=0;i<usuarios.size();i++){
+            if(nome.equals(usuarios.get(i).getNomeUsuario())){
+                JOptionPane.showMessageDialog(null, "Nome de usuário já cadastrado, por favor insira outro nome");
+                return;
+        }
+        }
         Usuario u = new Usuario();
-        UsuarioController ucontroller = new UsuarioController();
+        
         u.setNomeUsuario(nome);//passando para o objeto o nome digitado no campo nome
         u.setSenhaUsuario(senha);//passando para o objeto a senha digitado no campo senha
         if (checkBoxUsuario.isSelected()){//verificando se usuário é administrador ou usuário padrão
@@ -182,8 +225,9 @@ public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
         u.setTipo(tipo);//passando para o objeto o tipo de usuário
         ucontroller.create(u);//colocando o objeto no Bando de dados
         
-        DefaultTableModel val = (DefaultTableModel) tabelaUsuario.getModel();//val = valores da tabela
-        val.addRow(new Object[]{u.getNomeUsuario(),u.getSenhaUsuario(),u.getTipo()});//((String[]) valores.get(valores.size()-1));
+        preencheTabela();
+//      DefaultTableModel val = (DefaultTableModel) tabelaUsuario.getModel();//val = valores da tabela
+//      val.addRow(new Object[]{u.getNomeUsuario(),u.getSenhaUsuario(),u.getTipo()});//((String[]) valores.get(valores.size()-1));
         campoCadastroNome.setText("");//apagando o campo nome
         campoSenhaNome.setText("");//apagando o campo Senha
         campoCadastroNome.requestFocus();//Voltar o codigo para o campo nome
@@ -229,60 +273,100 @@ public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_campoCadastroNomeActionPerformed
 
     private void botaoApagarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoApagarUsuarioActionPerformed
-//        posicao = tabelaUsuario.getSelectedRow();//Buscando o numero da posição da tabela que foi clicado no mouse
-//        valores.remove(posicao);//removendo o valor da posição que está sendo buscada na tabela
-//        ((DefaultTableModel) tabelaUsuario.getModel()).removeRow(tabelaUsuario.getSelectedRow());//removendo os valores da tabela
-//        campoCadastroNome.setText("");//apagando o campo nome
-//        campoSenhaNome.setText("");//apagando o campo Senha
-//        campoCadastroNome.requestFocus();//Voltar o codigo para o campo nome
-//        checkBoxUsuario.setSelected(false);//Desmarcando o chechBox
+        Usuario u = new Usuario();
+        u.setNomeUsuario(campoCadastroNome.getText().trim());
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir este usuário ?", title, JOptionPane.YES_NO_OPTION);
+        if (resposta == JOptionPane.YES_OPTION) {
+            ucontroller.delete(u.getNomeUsuario());
+            preencheTabela();
+            //((DefaultTableModel) tabelaUsuario.getModel()).removeRow(tabelaUsuario.getSelectedRow());
+        }
+        campoCadastroNome.setText("");//apagando o campo nome
+        campoSenhaNome.setText("");//apagando o campo Senha
+        campoCadastroNome.requestFocus();//Voltar o codigo para o campo nome
+        checkBoxUsuario.setSelected(false);//Desmarcando o chechBox
+        botaoInserirUsuario.setEnabled(true);
+        botaoApagarUsuario.setEnabled(false);
+        botaoAlterarUsuario.setEnabled(false);
     }//GEN-LAST:event_botaoApagarUsuarioActionPerformed
 
     private void tabelaUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaUsuarioMouseClicked
-
-//            String Tipo="";
-////////            String[] dados = (String[]) valores.get(tabelaUsuario.getSelectedRow());//Setando os dados da tabala no arraylist  
-////////            campoCadastroNome.setText(dados[0]);//Recuperando da arreylist a senha
-////////            campoSenhaNome.setText(dados[2]);//Recuperando da arreylist a senha
-////////            Tipo=dados[1];//Recuperando da arrayList e salvando na variável Tipo 
-////////            if(Tipo=="Administrador"){//se o tipo for administrador irá executar o if abaixo
-////////                checkBoxUsuario.setSelected(true);//Fazando com que a check box fique marcada
-////////            }
+        String Tipo="";
+           Usuario usuario = usuarios.get(tabelaUsuario.getSelectedRow());
+           campoCadastroNome.setText(usuario.getNomeUsuario());//Recuperando da arreylist a senha
+           campoSenhaNome.setText(usuario.getSenhaUsuario());//Recuperando da arreylist a senha
+           Tipo=usuario.getTipo();//Recuperando da arrayList e salvando na variável Tipo 
+           if(Tipo.equals("Administrador")){//se o tipo for administrador irá executar o if abaixo
+               checkBoxUsuario.setSelected(true);//Fazando com que a check box fique marcada
+           }
+            else{
+                checkBoxUsuario.setSelected(false);
+           }
+           NomeTeste = usuario.getNomeUsuario();//Nome parametro para alterar
+           botaoInserirUsuario.setEnabled(false);
+           botaoApagarUsuario.setEnabled(true);
+           botaoAlterarUsuario.setEnabled(true);
     }//GEN-LAST:event_tabelaUsuarioMouseClicked
 
     private void botaoAlterarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarUsuarioActionPerformed
-//       posicao = tabelaUsuario.getSelectedRow();//Buscando o numero da posição da tabela que foi clicado no mouse
-//       String nome = campoCadastroNome.getText().trim();//gravando o que esta no campo para a variavel senha
-//       String senha = campoSenhaNome.getText().trim();//gravando o que esta no campo para a variavel senha
-//       String tipo = "";
-//       if(nome.isEmpty()){//Verificando se o Campo nome esta com algum valor
-//            JOptionPane.showMessageDialog(null, "Por favor insira o nome");
-//            return;
-//        }
-//        else if(senha.isEmpty()){//Verificando se o Campo senha esta com algum valor
-//            JOptionPane.showMessageDialog(null, "Por favor insira a senha");
-//            return;
-//        }
-//       
-//       if (checkBoxUsuario.isSelected()){//verificando se usuário é administrador ou usuário padrão
-//              tipo = "Administrador";
-//            }
-//        else{
-//               tipo = "Usuário";
-//        }
-//        DefaultTableModel val = (DefaultTableModel) tabelaUsuario.getModel();//val = valores da tabela
-//        valores.remove(posicao);
-//        valores.add(posicao,new String[]{nome,tipo,senha});//na posição que foi clicada é inserida
-//        ((DefaultTableModel) tabelaUsuario.getModel()).removeRow(tabelaUsuario.getSelectedRow());//removendo os valores da tabela
-//        val.addRow((String[]) valores.get(valores.size()-1));//inserir na tabela na posição que foi clicada
-//        campoCadastroNome.setText("");//apagando o campo nome
-//        campoSenhaNome.setText("");//apagando o campo Senha
-//        campoCadastroNome.requestFocus();//Voltar o codigo para o campo nome
-//        checkBoxUsuario.setSelected(false);//Desmarcando o chechBox
+        Usuario u = new Usuario();
+        
+        int posicao = tabelaUsuario.getSelectedRow();//Buscando o numero da posição da tabela que foi clicado no mouse
+        String nome = campoCadastroNome.getText().trim();//gravando o que esta no campo para a variavel senha
+        String senha = campoSenhaNome.getText().trim();//gravando o que esta no campo para a variavel senha
+        String tipo = "";
+        
+        
+        if(nome.isEmpty()){//Verificando se o Campo nome esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o nome");
+            return;
+        }
+        else if(senha.isEmpty()){//Verificando se o Campo senha esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira a senha");
+            return;
+        }
+        usuarios = ucontroller.read();
+        for(int i=0;i<usuarios.size();i++){
+            if(nome.equals(usuarios.get(i).getNomeUsuario()) && (!NomeTeste.equals(usuarios.get(i).getNomeUsuario()))){
+                JOptionPane.showMessageDialog(null, "Nome de usuário já cadastrado, por favor insira outro nome");
+                return;
+        }
+        }
+        u.setNomeUsuario(nome);//passando para o objeto o nome digitado no campo nome
+        u.setSenhaUsuario(senha);//passando para o objeto a senha digitado no campo senha 
+        if (checkBoxUsuario.isSelected()){//verificando se usuário é administrador ou usuário padrão
+            tipo = "Administrador";
+        }
+        else{
+            tipo = "Usuário";
+        }
+        u.setTipo(tipo);
+        ucontroller.update(u,NomeTeste);
+        preencheTabela();
+        campoCadastroNome.setText("");//apagando o campo nome
+        campoSenhaNome.setText("");//apagando o campo Senha
+        campoCadastroNome.requestFocus();//Voltar o codigo para o campo nome
+        checkBoxUsuario.setSelected(false);//Desmarcando o chechBox
+        NomeTeste = "";
+        botaoInserirUsuario.setEnabled(true);
+        botaoApagarUsuario.setEnabled(false);
+        botaoAlterarUsuario.setEnabled(false);
     }//GEN-LAST:event_botaoAlterarUsuarioActionPerformed
+
+    private void CancelarCamposUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarCamposUsuarioActionPerformed
+        campoCadastroNome.setText("");//apagando o campo nome
+        campoSenhaNome.setText("");//apagando o campo Senha
+        campoCadastroNome.requestFocus();//Voltar o codigo para o campo nome
+        checkBoxUsuario.setSelected(false);//Desmarcando o chechBox
+        NomeTeste = "";
+        botaoInserirUsuario.setEnabled(true);
+        botaoApagarUsuario.setEnabled(false);
+        botaoAlterarUsuario.setEnabled(false);
+    }//GEN-LAST:event_CancelarCamposUsuarioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CancelarCamposUsuario;
     private javax.swing.JButton botaoAlterarUsuario;
     private javax.swing.JButton botaoApagarUsuario;
     private javax.swing.JButton botaoInserirUsuario;

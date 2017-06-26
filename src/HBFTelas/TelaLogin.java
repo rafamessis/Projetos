@@ -5,6 +5,10 @@
  */
 package HBFTelas;
 
+import Controller.UsuarioController;
+import Model.Usuario;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,7 +16,12 @@ import javax.swing.JOptionPane;
  * @author User
  */
 public class TelaLogin extends javax.swing.JFrame {
-
+    ArrayList valores = new ArrayList();//criação da arrayList para salvar os dados na tabela
+    //int posicao=0;//Criei a posição para reconhecer qual posição da tabela foi selecionada
+    UsuarioController ucontroller = new UsuarioController();
+    List<Usuario> usuarios = null;
+    String NomeTeste = "";
+    
     /**
      * Creates new form TelaLogin
      */
@@ -128,22 +137,36 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotaoEntrarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoEntrarLoginActionPerformed
-        if (txtNomeLogin.getText().equals("higor") && txtSenhaLogin.getText().equals("123456")){
-            TelaPrincipal tela = new TelaPrincipal();
-            tela.setVisible(true);
-            dispose();
-        }else{
-               JOptionPane.showMessageDialog(null, "Senha ou usuário incorretos!");
-                }
+        usuarios = ucontroller.read();
+        String nome = txtNomeLogin.getText().trim();
+        String senha = txtSenhaLogin.getText().trim();
+        int i;
+        for(i=0;i<usuarios.size();i++){
+            if(nome.equals(usuarios.get(i).getNomeUsuario()) && senha.equals(usuarios.get(i).getSenhaUsuario())){
+                TelaPrincipal tela = new TelaPrincipal();
+                tela.setVisible(true);
+                dispose();
+                return;
+            }
+        }
+        JOptionPane.showMessageDialog(null, "Senha ou usuário incorretos!");
+       
+//        if (nome.equals("higor") && senha.equals("123456")){
+//            TelaPrincipal tela = new TelaPrincipal();
+//            tela.setVisible(true);
+//            dispose();
+//        }else{
+//               JOptionPane.showMessageDialog(null, "Senha ou usuário incorretos!");
+//                }
     }//GEN-LAST:event_BotaoEntrarLoginActionPerformed
-
-    private void txtSenhaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaLoginActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSenhaLoginActionPerformed
 
     private void txtNomeLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeLoginActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeLoginActionPerformed
+
+    private void txtSenhaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaLoginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSenhaLoginActionPerformed
 
     /**
      * @param args the command line arguments

@@ -43,23 +43,25 @@
                                   <Component id="campoSenhaNome" min="-2" pref="75" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="botaoInserirUsuario" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                              <Component id="botaoApagarUsuario" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                              <Component id="botaoAlterarUsuario" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                              <Component id="CancelarCamposUsuario" min="-2" max="-2" attributes="0"/>
-                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="botaoInserirUsuario" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="botaoApagarUsuario" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                              <Component id="botaoAlterarUsuario" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="37" max="32767" attributes="0"/>
+                              <Component id="CancelarCamposUsuario" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="24" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -80,10 +82,10 @@
               <Component id="checkBoxUsuario" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="botaoInserirUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="botaoApagarUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="CancelarCamposUsuario" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="botaoApagarUsuario" alignment="1" min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="botaoInserirUsuario" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                   <Component id="botaoAlterarUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="CancelarCamposUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="39" max="32767" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="191" max="-2" attributes="0"/>
@@ -112,6 +114,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="botaoInserirUsuario">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagens/GravarPequeno.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Inserir"/>
       </Properties>
       <Events>
@@ -120,6 +125,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="botaoApagarUsuario">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagens/ExcluirPequeno.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Apagar"/>
       </Properties>
       <Events>
@@ -172,6 +180,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="botaoAlterarUsuario">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagens/Editar.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Alterar"/>
       </Properties>
       <Events>
@@ -180,6 +191,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="CancelarCamposUsuario">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagens/CancelarPequeno.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
       <Events>

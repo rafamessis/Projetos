@@ -87,6 +87,7 @@ public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Senha:");
 
+        botaoInserirUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/GravarPequeno.png"))); // NOI18N
         botaoInserirUsuario.setText("Inserir");
         botaoInserirUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,6 +95,7 @@ public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
             }
         });
 
+        botaoApagarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/ExcluirPequeno.png"))); // NOI18N
         botaoApagarUsuario.setText("Apagar");
         botaoApagarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,6 +120,7 @@ public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
 
         checkBoxUsuario.setText("Administrador");
 
+        botaoAlterarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Editar.png"))); // NOI18N
         botaoAlterarUsuario.setText("Alterar");
         botaoAlterarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,6 +128,7 @@ public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
             }
         });
 
+        CancelarCamposUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/CancelarPequeno.png"))); // NOI18N
         CancelarCamposUsuario.setText("Cancelar");
         CancelarCamposUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,19 +154,20 @@ public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(checkBoxUsuario)
-                                    .addComponent(campoSenhaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(botaoInserirUsuario)
-                                .addGap(42, 42, 42)
-                                .addComponent(botaoApagarUsuario)
-                                .addGap(44, 44, 44)
-                                .addComponent(botaoAlterarUsuario)
-                                .addGap(43, 43, 43)
-                                .addComponent(CancelarCamposUsuario))))
+                                    .addComponent(campoSenhaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(botaoInserirUsuario)
+                                .addGap(35, 35, 35)
+                                .addComponent(botaoApagarUsuario)
+                                .addGap(38, 38, 38)
+                                .addComponent(botaoAlterarUsuario)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                                .addComponent(CancelarCamposUsuario)))))
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,10 +184,10 @@ public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
                 .addComponent(checkBoxUsuario)
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoInserirUsuario)
-                    .addComponent(botaoApagarUsuario)
-                    .addComponent(botaoAlterarUsuario)
-                    .addComponent(CancelarCamposUsuario))
+                    .addComponent(CancelarCamposUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoApagarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoInserirUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoAlterarUsuario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())

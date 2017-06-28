@@ -10,15 +10,20 @@ package Model;
  * @author User
  */
 public class Pessoa {
-    protected String nome,endereco;
-    protected int cpf_cnpj,codigo,fone,whatsapp;
-    Pessoa(String nome,String endereco,int cpf_cnpj,int codigo,int fone,int whatsapp){
-        this.nome=nome;
-        this.endereco=endereco;
-        this.cpf_cnpj=cpf_cnpj;
-        this.codigo=codigo;
-        this.fone=fone;
-        this.whatsapp=whatsapp;
+    private String nome;
+    private String endereco;
+    private String cpf_cnpj;
+    private String codigo;
+    private String fone;
+    private String whatsapp;
+
+    public Pessoa(String nome, String endereco, String cpf_cnpj, String codigo, String fone, String whatsapp) {
+        this.nome = nome;
+        this.endereco = endereco;
+        this.cpf_cnpj = cpf_cnpj;
+        this.codigo = codigo;
+        this.fone = fone;
+        this.whatsapp = whatsapp;
     }
     
     /**
@@ -52,57 +57,57 @@ public class Pessoa {
     /**
      * @return the cpf_cnpj
      */
-    public int getCpf_cnpj() {
+    public String getCpf_cnpj() {
         return cpf_cnpj;
     }
 
     /**
      * @param cpf_cnpj the cpf_cnpj to set
      */
-    public void setCpf_cnpj(int cpf_cnpj) {
+    public void setCpf_cnpj(String cpf_cnpj) {
         this.cpf_cnpj = cpf_cnpj;
     }
 
     /**
      * @return the codigo
      */
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
     /**
      * @param codigo the codigo to set
      */
-    public void setCodigo(int codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
     /**
      * @return the fone
      */
-    public int getFone() {
+    public String getFone() {
         return fone;
     }
 
     /**
      * @param fone the fone to set
      */
-    public void setFone(int fone) {
+    public void setFone(String fone) {
         this.fone = fone;
     }
 
     /**
      * @return the whatsapp
      */
-    public int getWhatsapp() {
+    public String getWhatsapp() {
         return whatsapp;
     }
 
     /**
      * @param whatsapp the whatsapp to set
      */
-    public void setWhatsapp(int whatsapp) {
+    public void setWhatsapp(String whatsapp) {
         this.whatsapp = whatsapp;
     }
-    
+       
 }

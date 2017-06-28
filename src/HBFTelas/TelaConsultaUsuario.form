@@ -81,11 +81,13 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="checkBoxUsuario" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="CancelarCamposUsuario" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="botaoApagarUsuario" alignment="1" min="-2" pref="31" max="-2" attributes="0"/>
-                  <Component id="botaoInserirUsuario" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                  <Component id="botaoAlterarUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="CancelarCamposUsuario" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="botaoInserirUsuario" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="botaoAlterarUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace pref="39" max="32767" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="191" max="-2" attributes="0"/>

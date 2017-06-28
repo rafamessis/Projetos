@@ -30,7 +30,7 @@ public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
         DefaultTableModel tabela = (DefaultTableModel)tabelaUsuario.getModel();
         tabelaUsuario.setRowSorter(new TableRowSorter(tabela));
         tabela.setNumRows(0);
-        usuarios = ucontroller.read();
+        usuarios = ucontroller.read("");
         for(int i=0;i<usuarios.size();i++){
             tabela.addRow(new Object[]{usuarios.get(i).getNomeUsuario(), usuarios.get(i).getTipo(), usuarios.get(i).getSenhaUsuario()});
         }    
@@ -40,7 +40,7 @@ public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
      */
     public TelaConsultaUsuario() {
         initComponents();
-        usuarios = ucontroller.read();
+        usuarios = ucontroller.read("");
         
         preencheTabela();
         botaoAlterarUsuario.setEnabled(false);
@@ -183,11 +183,12 @@ public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(checkBoxUsuario)
                 .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CancelarCamposUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoApagarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoInserirUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoAlterarUsuario))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botaoApagarUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(CancelarCamposUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botaoInserirUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botaoAlterarUsuario)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -210,7 +211,7 @@ public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Por favor insira a senha");
             return;
         }
-        usuarios = ucontroller.read();
+        usuarios = ucontroller.read("");
         for(int i=0;i<usuarios.size();i++){
             if(nome.equals(usuarios.get(i).getNomeUsuario())){
                 JOptionPane.showMessageDialog(null, "Nome de usuário já cadastrado, por favor insira outro nome");
@@ -330,7 +331,7 @@ public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Por favor insira a senha");
             return;
         }
-        usuarios = ucontroller.read();
+        usuarios = ucontroller.read("");
         for(int i=0;i<usuarios.size();i++){
             if(nome.equals(usuarios.get(i).getNomeUsuario()) && (!NomeTeste.equals(usuarios.get(i).getNomeUsuario()))){
                 JOptionPane.showMessageDialog(null, "Nome de usuário já cadastrado, por favor insira outro nome");

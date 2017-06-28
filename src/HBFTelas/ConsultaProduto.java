@@ -40,9 +40,9 @@ public class ConsultaProduto extends javax.swing.JFrame {
            produto.addRow(new Object[]{
            p.getIdProduto(),
            p.getNomeProd(),
-           p.getCodSKU(),
-           p.getIdFornecedor(),
+           p.getCodSKU(),   
            p.getPrecoCompra(),
+           p.getIdFornecedor(),
            p.getIdCategoria()
        });
      }

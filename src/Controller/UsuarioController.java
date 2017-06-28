@@ -45,7 +45,7 @@ public class UsuarioController {
               
     }
     
-    public List<Usuario> read(){
+    public List<Usuario> read(String filtro){
         java.sql.Connection con = ConectorMySql.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -54,7 +54,7 @@ public class UsuarioController {
         List<Usuario> usuario = new ArrayList<>();
         
           try {
-              stmt = con.prepareStatement("select * from funcionario ");
+              stmt = con.prepareStatement("select * from funcionario " + filtro);
               rs = stmt.executeQuery();
               
               while(rs.next()){

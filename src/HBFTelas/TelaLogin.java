@@ -138,17 +138,16 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotaoEntrarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoEntrarLoginActionPerformed
-        usuarios = ucontroller.read();
+        usuarios = ucontroller.read(" where nomeFunc = '" + txtNomeLogin.getText().trim()  + "'" );
         String nome = txtNomeLogin.getText().trim();
         String senha = txtSenhaLogin.getText().trim();
         int i;
-        for(i=0;i<usuarios.size();i++){
-            if(nome.equals(usuarios.get(i).getNomeUsuario()) && senha.equals(usuarios.get(i).getSenhaUsuario())){
+             if(usuarios.size() > 0 && nome.equals(usuarios.get(0).getNomeUsuario()) && senha.equals(usuarios.get(0).getSenhaUsuario())){
                 TelaPrincipal tela = new TelaPrincipal();
                 tela.setVisible(true);
                 dispose();
                 return;
-            }
+          
         }
         JOptionPane.showMessageDialog(null, "Senha ou usuário incorretos!");
        

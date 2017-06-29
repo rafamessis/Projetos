@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package HBFTelas;
 import Controller.ProdutoController;
 import Model.Categorias;
@@ -69,7 +64,7 @@ public class CadastroCategorias extends javax.swing.JFrame {
 
         jLabel2.setText("Nome");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(10, 11, 38, 14);
+        jLabel2.setBounds(10, 40, 38, 14);
 
         nomeCat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,11 +72,11 @@ public class CadastroCategorias extends javax.swing.JFrame {
             }
         });
         getContentPane().add(nomeCat);
-        nomeCat.setBounds(10, 31, 269, 28);
+        nomeCat.setBounds(60, 30, 269, 28);
 
         jLabel3.setText("Setor");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(393, 11, 39, 14);
+        jLabel3.setBounds(370, 40, 39, 14);
 
         setorCat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,7 +84,7 @@ public class CadastroCategorias extends javax.swing.JFrame {
             }
         });
         getContentPane().add(setorCat);
-        setorCat.setBounds(393, 31, 207, 28);
+        setorCat.setBounds(407, 30, 220, 28);
 
         botaoInserir.setText("Inserir");
         botaoInserir.addActionListener(new java.awt.event.ActionListener() {
@@ -98,7 +93,7 @@ public class CadastroCategorias extends javax.swing.JFrame {
             }
         });
         getContentPane().add(botaoInserir);
-        botaoInserir.setBounds(10, 97, 63, 31);
+        botaoInserir.setBounds(10, 97, 80, 31);
 
         botaoExcluir.setText("Exluir");
         botaoExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -265,6 +260,7 @@ public class CadastroCategorias extends javax.swing.JFrame {
       
        c.setNomeCat(nomeCat.getText());
        c.setSetorCat(setorCat.getText());
+              
        c.setIdCategoria((int)TabelaCategoria.getValueAt(TabelaCategoria.getSelectedRow(), 0));
        
        contr.updateCategorias(c);
@@ -338,6 +334,7 @@ public class CadastroCategorias extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(CadastroCategorias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

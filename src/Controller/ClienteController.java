@@ -6,7 +6,7 @@
 package Controller;
 
 import Conexao.ConectorMySql;
-import Model.Clientes;
+import Model.Cliente;
 import Model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,14 +23,14 @@ import javax.swing.JOptionPane;
  */
 public class ClienteController {
     
-    public void create(Clientes c){
+    public void create(Cliente c){
     
         Connection con = ConectorMySql.getConnection();
         PreparedStatement stmt = null;
         
         try {
            stmt = con.prepareStatement("insert into cliente (id,nome,cpfcnpj,endereco,telefone,whatsapp,limiteCredito) values( ?, ?, ?, ?, ?, ?, ?)");
-           stmt.setString(1,c.getCodigo());
+           stmt.setInt(1,c.getCodigo());
            stmt.setString(2,c.getNome());
            stmt.setString(3,c.getCpf_cnpj());
            stmt.setString(4,c.getEndereco());
@@ -39,38 +39,37 @@ public class ClienteController {
            stmt.setDouble(7,c.getLimiteCredito());
                       
            stmt.executeUpdate();
-           JOptionPane.showMessageDialog(null," Usuário cadastrado !");
-            
-           } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null," Erro ao inserir: "+ ex);
-        }finally{
-           ConectorMySql.closeConnection(con, stmt);
-        }
+       JOptionPane.showMessageDialog(null," Salvo com sucesso!");
+
+       } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null," Erro ao salvar!"+ ex);
+    }finally{
+       ConectorMySql.closeConnection(con, stmt);
+    }
+    }    
+        public List<Cliente> read(){
+            java.sql.Connection con = ConectorMySql.getConnection();
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
         
-        public List<Clientes> read(){
-        java.sql.Connection con = ConectorMySql.getConnection();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
         
+            List<Cliente> clientes = new ArrayList<>();
         
-        List<Clientes> clientes = new ArrayList<>();
-        
-          try {
-              stmt = con.prepareStatement("select * from cliente ");
-              rs = stmt.executeQuery();
+            try {
+                stmt = con.prepareStatement("select * from cliente ");
+                rs = stmt.executeQuery();
               
-              while(rs.next()){
-                  Clientes cliente = new Clientes();
-                  
-                  cliente.setCodigo(rs.getInt("id"));
-                  cliente.setNome(rs.getString("nome"));
-                  cliente.setFone(rs.getString("telefone"));
-                  cliente.setLimiteCredito(rs.getDouble("limiteCredito"));
-                  cliente.setCpf_cnpj(rs.getString("cpfcnpj"));
-                  cliente.setWhatsapp(rs.getString("whatsapp"));
-                  cliente.setEndereco(rs.getString("endereco"));
-                  
-                  clientes.add(cliente);
+                while(rs.next()){
+                    Cliente cliente = new Cliente();  
+                    cliente.setNome(rs.getString("nome"));
+                    cliente.setFone(rs.getString("telefone"));
+                    cliente.setLimiteCredito(rs.getDouble("limiteCredito"));
+                    cliente.setCpf_cnpj(rs.getString("cpfcnpj"));
+                    cliente.setWhatsapp(rs.getString("whatsapp"));
+                    cliente.setEndereco(rs.getString("endereco"));
+                    cliente.setCodigo(rs.getInt("id"));
+                    
+                    clientes.add(cliente);
                   
              }
              
@@ -80,10 +79,10 @@ public class ClienteController {
            ConectorMySql.closeConnection(con, stmt,rs);
         }
          
-          return usuario;
+          return clientes;
          
       }
               
     }
     
-}
+

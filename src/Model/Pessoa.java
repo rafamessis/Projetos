@@ -13,18 +13,12 @@ public class Pessoa {
     private String nome;
     private String endereco;
     private String cpf_cnpj;
-    private String codigo;
+    private int codigo;
     private String fone;
     private String whatsapp;
 
-    public Pessoa(String nome, String endereco, String cpf_cnpj, String codigo, String fone, String whatsapp) {
-        this.nome = nome;
-        this.endereco = endereco;
-        this.cpf_cnpj = cpf_cnpj;
-        this.codigo = codigo;
-        this.fone = fone;
-        this.whatsapp = whatsapp;
-    }
+    public Pessoa() {
+   }
     
     /**
      * @return the nome
@@ -71,14 +65,14 @@ public class Pessoa {
     /**
      * @return the codigo
      */
-    public String getCodigo() {
+    public int getCodigo() {
         return codigo;
     }
 
     /**
      * @param codigo the codigo to set
      */
-    public void setCodigo(String codigo) {
+    public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 

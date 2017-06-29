@@ -28,6 +28,12 @@ public class ConsultaProduto extends javax.swing.JFrame {
         
         readTabelaProduto();
     }
+    
+    public ConsultaProduto(Produto produto) {
+        this();
+        
+        this.produto = produto;
+    }
 
     public void readTabelaProduto(){
        DefaultTableModel produto = (DefaultTableModel)tabelaconsultaProduto.getModel();

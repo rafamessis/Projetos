@@ -8,6 +8,8 @@ package HBFTelas;
 import Controller.ProdutoController;
 import Model.Categorias;
 import Model.Produto;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -16,7 +18,9 @@ import javax.swing.table.TableRowSorter;
  * @author Rafael
  */
 public class ConsultaProduto extends javax.swing.JFrame {
-
+ private Produto produto;
+    private List<Produto> produtos = new ArrayList<Produto>();
+    /**
     /**
      * Creates new form ConsultaProduto
      */
@@ -35,26 +39,32 @@ public class ConsultaProduto extends javax.swing.JFrame {
         this.produto = produto;
     }
 
-    public void readTabelaProduto(){
+   public void readTabelaProduto(){
        DefaultTableModel produto = (DefaultTableModel)tabelaconsultaProduto.getModel();
        
        
       
        ProdutoController contr = new ProdutoController();
        produto.setNumRows(0);
-       for(Produto p: contr.read()){
+       
+       produtos = contr.read();
+       
+       for(Produto p: produtos){
            produto.addRow(new Object[]{
            p.getIdProduto(),
            p.getNomeProd(),
-           p.getCodSKU(),   
-           p.getPrecoCompra(),
+           p.getCodSKU(),
            p.getIdFornecedor(),
+           p.getPrecoCompra(),
            p.getIdCategoria()
        });
      }
    }
     
-    
+  public Produto GetProduto()
+    {
+        return produto;
+    }  
     
     
     
@@ -132,9 +142,13 @@ public class ConsultaProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
     private void SelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelecionarActionPerformed
-        CadastroProduto  cad = new CadastroProduto();
-        DefaultTableModel cadastro = (DefaultTableModel)tabelaconsultaProduto.getModel();
         
+        if(tabelaconsultaProduto.getSelectedRow() == -1)
+            return;
+                
+        
+        produto = produtos.get(tabelaconsultaProduto.getSelectedRow());
+        dispose();
         
         
     }//GEN-LAST:event_SelecionarActionPerformed

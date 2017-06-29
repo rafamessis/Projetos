@@ -11,7 +11,7 @@ package Model;
  */
 public class Fornecedor extends Pessoa {
     private String site;
-    public Fornecedor(String nome,String endereco,int cpf_cnpj,int codigo,int fone,int whatsapp,String site){
+    public Fornecedor(String nome,String endereco,String cpf_cnpj,int codigo,String fone,String whatsapp,String site){
             super(nome, endereco, cpf_cnpj, codigo, fone, whatsapp);
             this.site=site;
     }

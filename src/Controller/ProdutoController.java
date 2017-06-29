@@ -91,20 +91,23 @@ public class ProdutoController {
   }
 
 
-  public String pesquisaProduto (int cod) { //Declaração da função recebendo um o idTipoVenda que foi digitado na tela
+  public Produto pesquisaProduto (int cod) { //Declaração da função recebendo um o idTipoVenda que foi digitado na tela
 
     Connection con = ConectorMySql.getConnection();
     PreparedStatement stmt = null;
     ResultSet rs = null;
+    Produto prod = new Produto();
 
     try {
-       stmt = con.prepareStatement("select nomeProd from produto where idProduto = ?");
+       stmt = con.prepareStatement("select idProduto, nomeProd from produto where idProduto = ?");
        stmt.setInt(1, cod); //substitui no SELECT o interrogação pelo código que veio por parametro
        rs = stmt.executeQuery();
 
        if(rs.next()){
 
-            return rs.getString("nomeProd"); //retorna String com nome caso encontre
+           prod.setIdProduto(rs.getInt("idProduto"));
+            prod.setNomeProd(rs.getString("nomeProd"));
+            return prod;
 
         }else{
            return null; //caso não encontre o código, retorna nulo.

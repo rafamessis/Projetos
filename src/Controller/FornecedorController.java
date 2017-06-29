@@ -29,11 +29,11 @@ public class FornecedorController {
         try {
             stmt = con.prepareStatement("INSERT INTO fornecedor(nome,cnpjcpf,endereco,telefone,site,whatsapp VALUES (?,?,?,?,?,? ");
             stmt.setString(1,f.getNome());
-            stmt.setInt(2,f.getCpf_cnpj());
+            stmt.setString(2,f.getCpf_cnpj());
             stmt.setString(3,f.getEndereco());
-            stmt.setInt(4,f.getFone());
+            stmt.setString(4,f.getFone());
             stmt.setString(5,f.getSite());
-            stmt.setInt(6,f.getWhatsapp()); 
+            stmt.setString(6,f.getWhatsapp()); 
             
             stmt.executeUpdate();
             

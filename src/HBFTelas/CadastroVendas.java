@@ -1181,13 +1181,13 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         
         if(!(campoCodProduto.getText()).isEmpty()){
-            String dados;
+            Produto dados;
             Produto p = new Produto();
             ProdutoController contr = new ProdutoController();
             p.setIdProduto(Integer.parseInt(campoCodProduto.getText()));
             dados = contr.pesquisaProduto(p.getIdProduto());
             if( dados != null){
-                campoNomeProduto.setText(dados);
+                campoNomeProduto.setText(dados.getNomeProd());
             }else{
                 campoNomeProduto.setText("");
                 JOptionPane.showMessageDialog(null,"Produto não encontrado !");

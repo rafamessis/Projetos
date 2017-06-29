@@ -328,7 +328,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             
         ProdutoController contr = new ProdutoController(); 
         
-        produt = contr.pesquisaProduto(String.valueOf(prod.getIdProduto()));
+        produt = contr.pesquisaProduto(prod.getIdProduto());
         
         produt.setIdProduto(prod.getIdProduto());
          descProduto.setText(prod.getNomeProd());
@@ -483,14 +483,14 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
     private void codProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codProdutoActionPerformed
         if(!(codProduto.getText()).isEmpty()){ //Verifica se o campo está preenchido
-        String prod; //Variável que conterá o nome correspodente ao cód
+        Produto prod; //Variável que conterá o nome correspodente ao cód
         Produto p = new Produto();
         ProdutoController contr = new ProdutoController();
         
         p.setIdProduto(Integer.parseInt(codProduto.getText())); //Captura o código digitado no campo de código do tipo de venda
         prod = contr.pesquisaProduto(p.getIdProduto()); //Chama o método pesquisaTipoVenda passando como parâmetro o que foi capturado do campo de texto e o método retorna o nome pra variavel "dados"
         if( prod != null){
-            descProduto.setText(prod); //Se o retorno da pesquisa for diferente de nulo, seta no campo nome o que foi encontrado no BD
+            descProduto.setText(prod.getNomeProd()); //Se o retorno da pesquisa for diferente de nulo, seta no campo nome o que foi encontrado no BD
         }else{
             descProduto.setText(""); //Limpa o campo do nome caso esteja preenchido de uma outra consulta
             JOptionPane.showMessageDialog(null,"Produto não encontrado");
@@ -510,13 +510,14 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     private void CodCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodCategoriaActionPerformed
         
         if(!(CodCategoria.getText()).isEmpty()){ //Verifica se o campo está preenchido
-        String cat; //Variável que conterá o nome correspodente ao cód
+        String cat= ""; //Variável que conterá o nome correspodente ao cód
         Categorias c = new Categorias();
         
         ProdutoController contr = new ProdutoController();
         
         c.setIdCategoria(Integer.parseInt(CodCategoria.getText())); //Captura o código digitado no campo de código do tipo de venda
-        cat = contr.pesquisaProduto(c.getIdCategoria()); //Chama o método pesquisaTipoVenda passando como parâmetro o que foi capturado do campo de texto e o método retorna o nome pra variavel "dados"
+//isso tem que ver pq está retornando produto pra dentro de categoria nao fz sentido       
+// cat = contr.pesquisaProduto(c.getIdCategoria()); //Chama o método pesquisaTipoVenda passando como parâmetro o que foi capturado do campo de texto e o método retorna o nome pra variavel "dados"
         if( cat != null){
             descCategoria.setText(cat); //Se o retorno da pesquisa for diferente de nulo, seta no campo nome o que foi encontrado no BD
         }else{

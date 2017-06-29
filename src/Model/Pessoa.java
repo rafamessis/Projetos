@@ -20,6 +20,14 @@ public class Pessoa {
     public Pessoa() {
    }
     
+    public Pessoa(String nome,String endereco,String cpf_cnpj,int codigo,String fone,String whatsapp){
+        this.nome = nome;
+        this.endereco = endereco;
+        this.cpf_cnpj = cpf_cnpj;
+     this.codigo = codigo;
+    this.fone = fone;
+    this.whatsapp = whatsapp;
+    }
     /**
      * @return the nome
      */

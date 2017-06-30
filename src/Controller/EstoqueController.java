@@ -28,7 +28,7 @@ public class EstoqueController {
        ResultSet rs = null;
        
        try {
-            stmt = con.prepareStatement("select * from estoque where idProduto1 = ?");
+            stmt = con.prepareStatement("select * from estoque where idProduto = ?");
             stmt.setInt(1, produtoId);
             rs = stmt.executeQuery();
             
@@ -36,7 +36,7 @@ public class EstoqueController {
             while(rs.next())
             {
               estoque.setQuantidade(rs.getInt("qtde"));
-              estoque.setProdutoId(rs.getInt("idProduto1"));
+              estoque.setProdutoId(rs.getInt("idProduto"));
             }
             return estoque;
             } catch (SQLException ex) {
@@ -53,12 +53,12 @@ public class EstoqueController {
        PreparedStatement stmt = null;
        
        try {
-            stmt = con.prepareStatement("delete from estoque where idProduto1 = ?");
+            stmt = con.prepareStatement("delete from estoque where idProduto = ?");
             stmt.setInt(1, estoque.getProdutoId());
             stmt.executeUpdate();
             
             stmt = null;
-            stmt = con.prepareStatement("insert into estoque (qtde, idProduto1) values (?, ?)");
+            stmt = con.prepareStatement("insert into estoque (qtde, idProduto) values (?, ?)");
             stmt.setInt(1, estoque.getQuantidade());
             stmt.setInt(2, estoque.getProdutoId());
             stmt.executeUpdate();

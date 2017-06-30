@@ -37,6 +37,7 @@ public class CadastroEstoque extends javax.swing.JInternalFrame {
         if(Geral.UsuarioLogado.getTipo().equals("Usuário"))
         {
             txtqtd.setEditable(false);
+            salvar.setEnabled(false);
         }
          produtos = prodContr.RetornaTodos();
         

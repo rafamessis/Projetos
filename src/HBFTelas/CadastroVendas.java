@@ -10,6 +10,7 @@ import Model.Vendas;
 import Conexao.ConectorMySql;
 import Controller.ProdutoController;
 import Controller.VendasController;
+import Model.Geral;
 import Model.ItemVenda;
 import Model.Produto;
 import com.mysql.jdbc.StringUtils;
@@ -672,7 +673,13 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         botaoIncluir.setEnabled(true);
         botaoSair.setEnabled(true);
         botaoEditar.setEnabled(true);
-        botaoExcluir.setEnabled(true);
+        if(Geral.UsuarioLogado.getTipo().equals("Usuário"))
+        {
+            botaoExcluir.setEnabled(false);
+        }
+        else{
+            botaoExcluir.setEnabled(true);
+        }
 
         preencheTabela(idVendaAtual);
         
@@ -816,7 +823,12 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                 campoTotalVenda.setEnabled(true);
                 campoTotalVenda.setEditable(false);
                 botaoEditar.setEnabled(true);
-                botaoExcluir.setEnabled(true);
+                if(Geral.UsuarioLogado.getTipo().equals("Usuário")){
+                    botaoExcluir.setEnabled(false);
+                }
+                else{
+                    botaoExcluir.setEnabled(true);
+                }
 
                 campoDataVenda.setText(dataFormatadaExibir.format(dados.get(0)));
                 campoCodCliente.setText((String)dados.get(1));

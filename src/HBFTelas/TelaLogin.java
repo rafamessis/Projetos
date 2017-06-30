@@ -6,6 +6,7 @@
 package HBFTelas;
 
 import Controller.UsuarioController;
+import Model.Geral;
 import Model.Usuario;
 import java.util.ArrayList;
 import java.util.List;
@@ -141,9 +142,11 @@ public class TelaLogin extends javax.swing.JFrame {
         usuarios = ucontroller.read(" where nomeFunc = '" + txtNomeLogin.getText().trim()  + "'" );
         String nome = txtNomeLogin.getText().trim();
         String senha = txtSenhaLogin.getText().trim();
-        int i;
              if(usuarios.size() > 0 && nome.equals(usuarios.get(0).getNomeUsuario()) && senha.equals(usuarios.get(0).getSenhaUsuario())){
-                TelaPrincipal tela = new TelaPrincipal();
+                
+                 Geral.UsuarioLogado = usuarios.get(0);
+                 
+                 TelaPrincipal tela = new TelaPrincipal();
                 tela.setVisible(true);
                 dispose();
                 return;

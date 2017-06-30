@@ -5,6 +5,9 @@
  */
 package HBFTelas;
 
+import Model.Geral;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Rafael
@@ -147,9 +150,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-         TelaConsultaUsuario obj = new TelaConsultaUsuario();
+       
+        if(Geral.UsuarioLogado.getTipo().equals("Usuário"))
+        {
+            JOptionPane.showMessageDialog(null, "Usuario sem permissao.");
+            return;
+        }
+        
+        TelaConsultaUsuario obj = new TelaConsultaUsuario();
         // tela.show();
-       // CadastroUsuario obj = new CadastroUsuario();
+        // CadastroUsuario obj = new CadastroUsuario();
         jdpprincipal.add(obj);
         obj.setVisible(true);
      // TODO add your handling code here:

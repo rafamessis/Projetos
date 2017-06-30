@@ -8,6 +8,7 @@ package HBFTelas;
 import Controller.EstoqueController;
 import Controller.ProdutoController;
 import Model.Estoque;
+import Model.Geral;
 import Model.Produto;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -33,7 +34,10 @@ public class CadastroEstoque extends javax.swing.JInternalFrame {
     public CadastroEstoque() {
         initComponents();
         ProdutoController prodContr = new ProdutoController();
-        
+        if(Geral.UsuarioLogado.getTipo().equals("Usuário"))
+        {
+            txtqtd.setEditable(false);
+        }
          produtos = prodContr.RetornaTodos();
         
       /*   tipoItem.addItem("Selecionar Produto:");

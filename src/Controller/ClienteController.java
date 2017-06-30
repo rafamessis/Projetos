@@ -47,7 +47,7 @@ public class ClienteController {
        ConectorMySql.closeConnection(con, stmt);
     }
     }    
-        public List<Cliente> read(){
+        public List<Cliente> read(String filtro){
             java.sql.Connection con = ConectorMySql.getConnection();
             PreparedStatement stmt = null;
             ResultSet rs = null;

@@ -5,17 +5,54 @@
  */
 package HBFTelas;
 
+import Controller.ClienteController;
+import Controller.UsuarioController;
+import Model.Cliente;
+import Model.Usuario;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author andre
  */
 public class CadastroCliente extends javax.swing.JInternalFrame {
+    
+    ArrayList valores = new ArrayList();//criação da arrayList para salvar os dados na tabela
+    //int posicao=0;//Criei a posição para reconhecer qual posição da tabela foi selecionada
+    ClienteController ccontroller = new ClienteController();
+    List<Cliente> clientes = null;
+    String NomeTeste = "";
+    //ArrayList valores = new ArrayList();//criação da arrayList para salvar os dados na tabela
+    //int posicao=0;//Criei a posição para reconhecer qual posição da tabela foi selecionada
+    public void preencheTabela(){
+        
+        DefaultTableModel tabela = (DefaultTableModel)tabelaClientes.getModel();
+        tabelaClientes.setRowSorter(new TableRowSorter(tabela));
+        tabela.setNumRows(0);
+        clientes = ccontroller.read("");
+        for(int i=0;i<clientes.size();i++){
+            tabela.addRow(new Object[]{clientes.get(i).getNome(),clientes.get(i).getCodigo(),
+                clientes.get(i).getCpf_cnpj(),clientes.get(i).getEndereco(),clientes.get(i).getFone(),
+                clientes.get(i).getLimiteCredito(), clientes.get(i).getWhatsapp()});
+        }    
+    }
+    /**
+     * Creates new form TelaConsultaUsuario
+     */
 
     /**
      * Creates new form CadastroCliente
      */
     public CadastroCliente() {
         initComponents();
+        
+        clientes = ccontroller.read("");
+        
+        preencheTabela();
     }
 
     /**
@@ -42,10 +79,9 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         whatsappcliente = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        botaoincluir = new javax.swing.JButton();
+        tabelaClientes = new javax.swing.JTable();
         botaogravar = new javax.swing.JButton();
-        botaolimpar = new javax.swing.JButton();
+        botaoalterar = new javax.swing.JButton();
         botaoexcluir = new javax.swing.JButton();
         botaocancelar = new javax.swing.JButton();
 
@@ -57,7 +93,6 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Nome:");
 
-        nomecliente.setEnabled(false);
         nomecliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nomeclienteActionPerformed(evt);
@@ -66,7 +101,6 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
 
         jLabel2.setText("CPF / CNPJ:");
 
-        cpfcnpj.setEnabled(false);
         cpfcnpj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cpfcnpjActionPerformed(evt);
@@ -84,7 +118,6 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Telefone:");
 
-        telefonecliente.setEnabled(false);
         telefonecliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 telefoneclienteActionPerformed(evt);
@@ -93,7 +126,6 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Endereço:");
 
-        enderecocliente.setEnabled(false);
         enderecocliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 enderecoclienteActionPerformed(evt);
@@ -102,7 +134,6 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Whatsapp:");
 
-        limitecredito.setEnabled(false);
         limitecredito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 limitecreditoActionPerformed(evt);
@@ -111,54 +142,64 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Limite de Credito:");
 
-        whatsappcliente.setEnabled(false);
         whatsappcliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 whatsappclienteActionPerformed(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nome", "Código", "CPF / CNPJ", "Endereço"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
-        botaoincluir.setText("Incluir");
-        botaoincluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoincluirActionPerformed(evt);
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        tabelaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaClientesMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabelaClientes);
+        if (tabelaClientes.getColumnModel().getColumnCount() > 0) {
+            tabelaClientes.getColumnModel().getColumn(0).setResizable(false);
+        }
 
-        botaogravar.setText("Gravar");
-        botaogravar.setEnabled(false);
+        botaogravar.setText("Incluir");
         botaogravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaogravarActionPerformed(evt);
             }
         });
 
-        botaolimpar.setText("Limpar");
-        botaolimpar.setEnabled(false);
-        botaolimpar.addActionListener(new java.awt.event.ActionListener() {
+        botaoalterar.setText("Alterar");
+        botaoalterar.setEnabled(false);
+        botaoalterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaolimparActionPerformed(evt);
+                botaoalterarActionPerformed(evt);
             }
         });
 
-        botaoexcluir.setText("Excluir");
+        botaoexcluir.setText("Apagar");
         botaoexcluir.setEnabled(false);
 
         botaocancelar.setText("Cancelar");
-        botaocancelar.setEnabled(false);
         botaocancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaocancelarActionPerformed(evt);
@@ -169,24 +210,31 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(79, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addComponent(jLabel3))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(codigocliente, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nomecliente, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(enderecocliente, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(botaogravar)
+                                .addGap(100, 100, 100)
+                                .addComponent(botaoexcluir))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(15, 15, 15)
+                                        .addComponent(jLabel3))
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(35, 35, 35)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(codigocliente, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nomecliente, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(enderecocliente, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel2)
@@ -196,26 +244,19 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                                     .addComponent(whatsappcliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(telefonecliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cpfcnpj, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(limitecredito, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(botaoincluir)
-                                .addGap(18, 18, 18)
-                                .addComponent(botaogravar)
-                                .addGap(18, 18, 18)
-                                .addComponent(botaolimpar)
-                                .addGap(18, 18, 18)
-                                .addComponent(botaoexcluir)
-                                .addGap(18, 18, 18)
-                                .addComponent(botaocancelar))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(110, 110, 110))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(botaoalterar)
+                                    .addComponent(jLabel7))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(limitecredito, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(61, 61, 61)
+                                        .addComponent(botaocancelar)))))))
+                .addGap(95, 95, 95))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,9 +300,8 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                             .addComponent(limitecredito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoincluir)
                     .addComponent(botaogravar)
-                    .addComponent(botaolimpar)
+                    .addComponent(botaoalterar)
                     .addComponent(botaoexcluir)
                     .addComponent(botaocancelar))
                 .addGap(40, 40, 40)
@@ -315,46 +355,96 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
          whatsappcliente.setEnabled(false);
          telefonecliente.setEnabled(false);
          
-         botaogravar.setEnabled(false);
-         botaolimpar.setEnabled(false);
-         botaocancelar.setEnabled(false);
+         
+         botaoalterar.setEnabled(false);
+         botaoexcluir.setEnabled(false);
     }//GEN-LAST:event_botaocancelarActionPerformed
-
-    private void botaoincluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoincluirActionPerformed
-        nomecliente.setEnabled(true);
-        enderecocliente.setEnabled(true);
-        limitecredito.setEnabled(true);
-        cpfcnpj.setEnabled(true);
-        whatsappcliente.setEnabled(true);
-        telefonecliente.setEnabled(true);
         
-        botaogravar.setEnabled(true);
-        botaolimpar.setEnabled(true);
-        botaocancelar.setEnabled(true);        
-        
-    }//GEN-LAST:event_botaoincluirActionPerformed
-        
-    private void botaolimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaolimparActionPerformed
-         nomecliente.setText("");
-         enderecocliente.setText("");
-         limitecredito.setText("");
-         cpfcnpj.setText("");
-         whatsappcliente.setText("");
-         telefonecliente.setText("");
-    }//GEN-LAST:event_botaolimparActionPerformed
+    private void botaoalterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoalterarActionPerformed
+         
+    }//GEN-LAST:event_botaoalterarActionPerformed
 
     private void botaogravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaogravarActionPerformed
-                  
+        
+        
+        
+         String nomec = nomecliente.getText().trim();
+         String enderecoc = enderecocliente.getText().trim();
+         String telefonec = telefonecliente.getText().trim();
+         String whatsappc = whatsappcliente.getText().trim();
+         String limitecc = limitecredito.getText().trim();
+         String cpcnpjc = cpfcnpj.getText().trim();
          
+         if (nomec.isEmpty()){
+             JOptionPane.showMessageDialog(null, "Por favor insira o nome:");
+            return;
+         }
+         else if
+                 (enderecoc.isEmpty()){
+             JOptionPane.showMessageDialog(null, "Por favor insira o endereço:");
+            return;
+         }
+         else if
+                 (cpcnpjc.isEmpty()){
+             JOptionPane.showMessageDialog(null, "Por favor insira o CPF / CNPJ:");
+            return;
+         }
+         else if
+                 (telefonec.isEmpty()){
+             JOptionPane.showMessageDialog(null, "Por favor insira o telefone:");
+            return;
+         }
+         else if
+                 (whatsappc.isEmpty()){
+             JOptionPane.showMessageDialog(null, "Por favor insira o whatsapp:");
+            return;
+         }
+         else if
+                 (limitecc.isEmpty()){
+             JOptionPane.showMessageDialog(null, "Por favor insira o limite de crédito");
+            return;
+         }
+         Cliente clientes = new Cliente();
+        
+        clientes.setNome(nomec); //passando para o objeto o nome digitado no campo nome
+        clientes.setEndereco(enderecoc);//passando para o objeto o endereco digitado no campo endereco
+        clientes.setCpf_cnpj(cpcnpjc); //passando para o objeto o cpf/cnpj digitado no campo cpf/cnpj
+        clientes.setFone(telefonec);
+        clientes.setWhatsapp(whatsappc);
+        clientes.setLimiteCredito(SOMEBITS);
+        
+        
+        ccontroller.create(clientes);//colocando o objeto no Bando de dados
+        
+        preencheTabela();
+//      DefaultTableModel val = (DefaultTableModel) tabelaUsuario.getModel();//val = valores da tabela
+//      val.addRow(new Object[]{u.getNomeUsuario(),u.getSenhaUsuario(),u.getTipo()});//((String[]) valores.get(valores.size()-1));
+        nomecliente.setText("");
+        enderecocliente.setText("");
+        cpfcnpj.setText("");
+        telefonecliente.setText("");
+        whatsappcliente.setText("");
+        limitecredito.setText("");
+        
+        nomec = "";
+        enderecoc = "";
+        telefonec = "";
+        whatsappc = "";
+        limitecc = "";
+        cpcnpjc = "";
+                          
     }//GEN-LAST:event_botaogravarActionPerformed
 
+    private void tabelaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClientesMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelaClientesMouseClicked
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoalterar;
     private javax.swing.JButton botaocancelar;
     private javax.swing.JButton botaoexcluir;
     private javax.swing.JButton botaogravar;
-    private javax.swing.JButton botaoincluir;
-    private javax.swing.JButton botaolimpar;
     private javax.swing.JTextField codigocliente;
     private javax.swing.JTextField cpfcnpj;
     private javax.swing.JTextField enderecocliente;
@@ -366,9 +456,9 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField limitecredito;
     private javax.swing.JTextField nomecliente;
+    private javax.swing.JTable tabelaClientes;
     private javax.swing.JTextField telefonecliente;
     private javax.swing.JTextField whatsappcliente;
     // End of variables declaration//GEN-END:variables

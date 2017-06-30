@@ -25,13 +25,13 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
     //int posicao=0;//Criei a posição para reconhecer qual posição da tabela foi selecionada
     ClienteController ccontroller = new ClienteController();
     List<Cliente> clientes = null;
-    String NomeTeste = "";
+    int CodigoTeste = 0;
     //ArrayList valores = new ArrayList();//criação da arrayList para salvar os dados na tabela
     //int posicao=0;//Criei a posição para reconhecer qual posição da tabela foi selecionada
     public void preencheTabela(){
         
-        DefaultTableModel tabela = (DefaultTableModel)tabelaClientes.getModel();
-        tabelaClientes.setRowSorter(new TableRowSorter(tabela));
+        DefaultTableModel tabela = (DefaultTableModel)tabelaCliente.getModel();
+        tabelaCliente.setRowSorter(new TableRowSorter(tabela));
         tabela.setNumRows(0);
         clientes = ccontroller.read("");
         for(int i=0;i<clientes.size();i++){
@@ -79,7 +79,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         whatsappcliente = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaClientes = new javax.swing.JTable();
+        tabelaCliente = new javax.swing.JTable();
         botaogravar = new javax.swing.JButton();
         botaoalterar = new javax.swing.JButton();
         botaoexcluir = new javax.swing.JButton();
@@ -148,7 +148,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        tabelaClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -171,14 +171,14 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabelaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabelaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelaClientesMouseClicked(evt);
+                tabelaClienteMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tabelaClientes);
-        if (tabelaClientes.getColumnModel().getColumnCount() > 0) {
-            tabelaClientes.getColumnModel().getColumn(0).setResizable(false);
+        jScrollPane1.setViewportView(tabelaCliente);
+        if (tabelaCliente.getColumnModel().getColumnCount() > 0) {
+            tabelaCliente.getColumnModel().getColumn(0).setResizable(false);
         }
 
         botaogravar.setText("Incluir");
@@ -435,9 +435,24 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                           
     }//GEN-LAST:event_botaogravarActionPerformed
 
-    private void tabelaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClientesMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tabelaClientesMouseClicked
+    private void tabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClienteMouseClicked
+        String Tipo="";
+           Cliente cliente = clientes.get(tabelaCliente.getSelectedRow());
+           
+           nomecliente.setText(cliente.getNome());
+           codigocliente.setText(String.valueOf(cliente.getCodigo()));
+           enderecocliente.setText(cliente.getEndereco());
+           cpfcnpj.setText(cliente.getCpf_cnpj());
+           telefonecliente.setText(cliente.getFone());
+           whatsappcliente.setText(cliente.getWhatsapp());
+           limitecredito.setText(String.valueOf(cliente.getLimiteCredito()));
+           
+           
+           CodigoTeste = cliente.getCodigo(); //Nome parametro para alterar
+           botaogravar.setEnabled(false);
+           botaoexcluir.setEnabled(true);
+           botaoalterar.setEnabled(true);
+    }//GEN-LAST:event_tabelaClienteMouseClicked
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -458,7 +473,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField limitecredito;
     private javax.swing.JTextField nomecliente;
-    private javax.swing.JTable tabelaClientes;
+    private javax.swing.JTable tabelaCliente;
     private javax.swing.JTextField telefonecliente;
     private javax.swing.JTextField whatsappcliente;
     // End of variables declaration//GEN-END:variables

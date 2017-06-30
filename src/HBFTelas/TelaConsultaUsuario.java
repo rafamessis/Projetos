@@ -111,6 +111,7 @@ public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
                 "Nome", "Tipo"
             }
         ));
+        tabelaUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tabelaUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabelaUsuarioMouseClicked(evt);

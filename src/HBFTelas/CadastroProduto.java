@@ -332,7 +332,10 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         produt.setIdProduto(prod.getIdProduto());
          descProduto.setText(prod.getNomeProd());
     }
+        
+        
         private void pesquisaCategoria(){
+            
             ProdutoController contr = new ProdutoController();
             
             categ = contr.pesquisaCategorias(cat.getIdCategoria());

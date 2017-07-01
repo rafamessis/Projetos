@@ -12,18 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import HBFTelas.CadastroProduto;
 
 /**
  *
  * @author Rafael
  */
 public class ConsultaProduto extends javax.swing.JFrame {
- private Produto produto;
+    private Produto produto;
+    private Categorias categorias;
     private List<Produto> produtos = new ArrayList<Produto>();
-    /**
-    /**
-     * Creates new form ConsultaProduto
-     */
+    
     public ConsultaProduto() {
         initComponents();
         
@@ -65,6 +64,10 @@ public class ConsultaProduto extends javax.swing.JFrame {
     {
         return produto;
     }  
+  
+  
+  
+  
     
     
     
@@ -104,7 +107,7 @@ public class ConsultaProduto extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabelaconsultaProduto);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 20, 490, 164);
+        jScrollPane1.setBounds(10, 20, 770, 330);
 
         Selecionar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         Selecionar.setText("OK");
@@ -114,7 +117,7 @@ public class ConsultaProduto extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Selecionar);
-        Selecionar.setBounds(40, 220, 70, 23);
+        Selecionar.setBounds(80, 413, 110, 40);
 
         botaoCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         botaoCancelar.setText("Cancelar");
@@ -124,7 +127,7 @@ public class ConsultaProduto extends javax.swing.JFrame {
             }
         });
         getContentPane().add(botaoCancelar);
-        botaoCancelar.setBounds(160, 220, 100, 25);
+        botaoCancelar.setBounds(350, 415, 160, 40);
 
         jMenu1.setText("Arquivos");
         jMenuBar1.add(jMenu1);
@@ -134,7 +137,7 @@ public class ConsultaProduto extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        setBounds(0, 0, 538, 339);
+        setBounds(0, 0, 809, 541);
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
@@ -142,6 +145,7 @@ public class ConsultaProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
     private void SelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelecionarActionPerformed
+        CadastroProduto cadastro = new CadastroProduto();
         
         if(tabelaconsultaProduto.getSelectedRow() == -1)
             return;
@@ -149,6 +153,8 @@ public class ConsultaProduto extends javax.swing.JFrame {
         
         produto = produtos.get(tabelaconsultaProduto.getSelectedRow());
         dispose();
+        
+      
         
         
     }//GEN-LAST:event_SelecionarActionPerformed

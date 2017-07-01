@@ -24,9 +24,9 @@ public class Pessoa {
         this.nome = nome;
         this.endereco = endereco;
         this.cpf_cnpj = cpf_cnpj;
-     this.codigo = codigo;
-    this.fone = fone;
-    this.whatsapp = whatsapp;
+        this.codigo = codigo;
+        this.fone = fone;
+        this.whatsapp = whatsapp;
     }
     /**
      * @return the nome

@@ -1,6 +1,7 @@
 package Controller;
 import Conexao.ConectorMySql;
 import Model.Fornecedor;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -95,7 +96,24 @@ import javax.swing.JOptionPane;
                     }finally{
                     ConectorMySql.closeConnection(con, stmt);
                     }
-                
+        }
+        public void delete(int codigo){
+        
+            Connection con = ConectorMySql.getConnection();
+            PreparedStatement stmt = null;
+            try {
+                stmt = con.prepareStatement("delete from fornecedor where idFornecedor = ?");
+                stmt.setInt(1, codigo);
+           
+                stmt.executeUpdate();
+           
+                JOptionPane.showMessageDialog(null," Fornecedor excluido com sucesso !");
+            
+                } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null," Erro ao excluir: "+ ex);
+            }finally{
+            ConectorMySql.closeConnection(con, stmt);
+        }            
 /*        public void delete(Fornecedor f) {
 
             java.sql.Connection con = ConectorMySql.getConnection();

@@ -103,22 +103,22 @@ public class ClienteController {
         }
               
     }
-        public void update (Cliente clientes, String codigoCliente) {
+        public void update (Cliente clientes, int codigoCliente) {
           
         Connection con = ConectorMySql.getConnection();
         PreparedStatement stmt = null;
         
         
         try {
-           stmt = con.prepareStatement("update cliente set id = ?, nome = ?, cpfcnpj = ?,"
+           stmt = con.prepareStatement("update cliente set nome = ?, cpfcnpj = ?,"
                    + " endereco = ?, telefone = ?, whatsapp = ?, limiteCredito = ? where id = ?");
            stmt.setString(1, clientes.getNome() );
            stmt.setString(2, clientes.getCpf_cnpj());
            stmt.setString(3, clientes.getEndereco());
            stmt.setString(4,clientes.getFone());
            stmt.setString(5, clientes.getWhatsapp());
-           stmt.setDouble(5, clientes.getLimiteCredito());
-           stmt.setString(6, codigoCliente);
+           stmt.setDouble(6, clientes.getLimiteCredito());
+           stmt.setInt(7, codigoCliente);
            
                 
            stmt.executeUpdate();
@@ -131,10 +131,6 @@ public class ClienteController {
         }
          
       }
-
-    public void update(Cliente clientes, int CodigoTeste) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+ 
 }
 

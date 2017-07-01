@@ -367,7 +367,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_botaocancelarActionPerformed
         
     private void botaoalterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoalterarActionPerformed
-         Cliente clientes = new Cliente();
+         Cliente cliente = new Cliente();
         
         int posicao = tabelaCliente.getSelectedRow();//Buscando o numero da posição da tabela que foi clicado no mouse
         String nome = nomecliente.getText().trim();//gravando o que esta no campo para a variavel senha
@@ -404,14 +404,14 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         
         clientes = ccontroller.read("");
         
-        clientes.setNome(nome);//passando para o objeto o nome digitado no campo nome
-        clientes.setEndereco(endereco);//passando para o objeto o endereço digitado no campo endereço
-        clientes.setCpf_cnpj(cpcnpj);//passando para o objeto o cpfcnpj digitado no campo cpfcnpj
-        clientes.setFone(fone);//passando para o objeto o telefone digitado no campo telefone
-        clientes.setWhatsapp(whats);//passando para o objeto o whatsapp digitado no campo whatsapp
-        clientes.setLimiteCredito(Double.parseDouble(limite));//passando para o objeto o limite de credito digitado no campo limitecredito
+        cliente.setNome(nome);//passando para o objeto o nome digitado no campo nome
+        cliente.setEndereco(endereco);//passando para o objeto o endereço digitado no campo endereço
+        cliente.setCpf_cnpj(cpcnpj);//passando para o objeto o cpfcnpj digitado no campo cpfcnpj
+        cliente.setFone(fone);//passando para o objeto o telefone digitado no campo telefone
+        cliente.setWhatsapp(whats);//passando para o objeto o whatsapp digitado no campo whatsapp
+        cliente.setLimiteCredito(Double.parseDouble(limite));//passando para o objeto o limite de credito digitado no campo limitecredito
         
-        ccontroller.update(clientes,CodigoTeste);
+        ccontroller.update(cliente,CodigoTeste);
         
         preencheTabela();
         
@@ -470,17 +470,17 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
              return;
          } 
          
-         Cliente clientes = new Cliente();
+         Cliente cliente = new Cliente();
         
-        clientes.setNome(nomec); //passando para o objeto o nome digitado no campo nome
-        clientes.setEndereco(enderecoc);//passando para o objeto o endereco digitado no campo endereco
-        clientes.setCpf_cnpj(cpcnpjc); //passando para o objeto o cpf/cnpj digitado no campo cpf/cnpj
-        clientes.setFone(telefonec);
-        clientes.setWhatsapp(whatsappc);
-        clientes.setLimiteCredito(Double.parseDouble(limitecc));
+        cliente.setNome(nomec); //passando para o objeto o nome digitado no campo nome
+        cliente.setEndereco(enderecoc);//passando para o objeto o endereco digitado no campo endereco
+        cliente.setCpf_cnpj(cpcnpjc); //passando para o objeto o cpf/cnpj digitado no campo cpf/cnpj
+        cliente.setFone(telefonec);
+        cliente.setWhatsapp(whatsappc);
+        cliente.setLimiteCredito(Double.parseDouble(limitecc));
         
         
-        ccontroller.create(clientes);//colocando o objeto no Bando de dados
+        ccontroller.create(cliente);//colocando o objeto no Bando de dados
         
         preencheTabela();
 //      DefaultTableModel val = (DefaultTableModel) tabelaUsuario.getModel();//val = valores da tabela

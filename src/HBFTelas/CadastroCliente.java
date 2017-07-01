@@ -24,8 +24,11 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
     ArrayList valores = new ArrayList();//criação da arrayList para salvar os dados na tabela
     //int posicao=0;//Criei a posição para reconhecer qual posição da tabela foi selecionada
     ClienteController ccontroller = new ClienteController();
+   
     List<Cliente> clientes = null;
+    
     int CodigoTeste = 0;
+    
     //ArrayList valores = new ArrayList();//criação da arrayList para salvar os dados na tabela
     //int posicao=0;//Criei a posição para reconhecer qual posição da tabela foi selecionada
     public void preencheTabela(){
@@ -198,6 +201,11 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
 
         botaoexcluir.setText("Apagar");
         botaoexcluir.setEnabled(false);
+        botaoexcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoexcluirActionPerformed(evt);
+            }
+        });
 
         botaocancelar.setText("Cancelar");
         botaocancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -218,7 +226,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(botaogravar)
-                                .addGap(100, 100, 100)
+                                .addGap(79, 79, 79)
                                 .addComponent(botaoexcluir))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,7 +262,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(limitecredito, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGap(61, 61, 61)
+                                        .addGap(70, 70, 70)
                                         .addComponent(botaocancelar)))))))
                 .addGap(95, 95, 95))
         );
@@ -347,21 +355,75 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
          cpfcnpj.setText("");
          whatsappcliente.setText("");
          telefonecliente.setText("");
+         codigocliente.setText("");
          
-         nomecliente.setEnabled(false);
-         enderecocliente.setEnabled(false);
-         limitecredito.setEnabled(false);
-         cpfcnpj.setEnabled(false);
-         whatsappcliente.setEnabled(false);
-         telefonecliente.setEnabled(false);
-         
-         
+                  
+         botaogravar.setEnabled(true);
          botaoalterar.setEnabled(false);
          botaoexcluir.setEnabled(false);
     }//GEN-LAST:event_botaocancelarActionPerformed
         
     private void botaoalterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoalterarActionPerformed
-         
+         Cliente clientes = new Cliente();
+        
+        int posicao = tabelaCliente.getSelectedRow();//Buscando o numero da posição da tabela que foi clicado no mouse
+        String nome = nomecliente.getText().trim();//gravando o que esta no campo para a variavel senha
+        String endereco = enderecocliente.getText().trim();
+        String cpcnpj = cpfcnpj.getText().trim();
+        String fone =   telefonecliente.getText();
+        String whats = whatsappcliente.getText().trim();
+        String limite = limitecredito.getText().trim();
+        
+        if(nome.isEmpty()){//Verificando se o Campo nome esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o nome:");
+            return;
+        }
+        else if(endereco.isEmpty()){//Verificando se o Campo senha esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o endereço:");
+            return;
+        }
+        else if(cpcnpj.isEmpty()){//Verificando se o Campo senha esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o endereço:");
+            return;
+        }
+        else if(fone.isEmpty()){//Verificando se o Campo senha esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o endereço:");
+            return;
+        }
+        else if(whats.isEmpty()){//Verificando se o Campo senha esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o endereço:");
+            return;
+        }
+        else if(limite.isEmpty()){//Verificando se o Campo senha esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o endereço:");
+            return;
+        }
+        
+        clientes = ccontroller.read("");
+        
+        clientes.setNome(nome);//passando para o objeto o nome digitado no campo nome
+        clientes.setEndereco(endereco);//passando para o objeto o endereço digitado no campo endereço
+        clientes.setCpf_cnpj(cpcnpj);//passando para o objeto o cpfcnpj digitado no campo cpfcnpj
+        clientes.setFone(fone);//passando para o objeto o telefone digitado no campo telefone
+        clientes.setWhatsapp(whats);//passando para o objeto o whatsapp digitado no campo whatsapp
+        clientes.setLimiteCredito(Double.parseDouble(limite));//passando para o objeto o limite de credito digitado no campo limitecredito
+        
+        ccontroller.update(clientes,CodigoTeste);
+        
+        preencheTabela();
+        
+        nomecliente.setText("");
+        enderecocliente.setText("");
+        cpfcnpj.setText("");
+        telefonecliente.setText("");
+        whatsappcliente.setText("");
+        limitecredito.setText("");
+        codigocliente.setText("");
+        
+        CodigoTeste = 0;
+        botaogravar.setEnabled(true);
+        botaoexcluir.setEnabled(false);
+        botaoalterar.setEnabled(false);
     }//GEN-LAST:event_botaoalterarActionPerformed
 
     private void botaogravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaogravarActionPerformed
@@ -372,7 +434,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
          String enderecoc = enderecocliente.getText().trim();
          String telefonec = telefonecliente.getText().trim();
          String whatsappc = whatsappcliente.getText().trim();
-         String limitecc = limitecredito.getText().trim();
+         String limitecc = (limitecredito.getText().trim());
          String cpcnpjc = cpfcnpj.getText().trim();
          
          if (nomec.isEmpty()){
@@ -402,8 +464,9 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
          else if
                  (limitecc.isEmpty()){
              JOptionPane.showMessageDialog(null, "Por favor insira o limite de crédito");
-            return;
-         }
+             return;
+         } 
+         
          Cliente clientes = new Cliente();
         
         clientes.setNome(nomec); //passando para o objeto o nome digitado no campo nome
@@ -411,7 +474,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         clientes.setCpf_cnpj(cpcnpjc); //passando para o objeto o cpf/cnpj digitado no campo cpf/cnpj
         clientes.setFone(telefonec);
         clientes.setWhatsapp(whatsappc);
-        clientes.setLimiteCredito(SOMEBITS);
+        clientes.setLimiteCredito(Double.parseDouble(limitecc));
         
         
         ccontroller.create(clientes);//colocando o objeto no Bando de dados
@@ -425,6 +488,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         telefonecliente.setText("");
         whatsappcliente.setText("");
         limitecredito.setText("");
+        codigocliente.setText("");
         
         nomec = "";
         enderecoc = "";
@@ -453,6 +517,31 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
            botaoexcluir.setEnabled(true);
            botaoalterar.setEnabled(true);
     }//GEN-LAST:event_tabelaClienteMouseClicked
+
+    private void botaoexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoexcluirActionPerformed
+        Cliente clientes = new Cliente();
+        
+        clientes.setCodigo(Integer.parseInt(codigocliente.getText().trim()));
+        
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir este cliente ?", title, JOptionPane.YES_NO_OPTION);
+        if (resposta == JOptionPane.YES_OPTION) {
+            ccontroller.delete(String.valueOf(clientes.getCodigo()));
+            preencheTabela();
+            //((DefaultTableModel) tabelaUsuario.getModel()).removeRow(tabelaUsuario.getSelectedRow());
+        }
+        
+        nomecliente.setText("");
+         enderecocliente.setText("");
+         limitecredito.setText("");
+         cpfcnpj.setText("");
+         whatsappcliente.setText("");
+         telefonecliente.setText("");
+         codigocliente.setText("");
+        
+        botaogravar.setEnabled(true);
+        botaoexcluir.setEnabled(false);
+        botaoalterar.setEnabled(false);
+    }//GEN-LAST:event_botaoexcluirActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

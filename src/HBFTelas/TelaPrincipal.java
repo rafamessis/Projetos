@@ -157,7 +157,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             return;
         }
         
-        TelaConsultaUsuario obj = new TelaConsultaUsuario();
+        CadastroUsuario obj = new CadastroUsuario();
         // tela.show();
         // CadastroUsuario obj = new CadastroUsuario();
         jdpprincipal.add(obj);

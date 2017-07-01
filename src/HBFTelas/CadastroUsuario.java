@@ -16,7 +16,7 @@ import javax.swing.table.TableRowSorter;
  *
  * @author User
  */
-public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
+public class CadastroUsuario extends javax.swing.JInternalFrame {
 
     ArrayList valores = new ArrayList();//criação da arrayList para salvar os dados na tabela
     //int posicao=0;//Criei a posição para reconhecer qual posição da tabela foi selecionada
@@ -38,7 +38,7 @@ public class TelaConsultaUsuario extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaConsultaUsuario
      */
-    public TelaConsultaUsuario() {
+    public CadastroUsuario() {
         initComponents();
         usuarios = ucontroller.read("");
         

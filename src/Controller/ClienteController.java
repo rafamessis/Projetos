@@ -82,7 +82,59 @@ public class ClienteController {
           return clientes;
          
       }
+        public void delete(String codigoCliente){
+        
+        Connection con = ConectorMySql.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+           stmt = con.prepareStatement("delete from cliente where id = ?");
+           stmt.setString(1,codigoCliente);
+           
+           
+           stmt.executeUpdate();
+           
+           JOptionPane.showMessageDialog(null," Cliente excluido com sucesso !");
+            
+           } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null," Erro ao excluir: "+ ex);
+        }finally{
+           ConectorMySql.closeConnection(con, stmt);
+        }
               
     }
+        public void update (Cliente clientes, String codigoCliente) {
+          
+        Connection con = ConectorMySql.getConnection();
+        PreparedStatement stmt = null;
+        
+        
+        try {
+           stmt = con.prepareStatement("update cliente set id = ?, nome = ?, cpfcnpj = ?,"
+                   + " endereco = ?, telefone = ?, whatsapp = ?, limiteCredito = ? where id = ?");
+           stmt.setString(1, clientes.getNome() );
+           stmt.setString(2, clientes.getCpf_cnpj());
+           stmt.setString(3, clientes.getEndereco());
+           stmt.setString(4,clientes.getFone());
+           stmt.setString(5, clientes.getWhatsapp());
+           stmt.setDouble(5, clientes.getLimiteCredito());
+           stmt.setString(6, codigoCliente);
+           
+                
+           stmt.executeUpdate();
+           JOptionPane.showMessageDialog(null," Cliente Atualizado !");
+            
+           } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null," Erro ao atualizar: "+ ex);
+        }finally{
+           ConectorMySql.closeConnection(con, stmt);
+        }
+         
+      }
+
+    public void update(Cliente clientes, int CodigoTeste) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
+}
 

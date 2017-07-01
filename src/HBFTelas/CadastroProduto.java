@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import sun.util.calendar.BaseCalendar.Date;
+
 
 
 
@@ -182,7 +182,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(botaoExcluir);
-        botaoExcluir.setBounds(360, 320, 80, 30);
+        botaoExcluir.setBounds(320, 320, 80, 30);
 
         botaoSalvar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         botaoSalvar.setText("Salvar");
@@ -295,6 +295,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                 
             }
             else 
+                {
                
             produto.setNomeProd(descProduto.getText()); // Pega os valores que estão no campo Descrição
             produto.setCodSKU(Integer.parseInt(codigoSku.getText()));
@@ -303,6 +304,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             produto.setIdCategoria(Integer.parseInt(codCategoria.getText()));
 
             contr.create(produto);
+            }
          }
        codigoSku.setEnabled(false);
       precoCompra.setEnabled(false);
@@ -348,14 +350,8 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             
         }
         
-       private void delProduto(){
-           
-           ProdutoController contr = new ProdutoController();
-           produt = contr.deleteproduto(prod);
-           
-           
-       }
         
+       
     
     
     private void pesquisaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaProdutoActionPerformed
@@ -523,8 +519,11 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
        
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
-    private void botaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirActionPerformed
        
+    
+    
+    private void botaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirActionPerformed
+       ProdutoController produto = new ProdutoController();
         if(prod.getIdProduto() > 0){
                    codProduto.setText(String.valueOf(prod.getIdProduto()));
                    descProduto.setText(prod.getNomeProd());
@@ -534,7 +533,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                    codCategoria.setText(String.valueOf(prod.getIdCategoria()));
                    
                    
-                   delProduto();
+                   produto.deleteproduto(prod);
                    
                    codigoSku.setText("");
                    precoCompra.setText("");

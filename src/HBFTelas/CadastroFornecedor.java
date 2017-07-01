@@ -3,6 +3,7 @@ package HBFTelas;
 import Controller.FornecedorController;
 import Model.Fornecedor;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -11,6 +12,7 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
  //   Fornecedor f= new Fornecedor();
        FornecedorController contr = new FornecedorController();
         List<Fornecedor> fornecedor = null;
+        int codigo=0;
         
     public void preencheTabela(){
         
@@ -26,22 +28,7 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
         initComponents();
         preencheTabela();
     }
-
-    private void tabelaUsuarioMouseClicked(java.awt.event.MouseEvent evt) {    
-           String Tipo="";
-        
-           Fornecedor fornecedores = fornecedor.get(tabelafornecedor.getSelectedRow());
-           campoNome.setText(fornecedores.getNome());//Recuperando da arreylist 
-           campoCpfcnpj.setText(fornecedores.getCpf_cnpj());//Recuperando da arreylist 
-           campoEndereco.setText(fornecedores.getEndereco());
-           campoFone.setText(fornecedores.getFone());
-           //campoWhatsapp.setText(Integer.parseInt(fornecedores.getWhatsapp()));
-           //campoWhatsapp.setText(fornecedores.(Integer.parseInt(getWhatsapp())));
-           campoSite.setText(fornecedores.getSite());
-           
-           String NomeTeste = fornecedores.getNome();//Nome parametro para alterar
-    
-    }   
+  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -152,6 +139,8 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
             }
         });
 
+        campoCodigo.setEnabled(false);
+
         jLabel2.setText("Código:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -253,65 +242,123 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_campoNomeActionPerformed
 
     private void botaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirActionPerformed
-      /*      Folrnecedor f = new fornecedor();
-            f.setCodigo(campoCodigo.getText().trim());
-            int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir este usuário ?", title, JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-            ucontroller.delete(u.getNomeUsuario());
+        Fornecedor f = new Fornecedor();        
+        f.setCodigo(Integer.parseInt(campoCodigo.getText().trim()));        
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir este Fornecedor ?", title, JOptionPane.YES_NO_OPTION);
+        if (resposta == JOptionPane.YES_OPTION) {
+            contr.delete(String.valueOf(f.getCodigo()));
             preencheTabela();
-            //((DefaultTableModel) tabelaUsuario.getModel()).removeRow(tabelaUsuario.getSelectedRow());
-            }
-            limpar();
-            campoCadastroNome.requestFocus();//Voltar o codigo para o campo nome
-            checkBoxUsuario.setSelected(false);//Desmarcando o chechBox
-    } */
+        }
     }//GEN-LAST:event_botaoExcluirActionPerformed
 
     private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
-    /*
-        Usuario u = new Usuario();
+        Fornecedor f = new Fornecedor();
         
-        int posicao = tabelaUsuario.getSelectedRow();//Buscando o numero da posição da tabela que foi clicado no mouse
-        String nome = campoCadastroNome.getText().trim();//gravando o que esta no campo para a variavel senha
-        String senha = campoSenhaNome.getText().trim();//gravando o que esta no campo para a variavel senha
-        String tipo = "";
-        
+        int posicao = tabelafornecedor.getSelectedRow();//Buscando o numero da posição da tabela que foi clicado no mouse
+        String nome = campoNome.getText().trim();//gravando o que esta no campo para a variavel senha
+        String endereco = campoEndereco.getText().trim();
+        String cpcnpj = campoCpfcnpj.getText().trim();
+        String fone =   campoFone.getText();
+        String whats = campoWhatsapp.getText().trim();
+        String site = campoSite.getText().trim();
         
         if(nome.isEmpty()){//Verificando se o Campo nome esta com algum valor
-            JOptionPane.showMessageDialog(null, "Por favor insira o nome");
+            JOptionPane.showMessageDialog(null, "Por favor insira o nome:");
             return;
         }
-        else if(senha.isEmpty()){//Verificando se o Campo senha esta com algum valor
-            JOptionPane.showMessageDialog(null, "Por favor insira a senha");
+        else if(endereco.isEmpty()){//Verificando se o Campo senha esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o endereço:");
             return;
         }
-        usuarios = ucontroller.read("");
-        for(int i=0;i<usuarios.size();i++){
-            if(nome.equals(usuarios.get(i).getNomeUsuario()) && (!NomeTeste.equals(usuarios.get(i).getNomeUsuario()))){
-                JOptionPane.showMessageDialog(null, "Nome de usuário já cadastrado, por favor insira outro nome");
-                return;
+        else if(cpcnpj.isEmpty()){//Verificando se o Campo senha esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o endereço:");
+            return;
         }
+        else if(fone.isEmpty()){//Verificando se o Campo senha esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o endereço:");
+            return;
         }
-        u.setNomeUsuario(nome);//passando para o objeto o nome digitado no campo nome
-        u.setSenhaUsuario(senha);//passando para o objeto a senha digitado no campo senha 
-        if (checkBoxUsuario.isSelected()){//verificando se usuário é administrador ou usuário padrão
-            tipo = "Administrador";
+        else if(whats.isEmpty()){//Verificando se o Campo senha esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o endereço:");
+            return;
         }
-        else{
-            tipo = "Usuário";
+        else if(site.isEmpty()){//Verificando se o Campo senha esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o endereço:");
+            return;
         }
-        u.setTipo(tipo);
-        ucontroller.update(u,NomeTeste);
+        
+        fornecedor = contr.read();
+        
+        f.setNome(nome);//passando para o objeto o nome digitado no campo nome
+        f.setEndereco(endereco);//passando para o objeto o endereço digitado no campo endereço
+        f.setCpf_cnpj(cpcnpj);//passando para o objeto o cpfcnpj digitado no campo cpfcnpj
+        f.setFone(fone);//passando para o objeto o telefone digitado no campo telefone
+        f.setWhatsapp(whats);//passando para o objeto o whatsapp digitado no campo whatsapp
+        f.setSite(site);//passando para o objeto o limite de credito digitado no campo limitecredito
+        
+        contr.update(f,codigo);
+        
         preencheTabela();
-        campoCadastroNome.setText("");//apagando o campo nome
-        campoSenhaNome.setText("");//apagando o campo Senha
-        campoCadastroNome.requestFocus();//Voltar o codigo para o campo nome
-        checkBoxUsuario.setSelected(false);//Desmarcando o chechBox
-        NomeTeste = "";
-        botaoInserirUsuario.setEnabled(true);
-        botaoApagarUsuario.setEnabled(false);
-        botaoAlterarUsuario.setEnabled(false);
-        */
+        
+        limpar();
+        
+        codigo = 0;
+        
+        /*    Fornecedor f = new Fornecedor(); 
+        
+        int posicao = tabelafornecedor.getSelectedRow();//Buscando o numero da posição da tabela que foi clicado no mouse
+        String nomef = campoNome.getText().trim();
+        String enderecof = campoEndereco.getText().trim();
+        String telefonef = campoFone.getText().trim();
+        String whatsappf = campoWhatsapp.getText().trim();
+        String sitef = (campoSite.getText().trim());
+        String cpcnpjf = campoCpfcnpj.getText().trim();
+        
+         
+         if (nomef.isEmpty()){
+             JOptionPane.showMessageDialog(null, "Por favor insira o nome:");
+            return;
+         }
+         else if
+                 (enderecof.isEmpty()){
+             JOptionPane.showMessageDialog(null, "Por favor insira o endereço:");
+            return;
+         }
+         else if
+                 (cpcnpjf.isEmpty()){
+             JOptionPane.showMessageDialog(null, "Por favor insira o CPF / CNPJ:");
+            return;
+         }
+         else if
+                 (telefonef.isEmpty()){
+             JOptionPane.showMessageDialog(null, "Por favor insira o telefone:");
+            return;
+         }
+         else if
+                 (whatsappf.isEmpty()){
+             JOptionPane.showMessageDialog(null, "Por favor insira o whatsapp:");
+            return;
+         }
+         else if
+                 (sitef.isEmpty()){
+             JOptionPane.showMessageDialog(null, "Por favor insira o Site");
+             return;
+         } 
+         
+         fornecedor = contr.read("");
+        
+        f.setNome(nomef); //passando para o objeto o nome digitado no campo nome
+        f.setEndereco(enderecof);//passando para o objeto o endereco digitado no campo endereco
+        f.setCpf_cnpj(cpcnpjf); //passando para o objeto o cpf/cnpj digitado no campo cpf/cnpj
+        f.setFone(telefonef);
+        f.setWhatsapp(whatsappf);
+        f.setSite(sitef);
+        
+        
+        contr.update(f,codigo);//colocando o objeto no Bando de dados
+        
+        preencheTabela();
+            */
     }//GEN-LAST:event_botaoSalvarActionPerformed
 
     private void botaoInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoInserirActionPerformed
@@ -344,13 +391,13 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
         
            Fornecedor fornecedores = fornecedor.get(tabelafornecedor.getSelectedRow());
            campoNome.setText(fornecedores.getNome());//Recuperando da arreylist 
+           campoCodigo.setText(String.valueOf(fornecedores.getCodigo()));
            campoCpfcnpj.setText(fornecedores.getCpf_cnpj());//Recuperando da arreylist 
            campoEndereco.setText(fornecedores.getEndereco());
            campoFone.setText(fornecedores.getFone());
            campoWhatsapp.setText(fornecedores.getWhatsapp());
            campoSite.setText(fornecedores.getSite());
-           
-           String NomeTeste = fornecedores.getNome();//Nome parametro para alterar
+           codigo =fornecedores.getCodigo();//Nome parametro para alterar
     }//GEN-LAST:event_tabelafornecedorMouseClicked
     public void novo(){
         campoNome.setEnabled(true);

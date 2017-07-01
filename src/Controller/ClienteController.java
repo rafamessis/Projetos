@@ -128,9 +128,7 @@ public class ClienteController {
             JOptionPane.showMessageDialog(null," Erro ao atualizar: "+ ex);
         }finally{
            ConectorMySql.closeConnection(con, stmt);
-        }
-         
-      }
- 
+        }         
+      } 
 }
 

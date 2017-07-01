@@ -71,127 +71,52 @@ import javax.swing.JOptionPane;
       return Fornecedor;
 
   }
-        public void update(Fornecedor f) {
-
-            java.sql.Connection con = ConectorMySql.getConnection();
-            PreparedStatement stmt = null;
-
-                try {
-                    stmt = con.prepareStatement("update produto set nome = ?,CPF/CNPJ = ?,Endereço = ?,"
-                    + "Fone = ?,Whatsapp = ?,Site = ? where codigo = ? ");
-                        
-                        stmt.setString(1,f.getNome());
-                        stmt.setString(2,f.getCpf_cnpj());
-                        stmt.setString(3,f.getEndereco());
-                        stmt.setString(4, f.getFone());
-                        stmt.setString(5,f.getWhatsapp());
-                        stmt.setString(6,f.getSite());
-                        stmt.setInt(7,f.getCodigo());
-
-                        stmt.executeUpdate();
-                        JOptionPane.showMessageDialog(null," Atualização realizada com sucesso!");
-
-                    } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null," Erro ao atualizar!"+ ex);
-                    }finally{
-                    ConectorMySql.closeConnection(con, stmt);
-                    }
-        }
-        public void delete(int codigo){
+        public void update (Fornecedor f, int codigofornecedor) {
+          
+        Connection con = ConectorMySql.getConnection();
+        PreparedStatement stmt = null;
         
-            Connection con = ConectorMySql.getConnection();
-            PreparedStatement stmt = null;
-            try {
-                stmt = con.prepareStatement("delete from fornecedor where idFornecedor = ?");
-                stmt.setInt(1, codigo);
+        
+        try {
+           stmt = con.prepareStatement("update fornecedor set nome = ?, cnpjcpf = ?,"
+                   + " endereco = ?, telefone = ?, whatsapp = ?, site = ? where idFornecedor = ?");
+           stmt.setString(1, f.getNome());
+           stmt.setString(2, f.getCpf_cnpj());
+           stmt.setString(3, f.getEndereco());
+           stmt.setString(4, f.getFone());
+           stmt.setString(5, f.getWhatsapp());
+           stmt.setString(6, f.getSite());
+           stmt.setInt(7, codigofornecedor);
            
-                stmt.executeUpdate();
-           
-                JOptionPane.showMessageDialog(null," Fornecedor excluido com sucesso !");
+                
+           stmt.executeUpdate();
+           JOptionPane.showMessageDialog(null," Fornecedor Atualizado !");
             
-                } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null," Erro ao excluir: "+ ex);
-            }finally{
-            ConectorMySql.closeConnection(con, stmt);
-        }            
-/*        public void delete(Fornecedor f) {
-
-            java.sql.Connection con = ConectorMySql.getConnection();
-            PreparedStatement stmt = null;
-
-            try {
-                stmt = con.prepareStatement("delete from fornecedor where codigo = ?");
-                stmt.setInt(1,f.getCodigo());
-                stmt.executeUpdate();
-
-                JOptionPane.showMessageDialog(null," Exclusão realizada com sucesso!");
-
-                } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null," Erro ao excluir!"+ ex);
-                }finally{
-                ConectorMySql.closeConnection(con, stmt);
-                }
+           } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null," Erro ao atualizar: "+ ex);
+        }finally{
+           ConectorMySql.closeConnection(con, stmt);
+        }         
+    }
+        
+        public void delete(String campoCodigo){
+        
+        Connection con = ConectorMySql.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+           stmt = con.prepareStatement("delete from fornecedor where idFornecedor = ?");
+           stmt.setString(1,campoCodigo);
+           
+           
+           stmt.executeUpdate();
+           
+           JOptionPane.showMessageDialog(null," Fornecedor excluido com sucesso !");
+            
+           } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null," Erro ao excluir: "+ ex);
+        }finally{
+           ConectorMySql.closeConnection(con, stmt);
         }
-*/
-  }
-/*
-
-  public String pesquisaProduto (int cod) { //Declaração da função recebendo um o idTipoVenda que foi digitado na tela
-
-    Connection con = ConectorMySql.getConnection();
-    PreparedStatement stmt = null;
-    ResultSet rs = null;
-
-    try {
-       stmt = con.prepareStatement("select nomeProd from produto where idProduto = ?");
-       stmt.setInt(1, cod); //substitui no SELECT o interrogação pelo código que veio por parametro
-       rs = stmt.executeQuery();
-
-       if(rs.next()){
-
-            return rs.getString("nomeProd"); //retorna String com nome caso encontre
-
-        }else{
-           return null; //caso não encontre o código, retorna nulo.
-       }
-
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null," Erro ao encontrar o produto: "+ ex);
-    }finally{
-       ConectorMySql.closeConnection(con, stmt, rs);
     }
-    return null; //returno apenas para satisfazer warning do IDE
 }
-
-
-
-
-
-
-  public void deleteproduto(Produto p) {
-
-    java.sql.Connection con = ConectorMySql.getConnection();
-    PreparedStatement stmt = null;
-
-
-    try {
-       stmt = con.prepareStatement("delete from produto where idProduto = ?");
-       stmt.setInt(1,p.getIdProduto());
-       stmt.executeUpdate();
-
-       JOptionPane.showMessageDialog(null," Exclusão realizada com sucesso!");
-
-       } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null," Erro ao excluir!"+ ex);
-    }finally{
-       ConectorMySql.closeConnection(con, stmt);
-    }
-
-
-
-  }
-
-    }
-    */
-}
- 

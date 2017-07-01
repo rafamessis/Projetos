@@ -89,7 +89,7 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
         });
 
         botaoSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Editar.png"))); // NOI18N
-        botaoSalvar.setText("Salvar");
+        botaoSalvar.setText("Alterar");
         botaoSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoSalvarActionPerformed(evt);

@@ -1,11 +1,18 @@
 package HBFTelas;
 import Controller.ProdutoController;
 import Model.Categorias;
+import Model.Produto;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 public class CadastroCategorias extends javax.swing.JFrame {
+    
+    
+    private Categorias categorias;
+    private List<Categorias> categoria = new ArrayList<Categorias>();
 
    
     public CadastroCategorias() {
@@ -19,6 +26,16 @@ public class CadastroCategorias extends javax.swing.JFrame {
         
         
     }
+    public CadastroCategorias(Categorias categoria) {
+        this();
+        
+        this.categorias = categoria;
+                }
+    
+    public Categorias GetCategorias(){
+      
+      return categorias;
+  }
     
     public void readTabelaCategoria(){
        DefaultTableModel categoria = (DefaultTableModel)TabelaCategoria.getModel();
@@ -41,9 +58,6 @@ public class CadastroCategorias extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("lojavendas?zeroDateTimeBehavior=convertToNullPU").createEntityManager();
-        categoriaQuery = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT c FROM Categoria c");
-        categoriaList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : categoriaQuery.getResultList();
         jLabel2 = new javax.swing.JLabel();
         nomeCat = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -51,7 +65,7 @@ public class CadastroCategorias extends javax.swing.JFrame {
         botaoInserir = new javax.swing.JButton();
         botaoExcluir = new javax.swing.JButton();
         botaoCancelar = new javax.swing.JButton();
-        botaoAtualizar = new javax.swing.JButton();
+        botaoSelecionar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         TabelaCategoria = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -93,7 +107,7 @@ public class CadastroCategorias extends javax.swing.JFrame {
             }
         });
         getContentPane().add(botaoInserir);
-        botaoInserir.setBounds(10, 97, 80, 31);
+        botaoInserir.setBounds(170, 100, 80, 31);
 
         botaoExcluir.setText("Exluir");
         botaoExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -113,27 +127,27 @@ public class CadastroCategorias extends javax.swing.JFrame {
         getContentPane().add(botaoCancelar);
         botaoCancelar.setBounds(462, 97, 75, 31);
 
-        botaoAtualizar.setText("Atualizar");
-        botaoAtualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+        botaoSelecionar.setText("Selecionar");
+        botaoSelecionar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botaoAtualizarMouseClicked(evt);
+                botaoSelecionarMouseClicked(evt);
             }
         });
-        botaoAtualizar.addActionListener(new java.awt.event.ActionListener() {
+        botaoSelecionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoAtualizarActionPerformed(evt);
+                botaoSelecionarActionPerformed(evt);
             }
         });
-        botaoAtualizar.addKeyListener(new java.awt.event.KeyAdapter() {
+        botaoSelecionar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                botaoAtualizarKeyPressed(evt);
+                botaoSelecionarKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                botaoAtualizarKeyReleased(evt);
+                botaoSelecionarKeyReleased(evt);
             }
         });
-        getContentPane().add(botaoAtualizar);
-        botaoAtualizar.setBounds(144, 98, 100, 30);
+        getContentPane().add(botaoSelecionar);
+        botaoSelecionar.setBounds(10, 100, 100, 30);
 
         TabelaCategoria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -232,11 +246,11 @@ public class CadastroCategorias extends javax.swing.JFrame {
         
         if (TabelaCategoria.getSelectedRow() != -1){
             Categorias c = new Categorias();
-       ProdutoController contr = new ProdutoController();
+            ProdutoController contr = new ProdutoController();
       
-       c.setIdCategoria((int)TabelaCategoria.getValueAt(TabelaCategoria.getSelectedRow(), 0));
+             c.setIdCategoria((int)TabelaCategoria.getValueAt(TabelaCategoria.getSelectedRow(), 0));
        
-       contr.deleteCategorias(c);
+            contr.deleteCategorias(c);
        
              
         readTabelaCategoria();
@@ -251,48 +265,56 @@ public class CadastroCategorias extends javax.swing.JFrame {
         
     }//GEN-LAST:event_botaoExcluirActionPerformed
 
-    private void botaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarActionPerformed
-         
-        if (TabelaCategoria.getSelectedRow() != -1){
-            
-       Categorias c = new Categorias();
-       ProdutoController contr = new ProdutoController();
-      
-       c.setNomeCat(nomeCat.getText());
-       c.setSetorCat(setorCat.getText());
-              
-       c.setIdCategoria((int)TabelaCategoria.getValueAt(TabelaCategoria.getSelectedRow(), 0));
-       
-       contr.updateCategorias(c);
-       
-        // limpar Campos apos Inserir
-        nomeCat.setText("");
-        setorCat.setText("");        
-        nomeCat.requestFocus();
+    private void botaoSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSelecionarActionPerformed
+               
+        if(TabelaCategoria.getSelectedRow() == -1)
+            return;               
         
-        readTabelaCategoria();
-       
-       
-            
-        }
+        categorias = categoria.get(TabelaCategoria.getSelectedRow());
+        dispose();
         
         
-    }//GEN-LAST:event_botaoAtualizarActionPerformed
+        
+//        if (TabelaCategoria.getSelectedRow() != -1){
+//            
+//       Categorias c = new Categorias();
+//       ProdutoController contr = new ProdutoController();
+//      
+//       c.setNomeCat(nomeCat.getText());
+//       c.setSetorCat(setorCat.getText());
+//              
+//       c.setIdCategoria((int)TabelaCategoria.getValueAt(TabelaCategoria.getSelectedRow(), 0));
+//       
+//       contr.updateCategorias(c);
+//       
+//        // limpar Campos apos Inserir
+//        nomeCat.setText("");
+//        setorCat.setText("");        
+//        nomeCat.requestFocus();
+//        
+//        readTabelaCategoria();
+//       
+//       
+//            
+//        }
+//        
+        
+    }//GEN-LAST:event_botaoSelecionarActionPerformed
 
-    private void botaoAtualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoAtualizarMouseClicked
+    private void botaoSelecionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoSelecionarMouseClicked
         
         
         
         
-    }//GEN-LAST:event_botaoAtualizarMouseClicked
+    }//GEN-LAST:event_botaoSelecionarMouseClicked
 
-    private void botaoAtualizarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botaoAtualizarKeyPressed
+    private void botaoSelecionarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botaoSelecionarKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_botaoAtualizarKeyPressed
+    }//GEN-LAST:event_botaoSelecionarKeyPressed
 
-    private void botaoAtualizarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botaoAtualizarKeyReleased
+    private void botaoSelecionarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botaoSelecionarKeyReleased
        
-    }//GEN-LAST:event_botaoAtualizarKeyReleased
+    }//GEN-LAST:event_botaoSelecionarKeyReleased
 
     private void TabelaCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaCategoriaMouseClicked
         if (TabelaCategoria.getSelectedRow()!= -1){
@@ -347,13 +369,10 @@ public class CadastroCategorias extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TabelaCategoria;
-    private javax.swing.JButton botaoAtualizar;
     private javax.swing.JButton botaoCancelar;
     private javax.swing.JButton botaoExcluir;
     private javax.swing.JButton botaoInserir;
-    private java.util.List<HBFTelas.Categoria> categoriaList;
-    private javax.persistence.Query categoriaQuery;
-    private javax.persistence.EntityManager entityManager;
+    private javax.swing.JButton botaoSelecionar;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
@@ -363,4 +382,6 @@ public class CadastroCategorias extends javax.swing.JFrame {
     private javax.swing.JTextField nomeCat;
     private javax.swing.JTextField setorCat;
     // End of variables declaration//GEN-END:variables
+
+    
 }

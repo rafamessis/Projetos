@@ -114,6 +114,17 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         });
         getContentPane().add(codProduto);
         codProduto.setBounds(60, 90, 90, 29);
+
+        descProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                descProdutoFocusLost(evt);
+            }
+        });
+        descProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                descProdutoActionPerformed(evt);
+            }
+        });
         getContentPane().add(descProduto);
         descProduto.setBounds(230, 90, 249, 29);
 
@@ -169,9 +180,10 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         getContentPane().add(codFornecedor);
         codFornecedor.setBounds(120, 150, 60, 30);
 
+        descFornecedor.setEditable(false);
         descFornecedor.setEnabled(false);
         getContentPane().add(descFornecedor);
-        descFornecedor.setBounds(310, 150, 290, 30);
+        descFornecedor.setBounds(310, 150, 220, 30);
 
         pesquisarCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Pesquisar.png"))); // NOI18N
         pesquisarCategoria.addActionListener(new java.awt.event.ActionListener() {
@@ -284,7 +296,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(pesquisaFornecedor);
-        pesquisaFornecedor.setBounds(600, 150, 40, 30);
+        pesquisaFornecedor.setBounds(530, 150, 40, 30);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("Quantidade Inicial");
@@ -301,6 +313,11 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         qntdEstoque.setBounds(390, 210, 80, 30);
 
         pesquisaEstoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Pesquisar.png"))); // NOI18N
+        pesquisaEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesquisaEstoqueActionPerformed(evt);
+            }
+        });
         getContentPane().add(pesquisaEstoque);
         pesquisaEstoque.setBounds(470, 210, 40, 30);
 
@@ -436,6 +453,14 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             forn.setCodigo(fornec.getCodigo());
             categ.setNomeCat(fornec.getNome());
         }
+        
+         private void CarregaEstoqueProduto()
+    {
+        EstoqueController contr = new EstoqueController();
+         est = contr.RecuperaEstoqueProduto(prod.getIdProduto());
+         est.setProdutoId(prod.getIdProduto());
+         pesquisaEstoque.setText(Integer.toString(est.getQuantidade()));
+    }
         
         
        
@@ -863,7 +888,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_codProdutoFocusLost
 
     private void pesquisaFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaFornecedorActionPerformed
-        CadastroFornecedor consultafornecedor = new CadastroFornecedor();
+        
         
         
         
@@ -903,6 +928,61 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void pesquisaEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaEstoqueActionPerformed
+        CadastroEstoque cadastroestoque = new CadastroEstoque();
+        cadastroestoque.setVisible(true);
+        
+        
+    }//GEN-LAST:event_pesquisaEstoqueActionPerformed
+
+    private void descProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descProdutoActionPerformed
+      
+        if(!(descProduto.getText()).isEmpty()){ //Verifica se o campo está preenchido
+        Produto prod; //Variável que conterá o nome correspodente ao cód
+        Produto p = new Produto();
+        ProdutoController contr = new ProdutoController();
+        
+        p.setNomeProd (descProduto.getText()); //Captura o código digitado no campo de código do tipo de venda
+        prod = contr.pesquisaProduto(p.getIdProduto()); //Chama o método pesquisaTipoVenda passando como parâmetro o que foi capturado do campo de texto e o método retorna o nome pra variavel "dados"
+        if( prod != null){
+            descProduto.setText(prod.getNomeProd()); //Se o retorno da pesquisa for diferente de nulo, seta no campo nome o que foi encontrado no BD
+            codProduto.setText(String.valueOf(prod.getIdProduto()));
+            codigoSku.setText(String.valueOf(prod.getCodSKU()));
+            codFornecedor.setText(String.valueOf(prod.getIdFornecedor()));
+            precoCompra.setText(String.valueOf(prod.getPrecoCompra()));
+            codCategoria.setText(String.valueOf(prod.getIdCategoria()));
+            descCategoria.setText(cat.getNomeCat());
+            
+        }    
+       }
+        
+    }//GEN-LAST:event_descProdutoActionPerformed
+
+    private void descProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_descProdutoFocusLost
+       
+       if(!(descProduto.getText()).isEmpty()){ //Verifica se o campo está preenchido
+        Produto prod; //Variável que conterá o nome correspodente ao cód
+        Produto p = new Produto();
+        ProdutoController contr = new ProdutoController();
+        
+        p.setNomeProd (descProduto.getText()); //Captura o código digitado no campo de código do tipo de venda
+        prod = contr.pesquisaProduto(p.getIdProduto()); //Chama o método pesquisaTipoVenda passando como parâmetro o que foi capturado do campo de texto e o método retorna o nome pra variavel "dados"
+        if( prod != null){
+            descProduto.setText(prod.getNomeProd()); //Se o retorno da pesquisa for diferente de nulo, seta no campo nome o que foi encontrado no BD
+            codProduto.setText(String.valueOf(prod.getIdProduto()));
+            codigoSku.setText(String.valueOf(prod.getCodSKU()));
+            codFornecedor.setText(String.valueOf(prod.getIdFornecedor()));
+            precoCompra.setText(String.valueOf(prod.getPrecoCompra()));
+            codCategoria.setText(String.valueOf(prod.getIdCategoria()));
+            descCategoria.setText(cat.getNomeCat());
+            
+        }    
+       }
+         
+        
+        
+    }//GEN-LAST:event_descProdutoFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

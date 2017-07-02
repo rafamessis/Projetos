@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package HBFTelas;
 
 import Controller.EstoqueController;
@@ -156,7 +152,7 @@ public class CadastroEstoque extends javax.swing.JInternalFrame {
                 .addGap(60, 60, 60))
         );
 
-        pack();
+        setBounds(0, 0, 416, 374);
     }// </editor-fold>//GEN-END:initComponents
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
@@ -203,7 +199,7 @@ public class CadastroEstoque extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtqtdActionPerformed
 
     private void botaoPesquisaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisaVendaActionPerformed
-        // TODO add your handling code here:
+        
            ConsultaProduto consulta = new ConsultaProduto(prod);
            consulta.addWindowListener(new WindowListener() {
            @Override

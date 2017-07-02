@@ -906,7 +906,8 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_botaosairMouseClicked
 
     private void qntdEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qntdEstoqueActionPerformed
-              EstoqueController contr = new EstoqueController();
+          
+        EstoqueController contr = new EstoqueController();
               if (qntdEstoque.getText().isEmpty()){
             JOptionPane.showMessageDialog(null,"A quantidade nao pode ser vazia!");
             return;

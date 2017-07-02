@@ -387,19 +387,19 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
             return;
         }
         else if(cpcnpj.isEmpty()){//Verificando se o Campo senha esta com algum valor
-            JOptionPane.showMessageDialog(null, "Por favor insira o endereço:");
+            JOptionPane.showMessageDialog(null, "Por favor insira o CPF/CNPJ:");
             return;
         }
         else if(fone.isEmpty()){//Verificando se o Campo senha esta com algum valor
-            JOptionPane.showMessageDialog(null, "Por favor insira o endereço:");
+            JOptionPane.showMessageDialog(null, "Por favor insira o Telefone:");
             return;
         }
         else if(whats.isEmpty()){//Verificando se o Campo senha esta com algum valor
-            JOptionPane.showMessageDialog(null, "Por favor insira o endereço:");
+            JOptionPane.showMessageDialog(null, "Por favor insira o Whatsapp:");
             return;
         }
         else if(limite.isEmpty()){//Verificando se o Campo senha esta com algum valor
-            JOptionPane.showMessageDialog(null, "Por favor insira o endereço:");
+            JOptionPane.showMessageDialog(null, "Por favor insira o Limite de Crédito:");
             return;
         }
         

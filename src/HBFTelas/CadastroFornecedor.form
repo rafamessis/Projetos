@@ -58,13 +58,13 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="botaoInserir" min="-2" max="-2" attributes="0"/>
+                              <Component id="botaoInserirFornecedor" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                              <Component id="botaoSalvar" min="-2" max="-2" attributes="0"/>
+                              <Component id="botaoAlterarFornecedor" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="botaoExcluir" min="-2" max="-2" attributes="0"/>
+                              <Component id="botaoExcluirFornecedor" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                              <Component id="botaocancelar" min="-2" max="-2" attributes="0"/>
+                              <Component id="botaocancelarFornecedor" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -150,10 +150,10 @@
               </Group>
               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="botaoExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="botaoSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="botaoInserir" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="botaocancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="botaoExcluirFornecedor" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="botaoAlterarFornecedor" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="botaoInserirFornecedor" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="botaocancelarFornecedor" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="216" max="-2" attributes="0"/>
@@ -178,7 +178,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="campoSite">
     </Component>
-    <Component class="javax.swing.JButton" name="botaoInserir">
+    <Component class="javax.swing.JButton" name="botaoInserirFornecedor">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/Imagens/Novo.png"/>
@@ -186,29 +186,31 @@
         <Property name="text" type="java.lang.String" value="Inserir"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoInserirActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoInserirFornecedorActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="botaoSalvar">
+    <Component class="javax.swing.JButton" name="botaoAlterarFornecedor">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/Imagens/Editar.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Alterar"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoSalvarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoAlterarFornecedorActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="botaoExcluir">
+    <Component class="javax.swing.JButton" name="botaoExcluirFornecedor">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/Imagens/Excluir.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Excluir"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoExcluirActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoExcluirFornecedorActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
@@ -286,7 +288,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="botaocancelar">
+    <Component class="javax.swing.JButton" name="botaocancelarFornecedor">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/Imagens/Cancelar.png"/>
@@ -294,7 +296,7 @@
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaocancelarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaocancelarFornecedorActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="campoCodigo">

@@ -71,7 +71,6 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
         setTitle("Cadastro Fornecedor");
 
         campoNome.addActionListener(new java.awt.event.ActionListener() {
@@ -90,6 +89,7 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
 
         botaoSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Editar.png"))); // NOI18N
         botaoSalvar.setText("Alterar");
+        botaoSalvar.setEnabled(false);
         botaoSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoSalvarActionPerformed(evt);
@@ -98,6 +98,7 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
 
         botaoExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Excluir.png"))); // NOI18N
         botaoExcluir.setText("Excluir");
+        botaoExcluir.setEnabled(false);
         botaoExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoExcluirActionPerformed(evt);
@@ -301,8 +302,16 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
         preencheTabela();
         
         limpar();
+        campoCodigo.setText("");
+        
         
         codigo = 0;
+        campoCodigo.setText("");
+        
+        botaoSalvar.setEnabled(false);
+        botaoExcluir.setEnabled(false);
+        botaoInserir.setEnabled(true);
+        
         
         /*    Fornecedor f = new Fornecedor(); 
         
@@ -384,6 +393,13 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
 
     private void botaocancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaocancelarActionPerformed
         limpar();
+        
+        campoCodigo.setText("");
+        
+        botaoExcluir.setEnabled(false);
+        botaoSalvar.setEnabled(false);
+        botaoInserir.setEnabled(true);
+        
     }//GEN-LAST:event_botaocancelarActionPerformed
 
     private void tabelafornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelafornecedorMouseClicked
@@ -397,7 +413,11 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
            campoFone.setText(fornecedores.getFone());
            campoWhatsapp.setText(fornecedores.getWhatsapp());
            campoSite.setText(fornecedores.getSite());
+           
            codigo =fornecedores.getCodigo();//Nome parametro para alterar
+           botaoInserir.setEnabled(false);
+           botaoExcluir.setEnabled(true);
+           botaoSalvar.setEnabled(true);
     }//GEN-LAST:event_tabelafornecedorMouseClicked
     public void novo(){
         campoNome.setEnabled(true);

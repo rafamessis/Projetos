@@ -55,11 +55,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         jdpprincipalLayout.setVerticalGroup(
             jdpprincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 641, Short.MAX_VALUE)
+            .addGap(0, 633, Short.MAX_VALUE)
         );
 
+        menucadastroProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Novo.png"))); // NOI18N
         menucadastroProdutos.setText("Cadastros");
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/user.png"))); // NOI18N
         jMenuItem1.setText("Cadastro de Usuario");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -68,6 +70,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menucadastroProdutos.add(jMenuItem1);
 
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/designer.png"))); // NOI18N
         jMenuItem2.setText("Cadastro de Produtos");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,6 +79,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menucadastroProdutos.add(jMenuItem2);
 
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/contract.png"))); // NOI18N
         jMenuItem6.setText("Cadastro de Estoque");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,6 +88,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menucadastroProdutos.add(jMenuItem6);
 
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/group.png"))); // NOI18N
         jMenuItem3.setText("Cadastro de Clientes");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,6 +97,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menucadastroProdutos.add(jMenuItem3);
 
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/group.png"))); // NOI18N
         jMenuItem4.setText("Cadastro de Fornecedor");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,6 +108,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(menucadastroProdutos);
 
+        MenuVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/stats.png"))); // NOI18N
         MenuVendas.setText("Vendas");
         MenuVendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,6 +116,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/incomes.png"))); // NOI18N
         jMenuItem5.setText("Controle de Vendas");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,9 +127,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(MenuVendas);
 
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/page.png"))); // NOI18N
         jMenu2.setText("Relatorios");
         jMenuBar1.add(jMenu2);
 
+        botaoLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/door_out.png"))); // NOI18N
         botaoLogOut.setText("LogOut");
         botaoLogOut.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -135,6 +145,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenuBar1.add(botaoLogOut);
 
+        MenuSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Sair.png"))); // NOI18N
         MenuSair.setText("Sair");
         MenuSair.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

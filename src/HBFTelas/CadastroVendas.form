@@ -378,7 +378,7 @@
     <Component class="javax.swing.JButton" name="botaoPesquisaVenda">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagens/pesquisar.png"/>
+          <Image iconType="3" name="/Imagens/Pesquisar.png"/>
         </Property>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
       </Properties>
@@ -389,7 +389,7 @@
     <Component class="javax.swing.JButton" name="botaoPesquisaCliente">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagens/pesquisar.png"/>
+          <Image iconType="3" name="/Imagens/Pesquisar.png"/>
         </Property>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
         <Property name="enabled" type="boolean" value="false"/>
@@ -401,7 +401,7 @@
     <Component class="javax.swing.JButton" name="botaoPesquisaTipoVenda">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagens/pesquisar.png"/>
+          <Image iconType="3" name="/Imagens/Pesquisar.png"/>
         </Property>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
         <Property name="enabled" type="boolean" value="false"/>
@@ -413,7 +413,7 @@
     <Component class="javax.swing.JButton" name="botaoPesquisaFormaPagto">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagens/pesquisar.png"/>
+          <Image iconType="3" name="/Imagens/Pesquisar.png"/>
         </Property>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
         <Property name="enabled" type="boolean" value="false"/>
@@ -460,11 +460,14 @@
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoTotalVendaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botaoGravarVenda">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagens/gravar.png"/>
+          <Image iconType="3" name="/Imagens/Gravar.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Gravar Venda"/>
         <Property name="enabled" type="boolean" value="false"/>
@@ -482,7 +485,7 @@
     <Component class="javax.swing.JButton" name="botaoIncluir">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagens/novo.png"/>
+          <Image iconType="3" name="/Imagens/Novo.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Incluir"/>
       </Properties>
@@ -493,7 +496,7 @@
     <Component class="javax.swing.JButton" name="botaoExcluir">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagens/excluir.png"/>
+          <Image iconType="3" name="/Imagens/Excluir.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Excluir"/>
         <Property name="enabled" type="boolean" value="false"/>
@@ -505,7 +508,7 @@
     <Component class="javax.swing.JButton" name="botaoEditar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagens/editar.png"/>
+          <Image iconType="3" name="/Imagens/Editar.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Editar"/>
         <Property name="enabled" type="boolean" value="false"/>
@@ -517,7 +520,7 @@
     <Component class="javax.swing.JButton" name="botaoCancelar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagens/cancelar.png"/>
+          <Image iconType="3" name="/Imagens/Cancelar.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
         <Property name="enabled" type="boolean" value="false"/>

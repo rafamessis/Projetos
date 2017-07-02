@@ -164,7 +164,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
             }
         });
 
-        botaoPesquisaVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/pesquisar.png"))); // NOI18N
+        botaoPesquisaVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Pesquisar.png"))); // NOI18N
         botaoPesquisaVenda.setContentAreaFilled(false);
         botaoPesquisaVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,7 +172,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
             }
         });
 
-        botaoPesquisaCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/pesquisar.png"))); // NOI18N
+        botaoPesquisaCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Pesquisar.png"))); // NOI18N
         botaoPesquisaCliente.setContentAreaFilled(false);
         botaoPesquisaCliente.setEnabled(false);
         botaoPesquisaCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -181,7 +181,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
             }
         });
 
-        botaoPesquisaTipoVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/pesquisar.png"))); // NOI18N
+        botaoPesquisaTipoVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Pesquisar.png"))); // NOI18N
         botaoPesquisaTipoVenda.setContentAreaFilled(false);
         botaoPesquisaTipoVenda.setEnabled(false);
         botaoPesquisaTipoVenda.addActionListener(new java.awt.event.ActionListener() {
@@ -190,7 +190,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
             }
         });
 
-        botaoPesquisaFormaPagto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/pesquisar.png"))); // NOI18N
+        botaoPesquisaFormaPagto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Pesquisar.png"))); // NOI18N
         botaoPesquisaFormaPagto.setContentAreaFilled(false);
         botaoPesquisaFormaPagto.setEnabled(false);
         botaoPesquisaFormaPagto.addActionListener(new java.awt.event.ActionListener() {
@@ -215,8 +215,13 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
 
         campoTotalVenda.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         campoTotalVenda.setEnabled(false);
+        campoTotalVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoTotalVendaActionPerformed(evt);
+            }
+        });
 
-        botaoGravarVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/gravar.png"))); // NOI18N
+        botaoGravarVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Gravar.png"))); // NOI18N
         botaoGravarVenda.setText("Gravar Venda");
         botaoGravarVenda.setEnabled(false);
         botaoGravarVenda.addInputMethodListener(new java.awt.event.InputMethodListener() {
@@ -234,7 +239,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
 
         campoDataVenda.setEnabled(false);
 
-        botaoIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/novo.png"))); // NOI18N
+        botaoIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Novo.png"))); // NOI18N
         botaoIncluir.setText("Incluir");
         botaoIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -242,7 +247,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
             }
         });
 
-        botaoExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/excluir.png"))); // NOI18N
+        botaoExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Excluir.png"))); // NOI18N
         botaoExcluir.setText("Excluir");
         botaoExcluir.setEnabled(false);
         botaoExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -251,7 +256,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
             }
         });
 
-        botaoEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/editar.png"))); // NOI18N
+        botaoEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Editar.png"))); // NOI18N
         botaoEditar.setText("Editar");
         botaoEditar.setEnabled(false);
         botaoEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -260,7 +265,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
             }
         });
 
-        botaoCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cancelar.png"))); // NOI18N
+        botaoCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Cancelar.png"))); // NOI18N
         botaoCancelar.setText("Cancelar");
         botaoCancelar.setEnabled(false);
         botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -1275,6 +1280,10 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
     private void campoValorUnitProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoValorUnitProdutoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoValorUnitProdutoActionPerformed
+
+    private void campoTotalVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoTotalVendaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoTotalVendaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

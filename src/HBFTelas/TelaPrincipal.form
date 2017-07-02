@@ -74,10 +74,14 @@
             <Property name="text" type="java.lang.String" value="Relatorios"/>
           </Properties>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu4">
+        <Menu class="javax.swing.JMenu" name="botaoLogOut">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Outros"/>
+            <Property name="text" type="java.lang.String" value="LogOut"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botaoLogOutMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoLogOutActionPerformed"/>
+          </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="MenuSair">
           <Properties>

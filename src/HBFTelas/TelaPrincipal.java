@@ -41,7 +41,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuVendas = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
+        botaoLogOut = new javax.swing.JMenu();
         MenuSair = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -122,8 +122,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu2.setText("Relatorios");
         jMenuBar1.add(jMenu2);
 
-        jMenu4.setText("Outros");
-        jMenuBar1.add(jMenu4);
+        botaoLogOut.setText("LogOut");
+        botaoLogOut.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoLogOutMouseClicked(evt);
+            }
+        });
+        botaoLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoLogOutActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(botaoLogOut);
 
         MenuSair.setText("Sair");
         MenuSair.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -207,6 +217,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         obj.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void botaoLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLogOutActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_botaoLogOutActionPerformed
+
+    private void botaoLogOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoLogOutMouseClicked
+        // TODO add your handling code here:
+        TelaLogin obj = new TelaLogin();
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_botaoLogOutMouseClicked
+
     /**     * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -244,8 +266,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MenuSair;
     private javax.swing.JMenu MenuVendas;
+    private javax.swing.JMenu botaoLogOut;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;

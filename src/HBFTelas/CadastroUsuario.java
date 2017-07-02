@@ -212,6 +212,10 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Por favor insira a senha");
             return;
         }
+        else if(senha.length()<6){
+            JOptionPane.showMessageDialog(null, "Senha muito curta, favor inserir uma senha com no mínimo 6 dígitos!");
+            return;
+        }
         usuarios = ucontroller.read("");
         for(int i=0;i<usuarios.size();i++){
             if(nome.equals(usuarios.get(i).getNomeUsuario())){
@@ -330,6 +334,10 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
         }
         else if(senha.isEmpty()){//Verificando se o Campo senha esta com algum valor
             JOptionPane.showMessageDialog(null, "Por favor insira a senha");
+            return;
+        }
+        else if(senha.length()<6){
+            JOptionPane.showMessageDialog(null, "Senha muito curta, favor inserir uma senha com no mínimo 6 dígitos!");
             return;
         }
         usuarios = ucontroller.read("");

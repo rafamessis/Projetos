@@ -8,8 +8,11 @@ package HBFTelas;
 import Controller.UsuarioController;
 import Model.Geral;
 import Model.Usuario;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,6 +32,9 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     public TelaLogin() {
         initComponents();
+        
+        
+        
     }
 
     /**
@@ -67,11 +73,21 @@ public class TelaLogin extends javax.swing.JFrame {
                 txtSenhaLoginActionPerformed(evt);
             }
         });
+        txtSenhaLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSenhaLoginKeyPressed(evt);
+            }
+        });
 
         BotaoEntrarLogin.setText("Entrar");
         BotaoEntrarLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoEntrarLoginActionPerformed(evt);
+            }
+        });
+        BotaoEntrarLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BotaoEntrarLoginKeyPressed(evt);
             }
         });
 
@@ -139,6 +155,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotaoEntrarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoEntrarLoginActionPerformed
+       
         usuarios = ucontroller.read(" where nomeFunc = '" + txtNomeLogin.getText().trim()  + "'" );
         String nome = txtNomeLogin.getText().trim();
         String senha = txtSenhaLogin.getText().trim();
@@ -170,6 +187,39 @@ public class TelaLogin extends javax.swing.JFrame {
     private void txtSenhaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaLoginActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSenhaLoginActionPerformed
+
+    private void BotaoEntrarLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BotaoEntrarLoginKeyPressed
+     usuarios = ucontroller.read(" where nomeFunc = '" + txtNomeLogin.getText().trim()  + "'" );
+        String nome = txtNomeLogin.getText().trim();
+        String senha = txtSenhaLogin.getText().trim();
+             if(usuarios.size() > 0 && nome.equals(usuarios.get(0).getNomeUsuario()) && senha.equals(usuarios.get(0).getSenhaUsuario())){
+                
+                 Geral.UsuarioLogado = usuarios.get(0);
+                 
+                 TelaPrincipal tela = new TelaPrincipal();
+                tela.setVisible(true);
+                dispose();
+                return;
+             }
+        
+    }//GEN-LAST:event_BotaoEntrarLoginKeyPressed
+
+    private void txtSenhaLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaLoginKeyPressed
+        
+        usuarios = ucontroller.read(" where nomeFunc = '" + txtNomeLogin.getText().trim()  + "'" );
+        String nome = txtNomeLogin.getText().trim();
+        String senha = txtSenhaLogin.getText().trim();
+             if(usuarios.size() > 0 && nome.equals(usuarios.get(0).getNomeUsuario()) && senha.equals(usuarios.get(0).getSenhaUsuario())){
+                
+                 Geral.UsuarioLogado = usuarios.get(0);
+                 
+                 TelaPrincipal tela = new TelaPrincipal();
+                tela.setVisible(true);
+                dispose();
+                return;
+             }
+        
+    }//GEN-LAST:event_txtSenhaLoginKeyPressed
 
     /**
      * @param args the command line arguments

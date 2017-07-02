@@ -107,19 +107,21 @@ public class ConsultaProduto extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabelaconsultaProduto);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 20, 770, 330);
+        jScrollPane1.setBounds(10, 80, 770, 330);
 
-        Selecionar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        Selecionar.setText("OK");
+        Selecionar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Selecionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/GravarPequeno.png"))); // NOI18N
+        Selecionar.setText("Selecionar");
         Selecionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SelecionarActionPerformed(evt);
             }
         });
         getContentPane().add(Selecionar);
-        Selecionar.setBounds(80, 413, 110, 40);
+        Selecionar.setBounds(10, 10, 110, 40);
 
-        botaoCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        botaoCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        botaoCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Cancelar.png"))); // NOI18N
         botaoCancelar.setText("Cancelar");
         botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,7 +129,7 @@ public class ConsultaProduto extends javax.swing.JFrame {
             }
         });
         getContentPane().add(botaoCancelar);
-        botaoCancelar.setBounds(350, 415, 160, 40);
+        botaoCancelar.setBounds(140, 10, 110, 40);
 
         jMenu1.setText("Arquivos");
         jMenuBar1.add(jMenu1);
@@ -141,7 +143,9 @@ public class ConsultaProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
-        dispose();
+              dispose();
+        
+        
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
     private void SelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelecionarActionPerformed

@@ -34,7 +34,8 @@ public class ProdutoController {
 
 
     try {
-       stmt = con.prepareStatement("insert into produto (nomeProd,codSKU,idcategoria,precoCompra,idFornecedor) values( ?, ?, ?, ?, ?)");
+       stmt = con.prepareStatement("insert into produto (nomeProd,codSKU,idcategoria,precoCompra,idFornecedor) "
+               + "values( ?, ?, ?, ?, ?)");
        stmt.setString(1,p.getNomeProd());
        stmt.setInt(2,p.getCodSKU());
        stmt.setInt(3,p.getIdCategoria());

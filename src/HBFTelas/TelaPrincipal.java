@@ -182,7 +182,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuVendasActionPerformed
 
     private void MenuSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuSairMouseClicked
-        // TODO add your handling code here:
+        
         System.exit(0);
     }//GEN-LAST:event_MenuSairMouseClicked
 

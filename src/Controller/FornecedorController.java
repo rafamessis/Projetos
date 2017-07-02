@@ -119,4 +119,36 @@ import javax.swing.JOptionPane;
            ConectorMySql.closeConnection(con, stmt);
         }
     }
+        
+        public Fornecedor pesquisaFornecedor (int codForn) { //Declaração da função recebendo um o idTipoVenda que foi digitado na tela
+
+    Connection con = ConectorMySql.getConnection();
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    Fornecedor forn = new Fornecedor();
+
+    try {
+       stmt = con.prepareStatement("select idFornecedor, nome from fornecedor where idFornecedor = ?");
+       stmt.setInt(1, codForn); //substitui no SELECT o interrogação pelo código que veio por parametro
+       rs = stmt.executeQuery();
+
+       if(rs.next()){
+
+           forn.setCodigo(rs.getInt("idFornecedor"));
+            forn.setNome(rs.getString("nome"));
+            return forn;
+
+        }else{
+           return null; //caso não encontre o código, retorna nulo.
+       }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null," Erro ao encontrar o produto: "+ ex);
+    }finally{
+       ConectorMySql.closeConnection(con, stmt, rs);
+    }
+    return null; //returno apenas para satisfazer warning do IDE
+}
+
+        
 }

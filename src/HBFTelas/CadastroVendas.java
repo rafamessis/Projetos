@@ -71,7 +71,6 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("lojavendas?zeroDateTimeBehavior=convertToNullPU").createEntityManager();
         jLabel1 = new javax.swing.JLabel();
         campoCodVenda = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -1308,7 +1307,6 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
     private javax.swing.JTextField campoTotalVenda;
     private javax.swing.JTextField campoValorTotalProduto;
     private javax.swing.JTextField campoValorUnitProduto;
-    private javax.persistence.EntityManager entityManager;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

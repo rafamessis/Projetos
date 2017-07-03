@@ -51,11 +51,11 @@
                           <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="botaoInserirUsuario" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                              <Component id="botaoApagarUsuario" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                               <Component id="botaoAlterarUsuario" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="37" max="32767" attributes="0"/>
+                              <EmptySpace pref="44" max="32767" attributes="0"/>
+                              <Component id="botaoApagarUsuario" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                               <Component id="CancelarCamposUsuario" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -81,15 +81,13 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="checkBoxUsuario" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="botaoApagarUsuario" alignment="1" min="-2" pref="31" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="CancelarCamposUsuario" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="botaoInserirUsuario" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="botaoAlterarUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="CancelarCamposUsuario" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="botaoInserirUsuario" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="botaoApagarUsuario" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="botaoAlterarUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="39" max="32767" attributes="0"/>
+              <EmptySpace pref="48" max="32767" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="191" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -130,7 +128,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/Imagens/ExcluirPequeno.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Apagar"/>
+        <Property name="text" type="java.lang.String" value="Excluir"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoApagarUsuarioActionPerformed"/>

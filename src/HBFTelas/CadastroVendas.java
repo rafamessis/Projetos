@@ -8,17 +8,26 @@ package HBFTelas;
 
 import Model.Vendas;
 import Conexao.ConectorMySql;
+import Controller.FornecedorController;
 import Controller.ProdutoController;
 import Controller.VendasController;
+import Model.Categorias;
+import Model.Cliente;
+import Model.FormaPagto;
+import Model.Fornecedor;
 import Model.Geral;
 import Model.ItemVenda;
 import Model.Produto;
+import Model.TipoVenda;
 import com.mysql.jdbc.StringUtils;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -34,6 +43,14 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
      */
     
     private int idVendaAtual = 0;
+    private int idProdutoClicado = 0;
+    Vendas venda = new Vendas();
+    Cliente cliente = new Cliente();
+    FormaPagto formapagto = new FormaPagto();
+    TipoVenda tipovenda = new TipoVenda();
+    Produto produto = new Produto();
+    
+    List<ItemVenda> item = null;
     DecimalFormat valorFormatado = new DecimalFormat("0.00");
     SimpleDateFormat dataFormatadaExibir = new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat dataFormatadaSalvar = new SimpleDateFormat("yyMMdd");
@@ -56,8 +73,9 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         tabelaProdutos.setRowSorter(new TableRowSorter(prod));
         VendasController contr = new VendasController();
         prod.setNumRows(0);
-        for(ItemVenda c: contr.selectItensVenda(codVenda)){
-            prod.addRow(new Object[]{c.getCodProduto(), c.getNomeProd(), c.getQuantidade(), c.getValorUnit(), c.getValorTotal()});
+        item = contr.selectItensVenda(codVenda);
+        for(int i=0;i<item.size();i++){
+            prod.addRow(new Object[]{item.get(i).getCodProduto(), item.get(i).getNomeProd(), item.get(i).getQuantidade(), valorFormatado.format(item.get(i).getValorUnit()), valorFormatado.format(item.get(i).getValorTotal()), item.get(i).getIdVendaxproduto()});
         }
         
     }
@@ -124,6 +142,11 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Cód.Venda:");
 
+        campoCodVenda.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoCodVendaFocusLost(evt);
+            }
+        });
         campoCodVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoCodVendaActionPerformed(evt);
@@ -238,6 +261,11 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         });
 
         campoDataVenda.setEnabled(false);
+        campoDataVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoDataVendaActionPerformed(evt);
+            }
+        });
 
         botaoIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Novo.png"))); // NOI18N
         botaoIncluir.setText("Incluir");
@@ -290,6 +318,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                 "Código", "Descrição", "Quantidade", "Valor Unitário", "Valor Total"
             }
         ));
+        tabelaProdutos.setEnabled(false);
         tabelaProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabelaProdutosMouseClicked(evt);
@@ -392,6 +421,11 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         botaoPesquisarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Pesquisar.png"))); // NOI18N
         botaoPesquisarProduto.setContentAreaFilled(false);
         botaoPesquisarProduto.setEnabled(false);
+        botaoPesquisarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoPesquisarProdutoActionPerformed(evt);
+            }
+        });
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/LogoFundo.png"))); // NOI18N
 
@@ -630,22 +664,20 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
     
     private void botaoGravarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGravarVendaActionPerformed
         // TODO add your handling code here:
-      if(!(campoNomeCliente.getText()).isEmpty() && !(campoNomeTipoVenda.getText()).isEmpty() && !(campoNomeFormaPagto.getText()).isEmpty() && !(campoDataVenda.getText().isEmpty()) && !(campoTotalVenda.getText().isEmpty())){
+      if(!(campoNomeCliente.getText()).isEmpty() && !(campoNomeTipoVenda.getText()).isEmpty() && !(campoNomeFormaPagto.getText()).isEmpty() && !(campoDataVenda.getText().isEmpty())){
         Vendas v = new Vendas();
         VendasController contr = new VendasController();
-        String teste = dataFormatadaSalvar.format(campoDataVenda.getText());
+        /*String teste = dataFormatadaSalvar.format(campoDataVenda.getText());
         
         JOptionPane.showMessageDialog(null,teste);
         
         JOptionPane.showMessageDialog(null,(dataFormatadaSalvar.format(teste)).toString());
         
-        v.setDataVenda((dataFormatadaSalvar.format(teste)).toString());
+        v.setDataVenda((dataFormatadaSalvar.format(teste)).toString());*/
         
         
-        
-        
+        v.setDataVenda(campoDataVenda.getText());
         v.setIdCliente(Integer.parseInt(campoCodCliente.getText()));
-        v.setValorTotal(Double.parseDouble((campoTotalVenda.getText()).replaceAll(",", ".")));
         v.setIdTipoVenda(Integer.parseInt(campoTipoVenda.getText()));
         v.setIdFormaPagto(Integer.parseInt(campoFormaPagto.getText()));
 
@@ -684,7 +716,14 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         else{
             botaoExcluir.setEnabled(true);
         }
-
+        
+        botaoIncluirProduto.setEnabled(false);
+        botaoExcluirProduto.setEnabled(false);
+        botaoCancelarProduto.setEnabled(false);
+	botaoGravarProduto.setEnabled(false);
+        botaoPesquisarProduto.setEnabled(false);
+        
+        tabelaProdutos.setEnabled(false);
         preencheTabela(idVendaAtual);
         
         v = null;
@@ -723,8 +762,8 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         botaoPesquisaFormaPagto.setEnabled(true);
         campoDataVenda.setEnabled(true);
         campoDataVenda.setEditable(true);
-        campoTotalVenda.setEnabled(true);
-        campoTotalVenda.setEditable(true);
+        campoTotalVenda.setEnabled(false);
+        campoTotalVenda.setEditable(false);
         botaoCancelar.setEnabled(true);
         botaoGravarVenda.setEnabled(true);
         botaoIncluir.setEnabled(false);
@@ -743,13 +782,14 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         campoQntProduto.setEnabled(false);
         campoValorUnitProduto.setEnabled(false);
         campoValorTotalProduto.setEnabled(false);
-        botaoIncluirProduto.setEnabled(true);
+        botaoIncluirProduto.setEnabled(false);
         botaoExcluirProduto.setEnabled(false);
         botaoCancelarProduto.setEnabled(false);
         botaoGravarProduto.setEnabled(false);
         botaoPesquisarProduto.setEnabled(false);
                 
         idVendaAtual = 0;
+        tabelaProdutos.setEnabled(true);
         preencheTabela(idVendaAtual);
         
     }//GEN-LAST:event_botaoIncluirActionPerformed
@@ -800,6 +840,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         
         
         idVendaAtual = 0;
+        tabelaProdutos.setEnabled(false);
         preencheTabela(idVendaAtual);
         
     }//GEN-LAST:event_botaoCancelarActionPerformed
@@ -812,7 +853,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
 
     private void botaoPesquisaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisaVendaActionPerformed
         // TODO add your handling code here:
-        if(!(campoCodVenda.getText()).isEmpty()){
+        /*if(!(campoCodVenda.getText()).isEmpty()){
             ArrayList dados;
             Vendas v = new Vendas();
             VendasController contr = new VendasController();
@@ -843,6 +884,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                 campoNomeTipoVenda.setText((String)dados.get(6));
                 campoNomeFormaPagto.setText((String)dados.get(7));
                 idVendaAtual = v.getIdVenda();
+                tabelaProdutos.setEnabled(false);
                 preencheTabela(idVendaAtual);
             }else{
                 campoCodCliente.setText("");
@@ -876,8 +918,112 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
             }
             v = null;
             contr = null;
-        }
+        }*/
+
+        ConsultaVenda consultavenda = new ConsultaVenda(venda);
         
+        consultavenda.addWindowListener(new WindowListener() {
+           @Override
+           public void windowOpened(WindowEvent e) {
+           }
+
+           @Override
+           public void windowClosing(WindowEvent e) {
+           }
+
+           @Override
+           public void windowClosed(WindowEvent e) {
+               
+                venda = consultavenda.GetVendas();
+                
+                
+                if(venda.getIdVenda() > 0){
+                ArrayList dados;
+                //Vendas v = new Vendas();
+                VendasController contr = new VendasController();
+                //v.setIdVenda(Integer.parseInt(campoCodVenda.getText()));
+                //dados = contr.pesquisaVenda(v.getIdVenda());
+                dados = contr.pesquisaVenda(venda.getIdVenda());
+                if(dados != null){
+                    campoNomeCliente.setEnabled(true);
+                    campoNomeTipoVenda.setEnabled(true);
+                    campoNomeFormaPagto.setEnabled(true);
+                    campoDataVenda.setEnabled(true);
+                    campoDataVenda.setEditable(false);
+                    campoTotalVenda.setEnabled(true);
+                    campoTotalVenda.setEditable(false);
+                    botaoEditar.setEnabled(true);
+                    if(Geral.UsuarioLogado.getTipo().equals("Usuário")){
+                        botaoExcluir.setEnabled(false);
+                    }
+                    else{
+                        botaoExcluir.setEnabled(true);
+                    }
+
+                    campoCodVenda.setText(Integer.toString(venda.getIdVenda()));
+                    campoDataVenda.setText(dataFormatadaExibir.format(dados.get(0)));
+                    campoCodCliente.setText((String)dados.get(1));
+                    campoTotalVenda.setText(valorFormatado.format(dados.get(2)));
+                    campoTipoVenda.setText((String)dados.get(3));
+                    campoFormaPagto.setText((String)dados.get(4));
+                    campoNomeCliente.setText((String)dados.get(5));
+                    campoNomeTipoVenda.setText((String)dados.get(6));
+                    campoNomeFormaPagto.setText((String)dados.get(7));
+                    idVendaAtual = venda.getIdVenda();
+                    tabelaProdutos.setEnabled(false);
+                    preencheTabela(idVendaAtual);
+                }else{
+                    campoCodCliente.setText("");
+                    campoNomeCliente.setText("");
+                    campoTipoVenda.setText("");
+                    campoNomeTipoVenda.setText("");
+                    campoFormaPagto.setText("");
+                    campoNomeFormaPagto.setText("");
+                    campoDataVenda.setText("");
+                    campoTotalVenda.setText("");
+                    campoNomeCliente.setEnabled(false);
+                    campoNomeTipoVenda.setEnabled(false);
+                    campoNomeFormaPagto.setEnabled(false);
+                    campoDataVenda.setEnabled(false);
+                    campoTotalVenda.setEnabled(false);
+                    botaoEditar.setEnabled(false);
+                    botaoExcluir.setEnabled(false);
+
+                    botaoIncluirProduto.setEnabled(false);
+                    botaoExcluirProduto.setEnabled(false);
+                    botaoCancelarProduto.setEnabled(false);
+                    botaoGravarProduto.setEnabled(false);
+                    botaoPesquisarProduto.setEnabled(false);
+
+                    campoCodVenda.requestFocus();
+
+                    idVendaAtual = 0;
+                    preencheTabela(idVendaAtual);
+
+                    JOptionPane.showMessageDialog(null,"Código de Venda não localizado");
+                }
+                contr = null;
+            }
+               
+           }
+
+           @Override
+           public void windowIconified(WindowEvent e) {
+           }
+
+           @Override
+           public void windowDeiconified(WindowEvent e) {
+           }
+
+           @Override
+           public void windowActivated(WindowEvent e) {
+           }
+
+           @Override
+           public void windowDeactivated(WindowEvent e) {
+           }
+       });
+       consultavenda.setVisible(true);
         
     }//GEN-LAST:event_botaoPesquisaVendaActionPerformed
 
@@ -900,6 +1046,62 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         }
         v = null;
         contr = null;*/
+        
+        ConsultaCliente consultacliente = new ConsultaCliente(cliente);
+        
+        consultacliente.addWindowListener(new WindowListener() {
+           @Override
+           public void windowOpened(WindowEvent e) {
+           }
+
+           @Override
+           public void windowClosing(WindowEvent e) {
+           }
+
+           @Override
+           public void windowClosed(WindowEvent e) {
+               
+                cliente = consultacliente.GetCliente();
+                
+                
+                if(cliente.getCodigo() > 0){
+                    String dados;
+                    //Vendas v = new Vendas();
+                    VendasController contr = new VendasController();
+                    //v.setIdCliente(Integer.parseInt(campoCodCliente.getText()));
+                    //dados = contr.pesquisaCliente(v.getIdCliente());
+                    dados = contr.pesquisaCliente(cliente.getCodigo());
+                    if( dados != null){
+                        campoNomeCliente.setText(dados);
+                        campoCodCliente.setText(Integer.toString(cliente.getCodigo()));
+                    }else{
+                        campoNomeCliente.setText("");
+                        JOptionPane.showMessageDialog(null,"Código de Cliente não localizado");
+                    }
+                    //v = null;
+                    contr = null;
+                }
+               
+           }
+
+           @Override
+           public void windowIconified(WindowEvent e) {
+           }
+
+           @Override
+           public void windowDeiconified(WindowEvent e) {
+           }
+
+           @Override
+           public void windowActivated(WindowEvent e) {
+           }
+
+           @Override
+           public void windowDeactivated(WindowEvent e) {
+           }
+       });
+       consultacliente.setVisible(true);
+        
     }//GEN-LAST:event_botaoPesquisaClienteActionPerformed
 
     private void botaoPesquisaTipoVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisaTipoVendaActionPerformed
@@ -917,6 +1119,63 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         }
         v = null;
         contr = null;*/
+        
+        ConsultaTipoVenda consultatipovenda = new ConsultaTipoVenda(tipovenda);
+        
+        consultatipovenda.addWindowListener(new WindowListener() {
+           @Override
+           public void windowOpened(WindowEvent e) {
+           }
+
+           @Override
+           public void windowClosing(WindowEvent e) {
+           }
+
+           @Override
+           public void windowClosed(WindowEvent e) {
+               
+                tipovenda = consultatipovenda.GetTipoVenda();
+                
+                
+                if(tipovenda.getIdTipoVenda() > 0){
+                    
+                    String dados;
+                    //Vendas v = new Vendas();
+                    VendasController contr = new VendasController();
+                    //v.setIdTipoVenda(Integer.parseInt(campoTipoVenda.getText()));
+                    //dados = contr.pesquisaTipoVenda(v.getIdTipoVenda());
+                    dados = contr.pesquisaTipoVenda(tipovenda.getIdTipoVenda());
+                    if( dados != null){
+                        campoNomeTipoVenda.setText(dados);
+                        campoTipoVenda.setText(Integer.toString(tipovenda.getIdTipoVenda()));
+                    }else{
+                        campoNomeTipoVenda.setText("");
+                        JOptionPane.showMessageDialog(null,"Código de Tipo de Venda não localizado");
+                    }
+                    //v = null;
+                    contr = null;
+                }
+               
+           }
+
+           @Override
+           public void windowIconified(WindowEvent e) {
+           }
+
+           @Override
+           public void windowDeiconified(WindowEvent e) {
+           }
+
+           @Override
+           public void windowActivated(WindowEvent e) {
+           }
+
+           @Override
+           public void windowDeactivated(WindowEvent e) {
+           }
+       });
+       consultatipovenda.setVisible(true);
+        
     }//GEN-LAST:event_botaoPesquisaTipoVendaActionPerformed
 
     private void botaoPesquisaFormaPagtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisaFormaPagtoActionPerformed
@@ -934,6 +1193,64 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         }
         v = null;
         contr = null;*/
+        
+        ConsultaFormaPagto consultaformapagto = new ConsultaFormaPagto(formapagto);
+        
+        consultaformapagto.addWindowListener(new WindowListener() {
+           @Override
+           public void windowOpened(WindowEvent e) {
+           }
+
+           @Override
+           public void windowClosing(WindowEvent e) {
+           }
+
+           @Override
+           public void windowClosed(WindowEvent e) {
+               
+                formapagto = consultaformapagto.GetFormaPagto();
+                
+                
+                if(formapagto.getIdFormaPagto() > 0){
+                    
+                    String dados;
+                    //Vendas v = new Vendas();
+                    VendasController contr = new VendasController();
+                    //v.setIdFormaPagto(Integer.parseInt(campoFormaPagto.getText()));
+                    //dados = contr.pesquisaFormaPagto(v.getIdFormaPagto());
+                    dados = contr.pesquisaFormaPagto(formapagto.getIdFormaPagto());
+                    if( dados != null){
+                        campoNomeFormaPagto.setText(dados);
+                        campoFormaPagto.setText(Integer.toString(formapagto.getIdFormaPagto()));
+                    }else{
+                        campoNomeFormaPagto.setText("");
+                        JOptionPane.showMessageDialog(null,"Código de Forma de Pagamento não localizado");
+                    }
+                    //v = null;
+                    contr = null;
+                }
+               
+           }
+
+           @Override
+           public void windowIconified(WindowEvent e) {
+           }
+
+           @Override
+           public void windowDeiconified(WindowEvent e) {
+           }
+
+           @Override
+           public void windowActivated(WindowEvent e) {
+           }
+
+           @Override
+           public void windowDeactivated(WindowEvent e) {
+           }
+       });
+       consultaformapagto.setVisible(true);
+        
+        
     }//GEN-LAST:event_botaoPesquisaFormaPagtoActionPerformed
 
     private void campoCodClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCodClienteFocusLost
@@ -1023,7 +1340,28 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         campoDataVenda.setEnabled(true);
         campoDataVenda.setEditable(true);
         campoTotalVenda.setEnabled(true);
-        campoTotalVenda.setEditable(true);
+        campoTotalVenda.setEditable(false);
+        
+        campoCodProduto.setText("");
+        campoNomeProduto.setText("");
+        campoQntProduto.setText("");
+        campoValorUnitProduto.setText("");
+        campoValorTotalProduto.setText("");
+        
+        campoCodProduto.setEnabled(false);
+        campoNomeProduto.setEnabled(false);
+        campoQntProduto.setEnabled(false);
+        campoValorUnitProduto.setEnabled(false);
+        campoValorTotalProduto.setEnabled(false);
+        botaoIncluirProduto.setEnabled(true);
+        botaoExcluirProduto.setEnabled(false);
+        botaoCancelarProduto.setEnabled(false);
+        botaoGravarProduto.setEnabled(false);
+        botaoPesquisarProduto.setEnabled(false);
+        
+        tabelaProdutos.setEnabled(true);
+        
+        
         
     }//GEN-LAST:event_botaoEditarActionPerformed
 
@@ -1078,9 +1416,11 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
     private void botaoExcluirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirProdutoActionPerformed
         // TODO add your handling code here:
         
-        int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir este produto ?", title, JOptionPane.YES_NO_OPTION);
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir este produto ?\n A exclusão do item será permanente.", title, JOptionPane.YES_NO_OPTION);
 
         if (resposta == JOptionPane.YES_OPTION) {
+            
+            VendasController contr = new VendasController();
         
             campoCodProduto.setText("");
             campoNomeProduto.setText("");
@@ -1098,6 +1438,10 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
             botaoCancelarProduto.setEnabled(false);
             botaoGravarProduto.setEnabled(false);
             botaoPesquisarProduto.setEnabled(false);
+            
+            contr.deleteItem(idProdutoClicado);
+            campoTotalVenda.setText(valorFormatado.format(contr.atualizaTotal(idVendaAtual)));
+            preencheTabela(idVendaAtual);
         }
         
     }//GEN-LAST:event_botaoExcluirProdutoActionPerformed
@@ -1182,6 +1526,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         botaoGravarProduto.setEnabled(false);
         botaoPesquisarProduto.setEnabled(false);
 
+        campoTotalVenda.setText(valorFormatado.format(contr.atualizaTotal(idVendaAtual)));
         preencheTabela(idVendaAtual);
         
         p = null;
@@ -1262,9 +1607,12 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_campoQntProdutoActionPerformed
 
     private void tabelaProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdutosMouseClicked
-        // TODO add your handling code here:
+         // TODO add your handling code here:
         if (tabelaProdutos.getSelectedRow()!= -1){
+            ItemVenda itemClicado = item.get(tabelaProdutos.getSelectedRow());
+            idProdutoClicado = itemClicado.getIdVendaxproduto();
             botaoExcluirProduto.setEnabled(true);
+            
         }
         
     }//GEN-LAST:event_tabelaProdutosMouseClicked
@@ -1272,6 +1620,8 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
     private void tabelaProdutosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaProdutosKeyReleased
         // TODO add your handling code here:
         if (tabelaProdutos.getSelectedRow()!= -1){
+            ItemVenda itemClicado = item.get(tabelaProdutos.getSelectedRow());
+            idProdutoClicado = itemClicado.getIdVendaxproduto();
             botaoExcluirProduto.setEnabled(true);
         }
         
@@ -1284,6 +1634,143 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
     private void campoTotalVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoTotalVendaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoTotalVendaActionPerformed
+
+    private void campoCodVendaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCodVendaFocusLost
+        // TODO add your handling code here:
+        
+        if(!(campoCodVenda.getText()).isEmpty()){
+            ArrayList dados;
+            Vendas v = new Vendas();
+            VendasController contr = new VendasController();
+            v.setIdVenda(Integer.parseInt(campoCodVenda.getText()));
+            dados = contr.pesquisaVenda(v.getIdVenda());
+            if(dados != null){
+                campoNomeCliente.setEnabled(true);
+                campoNomeTipoVenda.setEnabled(true);
+                campoNomeFormaPagto.setEnabled(true);
+                campoDataVenda.setEnabled(true);
+                campoDataVenda.setEditable(false);
+                campoTotalVenda.setEnabled(true);
+                campoTotalVenda.setEditable(false);
+                botaoEditar.setEnabled(true);
+                if(Geral.UsuarioLogado.getTipo().equals("Usuário")){
+                    botaoExcluir.setEnabled(false);
+                }
+                else{
+                    botaoExcluir.setEnabled(true);
+                }
+
+                campoDataVenda.setText(dataFormatadaExibir.format(dados.get(0)));
+                campoCodCliente.setText((String)dados.get(1));
+                campoTotalVenda.setText(valorFormatado.format(dados.get(2)));
+                campoTipoVenda.setText((String)dados.get(3));
+                campoFormaPagto.setText((String)dados.get(4));
+                campoNomeCliente.setText((String)dados.get(5));
+                campoNomeTipoVenda.setText((String)dados.get(6));
+                campoNomeFormaPagto.setText((String)dados.get(7));
+                idVendaAtual = v.getIdVenda();
+                tabelaProdutos.setEnabled(false);
+                preencheTabela(idVendaAtual);
+            }else{
+                campoCodCliente.setText("");
+                campoNomeCliente.setText("");
+                campoTipoVenda.setText("");
+                campoNomeTipoVenda.setText("");
+                campoFormaPagto.setText("");
+                campoNomeFormaPagto.setText("");
+                campoDataVenda.setText("");
+                campoTotalVenda.setText("");
+                campoNomeCliente.setEnabled(false);
+                campoNomeTipoVenda.setEnabled(false);
+                campoNomeFormaPagto.setEnabled(false);
+                campoDataVenda.setEnabled(false);
+                campoTotalVenda.setEnabled(false);
+                botaoEditar.setEnabled(false);
+                botaoExcluir.setEnabled(false);
+                
+                botaoIncluirProduto.setEnabled(false);
+                botaoExcluirProduto.setEnabled(false);
+                botaoCancelarProduto.setEnabled(false);
+                botaoGravarProduto.setEnabled(false);
+                botaoPesquisarProduto.setEnabled(false);
+                
+                campoCodVenda.requestFocus();
+                
+                idVendaAtual = 0;
+                preencheTabela(idVendaAtual);
+                
+                JOptionPane.showMessageDialog(null,"Código de Venda não localizado");
+            }
+            v = null;
+            contr = null;
+        }
+        
+        
+    }//GEN-LAST:event_campoCodVendaFocusLost
+
+    private void botaoPesquisarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisarProdutoActionPerformed
+        // TODO add your handling code here:
+
+        ConsultaProduto consultaproduto = new ConsultaProduto(produto);
+
+        consultaproduto.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+                produto = consultaproduto.GetProduto();
+
+                if(produto.getIdProduto() > 0){
+                    Produto dados;
+                    //Produto p = new Produto();
+                    ProdutoController contr = new ProdutoController();
+                    //p.setIdProduto(Integer.parseInt(campoCodProduto.getText()));
+                    //dados = contr.pesquisaProduto(p.getIdProduto());
+                    dados = contr.pesquisaProduto(produto.getIdProduto());
+                    if( dados != null){
+                        campoNomeProduto.setText(dados.getNomeProd());
+                        campoCodProduto.setText(Integer.toString(produto.getIdProduto()));
+                    }else{
+                        campoNomeProduto.setText("");
+                        JOptionPane.showMessageDialog(null,"Produto não encontrado !");
+                        campoCodProduto.requestFocus();
+                    }
+                    //p = null;
+                    contr = null;
+                }
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+            }
+        });
+        consultaproduto.setVisible(true);
+
+    }//GEN-LAST:event_botaoPesquisarProdutoActionPerformed
+
+    private void campoDataVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDataVendaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoDataVendaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

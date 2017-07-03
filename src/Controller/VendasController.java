@@ -35,12 +35,11 @@ public class VendasController {
         
         
         try {
-           stmt = con.prepareStatement("insert into venda (data,idCliente,valor,tipoVenda,formaPagamento) values( ?, ?, ?, ?, ?)");
+           stmt = con.prepareStatement("insert into venda (data,idCliente,tipoVenda,formaPagamento) values( ?, ?, ?, ?)");
            stmt.setString(1, v.getDataVenda());
            stmt.setInt(2,v.getIdCliente());
-           stmt.setDouble(3,v.getValorTotal());
-           stmt.setInt(4, v.getIdTipoVenda());
-           stmt.setInt(5,v.getIdFormaPagto());
+           stmt.setInt(3, v.getIdTipoVenda());
+           stmt.setInt(4,v.getIdFormaPagto());
            
            stmt.executeUpdate();
            JOptionPane.showMessageDialog(null," Venda Gravada !");
@@ -61,13 +60,12 @@ public class VendasController {
         
         
         try {
-            stmt = con.prepareStatement("update venda set data = ?, idCliente = ?, valor = ?, tipoVenda = ?, formaPagamento = ? where idVenda = ?");
+            stmt = con.prepareStatement("update venda set data = ?, idCliente = ?, tipoVenda = ?, formaPagamento = ? where idVenda = ?");
            stmt.setString(1, v.getDataVenda());
            stmt.setInt(2,v.getIdCliente());
-           stmt.setDouble(3,v.getValorTotal());
-           stmt.setInt(4, v.getIdTipoVenda());
-           stmt.setInt(5,v.getIdFormaPagto());
-           stmt.setInt(6,codVenda);
+           stmt.setInt(3, v.getIdTipoVenda());
+           stmt.setInt(4,v.getIdFormaPagto());
+           stmt.setInt(5,codVenda);
            
            stmt.executeUpdate();
            JOptionPane.showMessageDialog(null," Venda Gravada !");
@@ -135,6 +133,43 @@ public class VendasController {
         }
         return 0;
     }
+    
+    
+    public List<Vendas> listaVendas(){
+    Connection con = ConectorMySql.getConnection();
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+
+
+    List<Vendas> venda = new ArrayList<>();
+
+      try {
+          stmt = con.prepareStatement("select * from venda order by data desc, idVenda");
+          rs = stmt.executeQuery();
+
+          while(rs.next()){
+              Vendas ven = new Vendas();
+              
+              ven.setIdVenda(rs.getInt("idVenda"));
+              ven.setDataVenda(rs.getString("data"));
+              ven.setIdCliente(rs.getInt("idCliente"));
+              ven.setValorTotal(rs.getFloat("valor"));
+              ven.setIdTipoVenda(rs.getInt("tipoVenda"));
+              ven.setIdFormaPagto(rs.getInt("formaPagamento"));
+
+              venda.add(ven);
+
+         }
+
+       } catch (SQLException ex) {
+          java.util.logging.Logger.getLogger(ProdutoController.class.getName()).log(Level.SEVERE, null, ex);
+      }finally{
+       ConectorMySql.closeConnection(con, stmt,rs);
+    }
+
+      return venda;
+
+  }
     
     
     public ArrayList pesquisaVenda (int cod) {
@@ -303,6 +338,7 @@ public class VendasController {
                   prod.setQuantidade(rs.getInt("quantidade"));
                   prod.setValorUnit(rs.getFloat("valorUnit"));
                   prod.setValorTotal(rs.getFloat("valorTotal"));
+                  prod.setIdVendaxproduto(rs.getInt("idVendaxproduto"));
                    
                   ListaItens.add(prod);
                                    
@@ -343,6 +379,58 @@ public class VendasController {
               
       
       }
+    
+    public void deleteItem (int id) {
+          
+        Connection con = ConectorMySql.getConnection();
+        PreparedStatement stmt = null;
+        
+        
+        try {
+           stmt = con.prepareStatement("delete from vendaxproduto where idVendaxproduto = ?");
+           stmt.setInt(1,id);
+           
+           stmt.executeUpdate();
+           
+           JOptionPane.showMessageDialog(null," Item Excluído com Sucesso !");
+            
+           } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null," Erro ao excluir item!"+ ex);
+        }finally{
+           ConectorMySql.closeConnection(con, stmt);
+        }
+              
+      
+      }
+    
+    public float atualizaTotal (int id) {
+        
+        Connection con = ConectorMySql.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+           stmt = con.prepareStatement("select valor from venda where idVenda = ?");
+           stmt.setInt(1,id);
+           rs = stmt.executeQuery();
+           
+           if(rs.next()){
+                
+                return rs.getFloat("valor");
+                
+            }else{
+               return 0;
+           }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null," Erro ao atualizar Total da Venda: "+ ex);
+        }finally{
+           ConectorMySql.closeConnection(con, stmt, rs);
+        }
+        return 0;
+    }
+    
+    
     
       public void retornaDados(){
         

@@ -19,6 +19,10 @@ public class ItemVenda {
     private float valorTotal;
     
     private int idVendaxproduto;
+    
+    public ItemVenda(){
+        
+    }
 
     public int getIdVendaxproduto() {
         return idVendaxproduto;

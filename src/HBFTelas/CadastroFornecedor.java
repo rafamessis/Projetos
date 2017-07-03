@@ -10,20 +10,13 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 public class CadastroFornecedor extends javax.swing.JInternalFrame {
-<<<<<<< HEAD
+
             private Fornecedor fornecedo = new Fornecedor();
             private List<Fornecedor> fornecedor = new ArrayList<Fornecedor>();
             FornecedorController contr = new FornecedorController();
             //List<Fornecedor> forneced = null;
             int codigo=0;
-=======
-       FornecedorController contr = new FornecedorController();
-        List<Fornecedor> fornecedor = null;
-        int codigo=0;
-        
-    public void preencheTabela(){
->>>>>>> f4e47aa76ff4603814f4f19efee456342e834cb9
-        
+      
       
     public CadastroFornecedor() {
         initComponents();

@@ -14,6 +14,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,7 @@ import javax.swing.JOptionPane;
  */
 public class VendasController {
     
+    DateFormat dataFormatada = new SimpleDateFormat("yyMMdd");
 
     
     public void create (Vendas v) {
@@ -36,7 +39,7 @@ public class VendasController {
         
         try {
            stmt = con.prepareStatement("insert into venda (data,idCliente,tipoVenda,formaPagamento) values( ?, ?, ?, ?)");
-           stmt.setString(1, v.getDataVenda());
+           stmt.setString(1, dataFormatada.format(v.getDataVenda()));
            stmt.setInt(2,v.getIdCliente());
            stmt.setInt(3, v.getIdTipoVenda());
            stmt.setInt(4,v.getIdFormaPagto());
@@ -60,8 +63,10 @@ public class VendasController {
         
         
         try {
-            stmt = con.prepareStatement("update venda set data = ?, idCliente = ?, tipoVenda = ?, formaPagamento = ? where idVenda = ?");
-           stmt.setString(1, v.getDataVenda());
+            
+            
+           stmt = con.prepareStatement("update venda set data = ?, idCliente = ?, tipoVenda = ?, formaPagamento = ? where idVenda = ?");
+           stmt.setString(1, dataFormatada.format(v.getDataVenda()));
            stmt.setInt(2,v.getIdCliente());
            stmt.setInt(3, v.getIdTipoVenda());
            stmt.setInt(4,v.getIdFormaPagto());
@@ -144,14 +149,14 @@ public class VendasController {
     List<Vendas> venda = new ArrayList<>();
 
       try {
-          stmt = con.prepareStatement("select * from venda order by data desc, idVenda");
+          stmt = con.prepareStatement("select * from venda order by idVenda desc");
           rs = stmt.executeQuery();
 
           while(rs.next()){
               Vendas ven = new Vendas();
               
               ven.setIdVenda(rs.getInt("idVenda"));
-              ven.setDataVenda(rs.getString("data"));
+              ven.setDataVenda(rs.getDate("data"));
               ven.setIdCliente(rs.getInt("idCliente"));
               ven.setValorTotal(rs.getFloat("valor"));
               ven.setIdTipoVenda(rs.getInt("tipoVenda"));
@@ -172,12 +177,12 @@ public class VendasController {
   }
     
     
-    public ArrayList pesquisaVenda (int cod) {
+    public Vendas pesquisaVenda (int cod) {
         
         Connection con = ConectorMySql.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        ArrayList dados = new ArrayList();
+        Vendas venda = new Vendas();
         
         try {
            stmt = con.prepareStatement("select data,idCliente,valor,tipoVenda,formaPagamento from venda where idVenda = ?");
@@ -186,13 +191,13 @@ public class VendasController {
            
            if(rs.next()){
                 
-                /*SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-                dados.add(f.format(rs.getDate("data")));*/
-                dados.add(rs.getDate("data"));
-                dados.add(rs.getString("idCliente"));
-                dados.add(rs.getDouble("valor"));
-                dados.add(rs.getString("tipoVenda"));
-                dados.add(rs.getString("formaPagamento"));
+                //SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+                //dados.add(f.format(rs.getDate("data")));
+                venda.setDataVenda(rs.getDate("data"));
+                venda.setIdCliente(rs.getInt("idCliente"));
+                venda.setValorTotal(rs.getDouble("valor"));
+                venda.setIdTipoVenda(rs.getInt("tipoVenda"));
+                venda.setIdFormaPagto(rs.getInt("formaPagamento"));
                 /*int codCliente = Integer.parseInt(rs.getString("idCliente"));
                 int codTipoVenda = Integer.parseInt(rs.getString("tipoVenda"));
                 int codFormaPagto = Integer.parseInt(rs.getString("formaPagamento"));;*/
@@ -203,9 +208,9 @@ public class VendasController {
                 rs = stmt.executeQuery();
                 rs.next();
                 dados.add(rs.getString("nome"));*/
-                dados.add(pesquisaCliente(Integer.parseInt(rs.getString("idCliente"))));
-                dados.add(pesquisaTipoVenda(Integer.parseInt(rs.getString("tipoVenda"))));
-                dados.add(pesquisaFormaPagto(Integer.parseInt(rs.getString("formaPagamento"))));
+                venda.setNomeCliente(pesquisaCliente(Integer.parseInt(rs.getString("idCliente"))));
+                venda.setNomeTipoVenda(pesquisaTipoVenda(Integer.parseInt(rs.getString("tipoVenda"))));
+                venda.setNomeFormaPagto(pesquisaFormaPagto(Integer.parseInt(rs.getString("formaPagamento"))));
                 /*stmt = null;
                 rs = null;
                 stmt = con.prepareStatement("select nome from tipovenda where id = ?");
@@ -221,7 +226,7 @@ public class VendasController {
                 rs.next();
                 dados.add(rs.getString("nome"));*/
                 
-                return dados;
+                return venda;
             }else{
                return null;
            }

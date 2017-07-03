@@ -37,7 +37,7 @@ public class ConsultaVenda extends javax.swing.JFrame {
         
         vendas = contr.listaVendas();
         for(Vendas v: vendas){
-            ven.addRow(new Object[]{v.getIdVenda(), v.getDataVenda(), contr.pesquisaCliente(v.getIdCliente()), valorFormatado.format(v.getValorTotal()), contr.pesquisaTipoVenda(v.getIdTipoVenda()), contr.pesquisaFormaPagto(v.getIdFormaPagto())});
+            ven.addRow(new Object[]{v.getIdVenda(), (v.getDataVenda()).toString(), contr.pesquisaCliente(v.getIdCliente()), valorFormatado.format(v.getValorTotal()), contr.pesquisaTipoVenda(v.getIdTipoVenda()), contr.pesquisaFormaPagto(v.getIdFormaPagto())});
         }
         
     }

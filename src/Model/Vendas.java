@@ -13,11 +13,38 @@ import java.util.Date;
  */
 public class Vendas {
     private int idVenda;
-    private String dataVenda;
+    private Date dataVenda;
     private int idCliente;
+    private String nomeCliente;
     private double valorTotal;
     private int idTipoVenda;
+    private String nomeTipoVenda;
     private int idFormaPagto;
+    private String nomeFormaPagto;
+
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
+    }
+
+    public String getNomeTipoVenda() {
+        return nomeTipoVenda;
+    }
+
+    public void setNomeTipoVenda(String nomeTipoVenda) {
+        this.nomeTipoVenda = nomeTipoVenda;
+    }
+
+    public String getNomeFormaPagto() {
+        return nomeFormaPagto;
+    }
+
+    public void setNomeFormaPagto(String nomeFormaPagto) {
+        this.nomeFormaPagto = nomeFormaPagto;
+    }
 
     public int getIdVenda() {
         return idVenda;
@@ -27,11 +54,11 @@ public class Vendas {
         this.idVenda = idVenda;
     }
 
-    public String getDataVenda() {
+    public Date getDataVenda() {
         return dataVenda;
     }
 
-    public void setDataVenda(String dataVenda) {
+    public void setDataVenda(Date dataVenda) {
         this.dataVenda = dataVenda;
     }
 

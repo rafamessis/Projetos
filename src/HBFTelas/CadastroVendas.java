@@ -23,11 +23,15 @@ import com.mysql.jdbc.StringUtils;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -109,7 +113,6 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         campoTotalVenda = new javax.swing.JTextField();
         botaoGravarVenda = new javax.swing.JButton();
-        campoDataVenda = new javax.swing.JTextField();
         botaoIncluir = new javax.swing.JButton();
         botaoExcluir = new javax.swing.JButton();
         botaoEditar = new javax.swing.JButton();
@@ -134,6 +137,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         botaoGravarProduto = new javax.swing.JButton();
         botaoPesquisarProduto = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
+        campoDataVenda = new org.jdesktop.swingx.JXDatePicker();
 
         setClosable(true);
         setIconifiable(true);
@@ -257,13 +261,6 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         botaoGravarVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoGravarVendaActionPerformed(evt);
-            }
-        });
-
-        campoDataVenda.setEnabled(false);
-        campoDataVenda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoDataVendaActionPerformed(evt);
             }
         });
 
@@ -429,6 +426,8 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/LogoFundo.png"))); // NOI18N
 
+        campoDataVenda.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -466,6 +465,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -474,7 +474,6 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                                         .addComponent(botaoPesquisaTipoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(campoNomeTipoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel3)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel1)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -492,8 +491,8 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                                                 .addComponent(botaoPesquisaVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(jLabel2)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(campoDataVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(campoDataVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                         .addGap(134, 134, 134)
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -575,8 +574,8 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel1)
                                         .addComponent(campoCodVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(botaoPesquisaVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(campoDataVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2))))
@@ -664,7 +663,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
     
     private void botaoGravarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGravarVendaActionPerformed
         // TODO add your handling code here:
-      if(!(campoNomeCliente.getText()).isEmpty() && !(campoNomeTipoVenda.getText()).isEmpty() && !(campoNomeFormaPagto.getText()).isEmpty() && !(campoDataVenda.getText().isEmpty())){
+      if(!(campoNomeCliente.getText()).isEmpty() && !(campoNomeTipoVenda.getText()).isEmpty() && !(campoNomeFormaPagto.getText()).isEmpty() && !(campoDataVenda.getDate() == null)){
         Vendas v = new Vendas();
         VendasController contr = new VendasController();
         /*String teste = dataFormatadaSalvar.format(campoDataVenda.getText());
@@ -674,9 +673,10 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         JOptionPane.showMessageDialog(null,(dataFormatadaSalvar.format(teste)).toString());
         
         v.setDataVenda((dataFormatadaSalvar.format(teste)).toString());*/
+        v.setDataVenda(campoDataVenda.getDate());
         
         
-        v.setDataVenda(campoDataVenda.getText());
+        //v.setDataVenda(campoDataVenda.getText());
         v.setIdCliente(Integer.parseInt(campoCodCliente.getText()));
         v.setIdTipoVenda(Integer.parseInt(campoTipoVenda.getText()));
         v.setIdFormaPagto(Integer.parseInt(campoFormaPagto.getText()));
@@ -745,7 +745,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         campoNomeTipoVenda.setText("");
         campoFormaPagto.setText("");
         campoNomeFormaPagto.setText("");
-        campoDataVenda.setText("");
+        //campoDataVenda.removeAll();
         campoTotalVenda.setText("");
         
         
@@ -818,7 +818,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         campoNomeTipoVenda.setText("");
         campoFormaPagto.setText("");
         campoNomeFormaPagto.setText("");
-        campoDataVenda.setText("");
+        //campoDataVenda.removeAll();
         campoTotalVenda.setText("");
         
         campoCodProduto.setText("");
@@ -938,7 +938,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                 
                 
                 if(venda.getIdVenda() > 0){
-                ArrayList dados;
+                Vendas dados;
                 //Vendas v = new Vendas();
                 VendasController contr = new VendasController();
                 //v.setIdVenda(Integer.parseInt(campoCodVenda.getText()));
@@ -961,14 +961,14 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                     }
 
                     campoCodVenda.setText(Integer.toString(venda.getIdVenda()));
-                    campoDataVenda.setText(dataFormatadaExibir.format(dados.get(0)));
-                    campoCodCliente.setText((String)dados.get(1));
-                    campoTotalVenda.setText(valorFormatado.format(dados.get(2)));
-                    campoTipoVenda.setText((String)dados.get(3));
-                    campoFormaPagto.setText((String)dados.get(4));
-                    campoNomeCliente.setText((String)dados.get(5));
-                    campoNomeTipoVenda.setText((String)dados.get(6));
-                    campoNomeFormaPagto.setText((String)dados.get(7));
+                    campoDataVenda.setDate(dados.getDataVenda());
+                    campoCodCliente.setText(Integer.toString(dados.getIdCliente()));
+                    campoTotalVenda.setText(valorFormatado.format(dados.getValorTotal()));
+                    campoTipoVenda.setText(Integer.toString(dados.getIdTipoVenda()));
+                    campoFormaPagto.setText(Integer.toString(dados.getIdFormaPagto()));
+                    campoNomeCliente.setText(dados.getNomeCliente());
+                    campoNomeTipoVenda.setText(dados.getNomeTipoVenda());
+                    campoNomeFormaPagto.setText(dados.getNomeFormaPagto());
                     idVendaAtual = venda.getIdVenda();
                     tabelaProdutos.setEnabled(false);
                     preencheTabela(idVendaAtual);
@@ -979,7 +979,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                     campoNomeTipoVenda.setText("");
                     campoFormaPagto.setText("");
                     campoNomeFormaPagto.setText("");
-                    campoDataVenda.setText("");
+                    //campoDataVenda.removeAll();
                     campoTotalVenda.setText("");
                     campoNomeCliente.setEnabled(false);
                     campoNomeTipoVenda.setEnabled(false);
@@ -1400,7 +1400,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
             campoNomeTipoVenda.setText("");
             campoFormaPagto.setText("");
             campoNomeFormaPagto.setText("");
-            campoDataVenda.setText("");
+            //campoDataVenda.removeAll();
             campoTotalVenda.setText("");
             
             idVendaAtual = 0;
@@ -1639,7 +1639,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         
         if(!(campoCodVenda.getText()).isEmpty()){
-            ArrayList dados;
+            Vendas dados;
             Vendas v = new Vendas();
             VendasController contr = new VendasController();
             v.setIdVenda(Integer.parseInt(campoCodVenda.getText()));
@@ -1660,15 +1660,16 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                     botaoExcluir.setEnabled(true);
                 }
 
-                campoDataVenda.setText(dataFormatadaExibir.format(dados.get(0)));
-                campoCodCliente.setText((String)dados.get(1));
-                campoTotalVenda.setText(valorFormatado.format(dados.get(2)));
-                campoTipoVenda.setText((String)dados.get(3));
-                campoFormaPagto.setText((String)dados.get(4));
-                campoNomeCliente.setText((String)dados.get(5));
-                campoNomeTipoVenda.setText((String)dados.get(6));
-                campoNomeFormaPagto.setText((String)dados.get(7));
-                idVendaAtual = v.getIdVenda();
+                campoCodVenda.setText(Integer.toString(v.getIdVenda()));
+                campoDataVenda.setDate(dados.getDataVenda());
+                campoCodCliente.setText(Integer.toString(dados.getIdCliente()));
+                campoTotalVenda.setText(valorFormatado.format(dados.getValorTotal()));
+                campoTipoVenda.setText(Integer.toString(dados.getIdTipoVenda()));
+                campoFormaPagto.setText(Integer.toString(dados.getIdFormaPagto()));
+                campoNomeCliente.setText(dados.getNomeCliente());
+                campoNomeTipoVenda.setText(dados.getNomeTipoVenda());
+                campoNomeFormaPagto.setText(dados.getNomeFormaPagto());
+                idVendaAtual = venda.getIdVenda();
                 tabelaProdutos.setEnabled(false);
                 preencheTabela(idVendaAtual);
             }else{
@@ -1678,7 +1679,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                 campoNomeTipoVenda.setText("");
                 campoFormaPagto.setText("");
                 campoNomeFormaPagto.setText("");
-                campoDataVenda.setText("");
+                //campoDataVenda.removeAll();
                 campoTotalVenda.setText("");
                 campoNomeCliente.setEnabled(false);
                 campoNomeTipoVenda.setEnabled(false);
@@ -1768,10 +1769,6 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_botaoPesquisarProdutoActionPerformed
 
-    private void campoDataVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDataVendaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoDataVendaActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCancelar;
@@ -1792,7 +1789,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
     private javax.swing.JTextField campoCodCliente;
     private javax.swing.JTextField campoCodProduto;
     private javax.swing.JTextField campoCodVenda;
-    private javax.swing.JTextField campoDataVenda;
+    private org.jdesktop.swingx.JXDatePicker campoDataVenda;
     private javax.swing.JTextField campoFormaPagto;
     private javax.swing.JTextField campoNomeCliente;
     private javax.swing.JTextField campoNomeFormaPagto;

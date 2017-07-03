@@ -8,11 +8,9 @@ package HBFTelas;
 import Controller.UsuarioController;
 import Model.Geral;
 import Model.Usuario;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
@@ -155,7 +153,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotaoEntrarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoEntrarLoginActionPerformed
-       
+
         usuarios = ucontroller.read(" where nomeFunc = '" + txtNomeLogin.getText().trim()  + "'" );
         String nome = txtNomeLogin.getText().trim();
         String senha = txtSenhaLogin.getText().trim();
@@ -170,6 +168,7 @@ public class TelaLogin extends javax.swing.JFrame {
           
         }
         JOptionPane.showMessageDialog(null, "Senha ou usuário incorretos!");
+      
        
 //        if (nome.equals("higor") && senha.equals("123456")){
 //            TelaPrincipal tela = new TelaPrincipal();
@@ -189,7 +188,28 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSenhaLoginActionPerformed
 
     private void BotaoEntrarLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BotaoEntrarLoginKeyPressed
-     usuarios = ucontroller.read(" where nomeFunc = '" + txtNomeLogin.getText().trim()  + "'" );
+        int tecla; 
+        tecla = evt.getKeyCode();
+        if(tecla==KeyEvent.VK_ENTER) {  
+             //executa algo se enter for pressionado. 
+            
+            usuarios = ucontroller.read(" where nomeFunc = '" + txtNomeLogin.getText().trim()  + "'" );
+        String nome = txtNomeLogin.getText().trim();
+        String senha = txtSenhaLogin.getText().trim();
+             if(usuarios.size() > 0 && nome.equals(usuarios.get(0).getNomeUsuario()) && senha.equals(usuarios.get(0).getSenhaUsuario())){
+                
+                 Geral.UsuarioLogado = usuarios.get(0);
+                 
+                 TelaPrincipal tela = new TelaPrincipal();
+                tela.setVisible(true);
+                dispose();
+                return;
+          
+        }
+        JOptionPane.showMessageDialog(null, "Senha ou usuário incorretos!");
+            
+        /* 
+        usuarios = ucontroller.read(" where nomeFunc = '" + txtNomeLogin.getText().trim()  + "'" );
         String nome = txtNomeLogin.getText().trim();
         String senha = txtSenhaLogin.getText().trim();
              if(usuarios.size() > 0 && nome.equals(usuarios.get(0).getNomeUsuario()) && senha.equals(usuarios.get(0).getSenhaUsuario())){
@@ -201,10 +221,16 @@ public class TelaLogin extends javax.swing.JFrame {
                 dispose();
                 return;
              }
+            */
+      }
         
     }//GEN-LAST:event_BotaoEntrarLoginKeyPressed
 
     private void txtSenhaLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaLoginKeyPressed
+        
+        int tecla; 
+        tecla = evt.getKeyCode();
+        if(tecla==KeyEvent.VK_ENTER) {
         
         usuarios = ucontroller.read(" where nomeFunc = '" + txtNomeLogin.getText().trim()  + "'" );
         String nome = txtNomeLogin.getText().trim();
@@ -218,7 +244,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 dispose();
                 return;
              }
-        
+        }
     }//GEN-LAST:event_txtSenhaLoginKeyPressed
 
     /**

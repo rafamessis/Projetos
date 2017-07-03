@@ -66,7 +66,7 @@ public class ConsultaVenda extends javax.swing.JFrame {
         botaoSelecionar = new javax.swing.JButton();
         botaoCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulta de Vendas");
 
         tabelaConsultaVenda.setModel(new javax.swing.table.DefaultTableModel(

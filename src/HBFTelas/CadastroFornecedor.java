@@ -10,11 +10,19 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 public class CadastroFornecedor extends javax.swing.JInternalFrame {
+<<<<<<< HEAD
             private Fornecedor fornecedo = new Fornecedor();
             private List<Fornecedor> fornecedor = new ArrayList<Fornecedor>();
             FornecedorController contr = new FornecedorController();
             //List<Fornecedor> forneced = null;
             int codigo=0;
+=======
+       FornecedorController contr = new FornecedorController();
+        List<Fornecedor> fornecedor = null;
+        int codigo=0;
+        
+    public void preencheTabela(){
+>>>>>>> f4e47aa76ff4603814f4f19efee456342e834cb9
         
       
     public CadastroFornecedor() {
@@ -60,7 +68,7 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
         campoWhatsapp = new javax.swing.JTextField();
         campoSite = new javax.swing.JTextField();
         botaoInserir = new javax.swing.JButton();
-        botaoSalvar = new javax.swing.JButton();
+        botaoAlterar = new javax.swing.JButton();
         botaoExcluir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -70,7 +78,7 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelafornecedor = new javax.swing.JTable();
-        botaocancelar = new javax.swing.JButton();
+        botaoCancelar = new javax.swing.JButton();
         campoCodigo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
 
@@ -105,12 +113,12 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
             }
         });
 
-        botaoSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Editar.png"))); // NOI18N
-        botaoSalvar.setText("Alterar");
-        botaoSalvar.setEnabled(false);
-        botaoSalvar.addActionListener(new java.awt.event.ActionListener() {
+        botaoAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Editar.png"))); // NOI18N
+        botaoAlterar.setText("Alterar");
+        botaoAlterar.setEnabled(false);
+        botaoAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoSalvarActionPerformed(evt);
+                botaoAlterarActionPerformed(evt);
             }
         });
 
@@ -150,11 +158,11 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tabelafornecedor);
 
-        botaocancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Cancelar.png"))); // NOI18N
-        botaocancelar.setText("Cancelar");
-        botaocancelar.addActionListener(new java.awt.event.ActionListener() {
+        botaoCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Cancelar.png"))); // NOI18N
+        botaoCancelar.setText("Cancelar");
+        botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaocancelarActionPerformed(evt);
+                botaoCancelarActionPerformed(evt);
             }
         });
 
@@ -177,11 +185,11 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(botaoInserir)
                                 .addGap(26, 26, 26)
-                                .addComponent(botaoSalvar)
+                                .addComponent(botaoAlterar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(botaoExcluir)
                                 .addGap(27, 27, 27)
-                                .addComponent(botaocancelar))
+                                .addComponent(botaoCancelar))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -245,9 +253,9 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoExcluir)
-                    .addComponent(botaoSalvar)
+                    .addComponent(botaoAlterar)
                     .addComponent(botaoInserir)
-                    .addComponent(botaocancelar))
+                    .addComponent(botaoCancelar))
                 .addGap(37, 37, 37)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -257,7 +265,7 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void campoNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNomeActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_campoNomeActionPerformed
 
        
@@ -271,9 +279,13 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
             contr.delete(String.valueOf(f.getCodigo()));
             preencheTabela();
         }
+        limpar();
+        botaoExcluir.setEnabled(false);
+        botaoAlterar.setEnabled(false);
+        botaoInserir.setEnabled(true);
     }//GEN-LAST:event_botaoExcluirActionPerformed
 
-    private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
+    private void botaoAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarActionPerformed
         Fornecedor f = new Fornecedor();
         
         int posicao = tabelafornecedor.getSelectedRow();//Buscando o numero da posição da tabela que foi clicado no mouse
@@ -284,28 +296,28 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
         String whats = campoWhatsapp.getText().trim();
         String site = campoSite.getText().trim();
         
-        if(nome.isEmpty()){//Verificando se o Campo nome esta com algum valor
-            JOptionPane.showMessageDialog(null, "Por favor insira o nome:");
+        if(nome.isEmpty()){//Verificando se o Campo esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o Nome:");
             return;
         }
-        else if(endereco.isEmpty()){//Verificando se o Campo senha esta com algum valor
-            JOptionPane.showMessageDialog(null, "Por favor insira o endereço:");
+        else if(endereco.isEmpty()){//Verificando se o Campo esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o Endereço:");
             return;
         }
-        else if(cpcnpj.isEmpty()){//Verificando se o Campo senha esta com algum valor
-            JOptionPane.showMessageDialog(null, "Por favor insira o endereço:");
+        else if(cpcnpj.isEmpty()){//Verificando se o Campo esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o CPF/CNPJ:");
             return;
         }
-        else if(fone.isEmpty()){//Verificando se o Campo senha esta com algum valor
-            JOptionPane.showMessageDialog(null, "Por favor insira o endereço:");
+        else if(fone.isEmpty()){//Verificando se o Campo esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o Telefone:");
             return;
         }
-        else if(whats.isEmpty()){//Verificando se o Campo senha esta com algum valor
-            JOptionPane.showMessageDialog(null, "Por favor insira o endereço:");
+        else if(whats.isEmpty()){//Verificando se o Campo esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o Whatsapp:");
             return;
         }
-        else if(site.isEmpty()){//Verificando se o Campo senha esta com algum valor
-            JOptionPane.showMessageDialog(null, "Por favor insira o endereço:");
+        else if(site.isEmpty()){//Verificando se o Campo esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o Site:");
             return;
         }
         
@@ -320,108 +332,78 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
         
         contr.update(f,codigo);
         
-        preencheTabela();
-        
+        preencheTabela();    
         limpar();
-        campoCodigo.setText("");
-        
-        
+        campoCodigo.setText("");             
         codigo = 0;
-        campoCodigo.setText("");
         
-        botaoSalvar.setEnabled(false);
+        botaoAlterar.setEnabled(false);
         botaoExcluir.setEnabled(false);
         botaoInserir.setEnabled(true);
-        
-        
-        /*    Fornecedor f = new Fornecedor(); 
-        
-        int posicao = tabelafornecedor.getSelectedRow();//Buscando o numero da posição da tabela que foi clicado no mouse
-        String nomef = campoNome.getText().trim();
-        String enderecof = campoEndereco.getText().trim();
-        String telefonef = campoFone.getText().trim();
-        String whatsappf = campoWhatsapp.getText().trim();
-        String sitef = (campoSite.getText().trim());
-        String cpcnpjf = campoCpfcnpj.getText().trim();
-        
-         
-         if (nomef.isEmpty()){
-             JOptionPane.showMessageDialog(null, "Por favor insira o nome:");
-            return;
-         }
-         else if
-                 (enderecof.isEmpty()){
-             JOptionPane.showMessageDialog(null, "Por favor insira o endereço:");
-            return;
-         }
-         else if
-                 (cpcnpjf.isEmpty()){
-             JOptionPane.showMessageDialog(null, "Por favor insira o CPF / CNPJ:");
-            return;
-         }
-         else if
-                 (telefonef.isEmpty()){
-             JOptionPane.showMessageDialog(null, "Por favor insira o telefone:");
-            return;
-         }
-         else if
-                 (whatsappf.isEmpty()){
-             JOptionPane.showMessageDialog(null, "Por favor insira o whatsapp:");
-            return;
-         }
-         else if
-                 (sitef.isEmpty()){
-             JOptionPane.showMessageDialog(null, "Por favor insira o Site");
-             return;
-         } 
-         
-         fornecedor = contr.read("");
-        
-        f.setNome(nomef); //passando para o objeto o nome digitado no campo nome
-        f.setEndereco(enderecof);//passando para o objeto o endereco digitado no campo endereco
-        f.setCpf_cnpj(cpcnpjf); //passando para o objeto o cpf/cnpj digitado no campo cpf/cnpj
-        f.setFone(telefonef);
-        f.setWhatsapp(whatsappf);
-        f.setSite(sitef);
-        
-        
-        contr.update(f,codigo);//colocando o objeto no Bando de dados
-        
-        preencheTabela();
-            */
-    }//GEN-LAST:event_botaoSalvarActionPerformed
+    }//GEN-LAST:event_botaoAlterarActionPerformed
 
     private void botaoInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoInserirActionPerformed
+        
         Fornecedor f= new Fornecedor();
         FornecedorController contr = new FornecedorController();
+        
+        String nome = campoNome.getText().trim();//gravando o que esta no campo para a variavel senha
+        String endereco = campoEndereco.getText().trim();
+        String cpcnpj = campoCpfcnpj.getText().trim();
+        String fone =   campoFone.getText();
+        String whats = campoWhatsapp.getText().trim();
+        String site = campoSite.getText().trim();
+        
+        if(nome.isEmpty()){//Verificando se o Campo esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o Nome:");
+            return;
+        }
+        else if(endereco.isEmpty()){//Verificando se o Campo esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o Endereço:");
+            return;
+        }
+        else if(cpcnpj.isEmpty()){//Verificando se o Campo esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o CPF/CNPJ:");
+            return;
+        }
+        else if(fone.isEmpty()){//Verificando se o Campo esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o Telefone:");
+            return;
+        }
+        else if(whats.isEmpty()){//Verificando se o Campo esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o Whatsapp:");
+            return;
+        }
+        else if(site.isEmpty()){//Verificando se o Campo esta com algum valor
+            JOptionPane.showMessageDialog(null, "Por favor insira o Site:");
+            return;
+        }
+                
         f.setNome(campoNome.getText());
         f.setCpf_cnpj(campoCpfcnpj.getText());
-        // f.setCodigo(Integer.parseInt(campoCodigo.getText()));
         f.setEndereco(campoEndereco.getText());
         f.setFone(campoFone.getText());
         f.setWhatsapp(campoWhatsapp.getText());
         f.setSite(campoSite.getText());
             contr.create(f);
-        // if(!(campoNome.getText()).isEmpty()&& !(campoCodigo.getText()).isEmpty()&& !(campoEndereco.getText()).isEmpty()&& !(campoCpfcnpj.getText()).isEmpty()&& !(campoFone.getText()).isEmpty()&& !(campoWhatsapp.getText()).isEmpty()&& !(campoSite.getText()).isEmpty()){
-            //Fornecedor f = new Fornecedor();
-           // FornecedorController contr = new FornecedorController();  
-           // f.setNome(campoNome.getText());
-         //   f.getCpf_cnpj(Integer.parseInt(campoCpfcnpj.getText()));
-       // }
+
         limpar();
         preencheTabela();
+        botaoExcluir.setEnabled(false);
+        botaoAlterar.setEnabled(false);
+        botaoInserir.setEnabled(true);
     }//GEN-LAST:event_botaoInserirActionPerformed
 
-    private void botaocancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaocancelarActionPerformed
+    private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
         limpar();
         
         campoCodigo.setText("");
         
         botaoExcluir.setEnabled(false);
-        botaoSalvar.setEnabled(false);
+        botaoAlterar.setEnabled(false);
         botaoInserir.setEnabled(true);
         
-    }//GEN-LAST:event_botaocancelarActionPerformed
+    }//GEN-LAST:event_botaoCancelarActionPerformed
 
     private void tabelafornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelafornecedorMouseClicked
         String Tipo="";
@@ -438,7 +420,7 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
            codigo =fornecedores.getCodigo();//Nome parametro para alterar
            botaoInserir.setEnabled(false);
            botaoExcluir.setEnabled(true);
-           botaoSalvar.setEnabled(true);
+           botaoAlterar.setEnabled(true);
     }//GEN-LAST:event_tabelafornecedorMouseClicked
     public void novo(){
         campoNome.setEnabled(true);
@@ -449,25 +431,19 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
         campoSite.setEnabled(true);
     }   
         public void limpar(){
-//        campoNome.setEnabled(false);
-//        campoEndereco.setEnabled(false);
-//        campoCpfcnpj.setEnabled(false);
-//        campoFone.setEnabled(false);
-  //      campoWhatsapp.setEnabled(false);
- //       campoSite.setEnabled(false);
-    
+        campoCodigo.setText("");
         campoNome.setText("");
         campoEndereco.setText("");
         campoCpfcnpj.setText("");
         campoFone.setText("");
         campoWhatsapp.setText("");
         campoSite.setText("");
-        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoAlterar;
+    private javax.swing.JButton botaoCancelar;
     private javax.swing.JButton botaoExcluir;
     private javax.swing.JButton botaoInserir;
-    private javax.swing.JButton botaoSalvar;
-    private javax.swing.JButton botaocancelar;
     private javax.swing.JTextField campoCodigo;
     private javax.swing.JTextField campoCpfcnpj;
     private javax.swing.JTextField campoEndereco;

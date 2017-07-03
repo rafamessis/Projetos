@@ -2,33 +2,51 @@ package HBFTelas;
 
 import Controller.FornecedorController;
 import Model.Fornecedor;
+import java.awt.event.WindowListener;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 public class CadastroFornecedor extends javax.swing.JInternalFrame {
-//    int acao;
- //   Fornecedor f= new Fornecedor();
-       FornecedorController contr = new FornecedorController();
-        List<Fornecedor> fornecedor = null;
-        int codigo=0;
+            private Fornecedor fornecedo = new Fornecedor();
+            private List<Fornecedor> fornecedor = new ArrayList<Fornecedor>();
+            FornecedorController contr = new FornecedorController();
+            //List<Fornecedor> forneced = null;
+            int codigo=0;
         
-    public void preencheTabela(){
-        
+      
+    public CadastroFornecedor() {
+        initComponents();
         DefaultTableModel tabela = (DefaultTableModel)tabelafornecedor.getModel();
         tabelafornecedor.setRowSorter(new TableRowSorter(tabela));
+        
+        preencheTabela();
+    }
+     
+        public Fornecedor GetFornecedor() {
+
+        return fornecedo;
+    }
+     public CadastroFornecedor(Fornecedor fornecedor){
+         this();
+         
+         this.fornecedo = fornecedor;
+     }
+     public void preencheTabela(){
+        DefaultTableModel tabela = (DefaultTableModel)tabelafornecedor.getModel();       
+        
         tabela.setNumRows(0);
         fornecedor = contr.read();
         for(int i=0;i<fornecedor.size();i++){
-            tabela.addRow(new Object[]{ fornecedor.get(i).getCodigo(),fornecedor.get(i).getNome(),fornecedor.get(i).getCpf_cnpj()});
+            tabela.addRow(new Object[]{ fornecedor.get(i).getCodigo()
+                    ,fornecedor.get(i).getNome(),fornecedor.get(i).getCpf_cnpj()});
         }
        }
-    public CadastroFornecedor() {
-        initComponents();
-        preencheTabela();
-    }
-  
+     
+     
+     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -242,6 +260,9 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoNomeActionPerformed
 
+       
+    
+    
     private void botaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirActionPerformed
         Fornecedor f = new Fornecedor();        
         f.setCodigo(Integer.parseInt(campoCodigo.getText().trim()));        
@@ -466,4 +487,6 @@ public class CadastroFornecedor extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable tabelafornecedor;
     // End of variables declaration//GEN-END:variables
+
+    
 }

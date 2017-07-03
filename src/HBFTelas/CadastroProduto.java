@@ -13,6 +13,7 @@ import Model.Categorias;
 import Model.Estoque;
 import Model.Fornecedor;
 import com.oracle.jrockit.jfr.Producer;
+import com.sun.java.accessibility.util.AWTEventMonitor;
 import java.awt.Dialog;
 import java.awt.Window;
 import java.awt.event.WindowEvent;
@@ -39,9 +40,12 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
       Categorias categoria = new Categorias();
       private ArrayList<Categorias> categorias = null;
       private Categorias cat = new Categorias();
-      private Fornecedor forneced = new Fornecedor();
+      
+      Fornecedor fornc = null;
+      Fornecedor forncedor = new Fornecedor();
+      private ArrayList<Fornecedor> fornecedores = null;
       private Fornecedor fornec = new Fornecedor(); 
-      Fornecedor forn = null;
+      
       
       
       
@@ -83,7 +87,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         pesquisaFornecedor = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         qntdEstoque = new javax.swing.JTextField();
-        pesquisaEstoque = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         botaosair = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -163,6 +166,11 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         codigoSku.setBounds(640, 90, 80, 30);
 
         precoCompra.setEnabled(false);
+        precoCompra.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                precoCompraFocusLost(evt);
+            }
+        });
         getContentPane().add(precoCompra);
         precoCompra.setBounds(120, 210, 100, 30);
 
@@ -310,16 +318,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(qntdEstoque);
-        qntdEstoque.setBounds(390, 210, 80, 30);
-
-        pesquisaEstoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Pesquisar.png"))); // NOI18N
-        pesquisaEstoque.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pesquisaEstoqueActionPerformed(evt);
-            }
-        });
-        getContentPane().add(pesquisaEstoque);
-        pesquisaEstoque.setBounds(470, 210, 40, 30);
+        qntdEstoque.setBounds(380, 210, 80, 30);
 
         botaosair.setText("Arquivos");
         botaosair.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -380,7 +379,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
     private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
               
-                 Produto produto = new Produto();
+                Produto produto = new Produto();
                 ProdutoController contr = new ProdutoController();
                  
                    
@@ -448,9 +447,9 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             
             FornecedorController forne = new FornecedorController();
             
-            forn = forne.pesquisaFornecedor(fornec.getCodigo());
+            fornc = forne.pesquisaFornecedor(fornec.getCodigo());
             
-            forn.setCodigo(fornec.getCodigo());
+            fornc.setCodigo(fornec.getCodigo());
             categ.setNomeCat(fornec.getNome());
         }
         
@@ -459,7 +458,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         EstoqueController contr = new EstoqueController();
          est = contr.RecuperaEstoqueProduto(prod.getIdProduto());
          est.setProdutoId(prod.getIdProduto());
-         pesquisaEstoque.setText(Integer.toString(est.getQuantidade()));
+         
     }
         
         
@@ -888,13 +887,72 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_codProdutoFocusLost
 
     private void pesquisaFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaFornecedorActionPerformed
+            
+         ConsultaFornecedor consultafornecedor = new ConsultaFornecedor();
+         
         
+       
+       consultafornecedor. addWindowListener(new WindowListener() {
+           @Override
+           public void windowOpened(WindowEvent e) {
+               
+               
+           }
+
+           @Override
+           public void windowClosing(WindowEvent e) {
+           }
+
+           @Override
+           public void windowClosed(WindowEvent e) {
+               
+               
+               fornec = consultafornecedor.GetFornecedor();
+               
+               if(fornec != null && fornec.getCodigo()> 0) {
+                   
+                   codFornecedor.setText(String.valueOf(fornec.getCodigo()));
+                   descFornecedor.setText(fornec.getNome());
+                   
+                   
+                   pesquisaFornecedor();
+               }
+           }
+
+           @Override
+           public void windowIconified(WindowEvent e) {
+           }
+
+           @Override
+           public void windowDeiconified(WindowEvent e) {
+           }
+
+           @Override
+           public void windowActivated(WindowEvent e) {
+           }
+
+           @Override
+           public void windowDeactivated(WindowEvent e) {
+           }
+       });
+       
+       
+       consultafornecedor.setVisible(true);
+       
         
+        botaoNovo.setEnabled(true);
+        codigoSku.setEnabled(true);
+        precoCompra.setEnabled(true);
+        codCategoria.setEnabled(true);        
+        botaoSalvar.setEnabled(true);
+        botaoExcluir.setEnabled(true);
+        botaoCancelar.setEnabled(true);
+        codFornecedor.setEnabled(true);
         
+                
+        botaoNovo.setEnabled(false);
         
-        
-      
-        
+     
     }//GEN-LAST:event_pesquisaFornecedorActionPerformed
 
     private void botaosairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaosairActionPerformed
@@ -929,13 +987,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void pesquisaEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaEstoqueActionPerformed
-        CadastroEstoque cadastroestoque = new CadastroEstoque();
-        cadastroestoque.setVisible(true);
-        
-        
-    }//GEN-LAST:event_pesquisaEstoqueActionPerformed
 
     private void descProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descProdutoActionPerformed
       
@@ -985,6 +1036,13 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_descProdutoFocusLost
 
+    private void precoCompraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_precoCompraFocusLost
+        
+        
+        
+        
+    }//GEN-LAST:event_precoCompraFocusLost
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCancelar;
@@ -1014,7 +1072,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JButton pesquisaEstoque;
     private javax.swing.JButton pesquisaFornecedor;
     private javax.swing.JButton pesquisaProduto;
     private javax.swing.JButton pesquisarCategoria;

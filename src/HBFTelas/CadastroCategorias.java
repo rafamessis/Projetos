@@ -264,30 +264,7 @@ public class CadastroCategorias extends javax.swing.JFrame {
         System.out.println(TabelaCategoria.getSelectedRow());
         categorias = categoria.get(TabelaCategoria.getSelectedRow());
         dispose();
-
-//        if (TabelaCategoria.getSelectedRow() != -1){
-//            
-//       Categorias c = new Categorias();
-//       ProdutoController contr = new ProdutoController();
-//      
-//       c.setNomeCat(nomeCat.getText());
-//       c.setSetorCat(setorCat.getText());
-//              
-//       c.setIdCategoria((int)TabelaCategoria.getValueAt(TabelaCategoria.getSelectedRow(), 0));
-//       
-//       contr.updateCategorias(c);
-//       
-//        // limpar Campos apos Inserir
-//        nomeCat.setText("");
-//        setorCat.setText("");        
-//        nomeCat.requestFocus();
-//        
-//        readTabelaCategoria();
-//       
-//       
-//            
-//        }
-//        
+      
 
     }//GEN-LAST:event_botaoSelecionarActionPerformed
 

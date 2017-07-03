@@ -14,10 +14,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import HBFTelas.CadastroProduto;
 
-/**
- *
- * @author Rafael
- */
 public class ConsultaProduto extends javax.swing.JFrame {
     private Produto produto;
     private Categorias categorias;
@@ -104,6 +100,11 @@ public class ConsultaProduto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabelaconsultaProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaconsultaProdutoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelaconsultaProduto);
 
         getContentPane().add(jScrollPane1);
@@ -162,6 +163,14 @@ public class ConsultaProduto extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_SelecionarActionPerformed
+
+    private void tabelaconsultaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaconsultaProdutoMouseClicked
+        if(evt.getClickCount()== 2){
+            
+            Selecionar.doClick();
+            
+        }
+    }//GEN-LAST:event_tabelaconsultaProdutoMouseClicked
 
     /**
      * @param args the command line arguments

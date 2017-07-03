@@ -141,7 +141,6 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
         setTitle("Controle de Vendas");
 
         jLabel1.setText("Cód.Venda:");
@@ -1270,6 +1269,8 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
             }
             v = null;
             contr = null;
+        }else{
+            campoNomeCliente.setText("");
         }
     }//GEN-LAST:event_campoCodClienteFocusLost
 
@@ -1290,6 +1291,8 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
             }
             v = null;
             contr = null;
+        }else{
+            campoNomeTipoVenda.setText("");
         }
     }//GEN-LAST:event_campoTipoVendaFocusLost
 
@@ -1310,6 +1313,8 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
             }
             v = null;
             contr = null;
+        }else{
+            campoNomeFormaPagto.setText("");
         }
     }//GEN-LAST:event_campoFormaPagtoFocusLost
 
@@ -1556,6 +1561,8 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
             }
             p = null;
             contr = null;
+        }else{
+            campoNomeProduto.setText("");
         }
         
     }//GEN-LAST:event_campoCodProdutoFocusLost

@@ -49,8 +49,8 @@ public class ConsultaProduto extends javax.swing.JFrame {
            p.getIdProduto(),
            p.getNomeProd(),
            p.getCodSKU(),
-           p.getIdFornecedor(),
            p.getPrecoCompra(),
+           p.getIdFornecedor(),           
            p.getIdCategoria()
        });
      }

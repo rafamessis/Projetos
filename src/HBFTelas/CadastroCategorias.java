@@ -64,6 +64,7 @@ public class CadastroCategorias extends javax.swing.JFrame {
         botaoSelecionar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         TabelaCategoria = new javax.swing.JTable();
+        codCat = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -180,7 +181,9 @@ public class CadastroCategorias extends javax.swing.JFrame {
         jScrollPane2.setViewportView(TabelaCategoria);
 
         getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(10, 140, 620, 180);
+        jScrollPane2.setBounds(10, 260, 620, 180);
+        getContentPane().add(codCat);
+        codCat.setBounds(110, 190, 170, 20);
 
         jMenu1.setText("Arquivos");
         jMenuBar1.add(jMenu1);
@@ -190,7 +193,7 @@ public class CadastroCategorias extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        setBounds(0, 0, 656, 386);
+        setBounds(0, 0, 656, 578);
     }// </editor-fold>//GEN-END:initComponents
 
     private void nomeCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeCatActionPerformed
@@ -202,17 +205,32 @@ public class CadastroCategorias extends javax.swing.JFrame {
     }//GEN-LAST:event_setorCatActionPerformed
 
     private void botaoInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoInserirActionPerformed
-
-        Categorias categoria = new Categorias();
-        ProdutoController contr = new ProdutoController();
-
-        categoria.setNomeCat(nomeCat.getText());
-        categoria.setSetorCat(setorCat.getText());
-
-        contr.createCategoria(categoria);
-
+        
+        if(!(nomeCat.getText()).isEmpty()){
+            Categorias categ;
+            Categorias categorias = new Categorias();
+            ProdutoController contr = new ProdutoController();
+            
+            
+            categorias.setNomeCat(nomeCat.getText());
+            categorias.setSetorCat(setorCat.getText());
+            
+            
+            if(!(codCat.getText()).isEmpty()){
+                categorias.setIdCategoria(Integer.parseInt(codCat.getText()));
+                contr.updateCategorias(categorias);
+                
+            }else{
+                contr.createCategoria(categorias);
+                
+            }
+            
+        }
+        
+        
         String nome = nomeCat.getText().trim();
         String setor = setorCat.getText().trim();
+        String cod = codCat.getText().trim();
 
         DefaultTableModel dados = (DefaultTableModel) TabelaCategoria.getModel();
         dados.addRow(new String[]{nome, setor});
@@ -220,6 +238,7 @@ public class CadastroCategorias extends javax.swing.JFrame {
         // limpar Campos apos Inserir
         nomeCat.setText("");
         setorCat.setText("");
+        codCat.setText("");
 
         nomeCat.requestFocus();
 
@@ -283,8 +302,14 @@ public class CadastroCategorias extends javax.swing.JFrame {
 
     private void TabelaCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaCategoriaMouseClicked
         if (TabelaCategoria.getSelectedRow() != -1) {
+            codCat.setText(TabelaCategoria.getValueAt(TabelaCategoria.getSelectedRow(),0).toString());
             nomeCat.setText(TabelaCategoria.getValueAt(TabelaCategoria.getSelectedRow(), 1).toString());
             setorCat.setText(TabelaCategoria.getValueAt(TabelaCategoria.getSelectedRow(), 2).toString());
+            
+            if(evt.getClickCount()== 2){
+            
+            botaoSelecionar.doClick();
+            }
         }
     }//GEN-LAST:event_TabelaCategoriaMouseClicked
 
@@ -338,6 +363,7 @@ public class CadastroCategorias extends javax.swing.JFrame {
     private javax.swing.JButton botaoExcluir;
     private javax.swing.JButton botaoInserir;
     private javax.swing.JButton botaoSelecionar;
+    private javax.swing.JTextField codCat;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;

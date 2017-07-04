@@ -141,7 +141,7 @@ public class ProdutoController {
        stmt.setFloat(4, p.getPrecoCompra());
        stmt.setInt(5,p.getIdFornecedor());
        stmt.setInt(6,p.getIdProduto());
-
+       
        stmt.executeUpdate();
        JOptionPane.showMessageDialog(null," Atualização realizada com sucesso!");
 

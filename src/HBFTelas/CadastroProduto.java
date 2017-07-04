@@ -46,6 +46,8 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
       private ArrayList<Fornecedor> fornecedores = null;
       private Fornecedor fornec = new Fornecedor(); 
       
+      Estoque estoque = new Estoque();
+      
       
       
       
@@ -83,7 +85,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         codCategoria = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         descCategoria = new javax.swing.JTextField();
-        botaoatt = new javax.swing.JButton();
         pesquisaFornecedor = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         qntdEstoque = new javax.swing.JTextField();
@@ -287,16 +288,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         getContentPane().add(descCategoria);
         descCategoria.setBounds(310, 260, 200, 30);
 
-        botaoatt.setText("ATT");
-        botaoatt.setEnabled(false);
-        botaoatt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoattActionPerformed(evt);
-            }
-        });
-        getContentPane().add(botaoatt);
-        botaoatt.setBounds(10, 360, 90, 30);
-
         pesquisaFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Pesquisar.png"))); // NOI18N
         pesquisaFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -378,29 +369,37 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_botaoNovoActionPerformed
 
     private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
-              
-                Produto produto = new Produto();
-                ProdutoController contr = new ProdutoController();
-                 
-                   
-
-                    produto.setNomeProd(descProduto.getText()); // Pega os valores que estão no campo Descrição
-                    produto.setCodSKU(Integer.parseInt(codigoSku.getText()));
-                    produto.setPrecoCompra(Float.parseFloat(precoCompra.getText()));
-                    produto.setIdFornecedor(Integer.parseInt(codFornecedor.getText()));
-                    produto.setIdCategoria(Integer.parseInt(codCategoria.getText()));
+        if(!(descProduto.getText()).isEmpty()){ //Verifica se o campo está preenchido
+	Produto prod;
+        Produto produto = new Produto();         
+        ProdutoController contr = new ProdutoController();
+        
+        
+//      
+            
+            produto.setNomeProd(descProduto.getText());
+            produto.setCodSKU(Integer.parseInt(codigoSku.getText()));
+            produto.setIdFornecedor(Integer.parseInt(codFornecedor.getText()));
+            produto.setIdCategoria(Integer.parseInt(codCategoria.getText()));
+            produto.setPrecoCompra(Float.parseFloat(precoCompra.getText()));
+            
+            
+        
+        if(!(codProduto.getText()).isEmpty()){ 
+            produto.setIdProduto(Integer.parseInt(codProduto.getText()));
+            contr.update(produto);
+                            
+        }else{
 
                     contr.create(produto);
-                  
-                    Estoque estoque = new Estoque();
-                    EstoqueController estq = new EstoqueController();
+            
+        
+        }
+            EstoqueController estq = new EstoqueController();
+            estoque.setQuantidade(Integer.parseInt(qntdEstoque.getText()));
+            estoque.setProdutoId(Integer.parseInt(codProduto.getText()));
                     
-                    estoque.setQuantidade(Integer.parseInt(qntdEstoque.getText()));
-                    estoque.setProdutoId(Integer.parseInt(codProduto.getText()));
-                    
-                    estq.Salvar(estoque);
-                    
-                    
+                    estq.Salvar(estoque);      
                     
             
                   codigoSku.setEnabled(false);
@@ -421,6 +420,8 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                   descFornecedor.setText("");
                   descProduto.setText("");
         
+       
+        }  
     }//GEN-LAST:event_botaoSalvarActionPerformed
         private void pesquisaProduto() {
             
@@ -497,7 +498,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                }
              Categorias categoria = new Categorias();
              ProdutoController contr = new ProdutoController();
-             System.out.println(codCategoria.getText());
              categoria.setIdCategoria(Integer.parseInt(codCategoria.getText())); //Captura o código digitado no campo de código do tipo de venda
                 cat = contr.pesquisaCategorias(categoria.getIdCategoria()); //Chama o método pesquisaTipoVenda passando como parâmetro o que foi capturado do campo de texto e o método retorna o nome pra variavel "dados"
                 if( cat != null){
@@ -551,9 +551,9 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         botaoSalvar.setEnabled(true);
         botaoExcluir.setEnabled(true);
         botaoCancelar.setEnabled(true);
-        codFornecedor.setEnabled(true);
-        botaoatt.setEnabled(true);
+        codFornecedor.setEnabled(true);        
         descCategoria.setEnabled(true);
+        qntdEstoque.setEnabled(true);
                 
         botaoNovo.setEnabled(false);
         
@@ -648,7 +648,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
      
       
       botaoNovo.setEnabled(true);
-      botaoatt.setEnabled(false);
       botaoSalvar.setEnabled(false);
       botaoExcluir.setEnabled(false);
       botaoCancelar.setEnabled(false);
@@ -806,29 +805,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         
         
     }//GEN-LAST:event_codCategoriaFocusLost
-
-    private void botaoattActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoattActionPerformed
-                    if(!(codProduto.getText()).isEmpty()){
-                Produto prod;
-                Produto produto = new Produto();
-                ProdutoController contr = new ProdutoController();
-                ConsultaProduto con = new ConsultaProduto();
-            
-                    produto.setIdProduto(Integer.parseInt(codProduto.getText()));//Captura o codigo digitado no campo.
-                    prod = contr.pesquisaProduto(produto.getIdProduto()); // Chama o metodo de pesquisa de produto
-            
-               if (prod != null){ // se o campo for diferente de nullo 
-                        produto.setNomeProd(descProduto.getText()); // Pega os valores que estão no campo Descrição
-                        produto.setCodSKU(Integer.parseInt(codigoSku.getText()));
-                        produto.setPrecoCompra(Float.parseFloat(precoCompra.getText()));
-                        produto.setIdFornecedor(Integer.parseInt(codFornecedor.getText()));
-                        produto.setIdCategoria(Integer.parseInt(codCategoria.getText()));
-
-                        contr.update(produto);
-                
-            }
-         }   
-    }//GEN-LAST:event_botaoattActionPerformed
 
     private void codFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codFornecedorFocusLost
         if(!(codFornecedor.getText()).isEmpty()){ //Verifica se o campo está preenchido
@@ -1049,7 +1025,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     private javax.swing.JButton botaoExcluir;
     private javax.swing.JButton botaoNovo;
     private javax.swing.JButton botaoSalvar;
-    private javax.swing.JButton botaoatt;
     private javax.swing.JMenu botaosair;
     private javax.swing.JTextField codCategoria;
     private javax.swing.JTextField codFornecedor;

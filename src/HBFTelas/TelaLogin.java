@@ -23,6 +23,7 @@ public class TelaLogin extends javax.swing.JFrame {
     UsuarioController ucontroller = new UsuarioController();
     List<Usuario> usuarios = null;
     String NomeTeste = "";
+    int tecla; 
     
     
     /**
@@ -55,6 +56,11 @@ public class TelaLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
         setResizable(false);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         jLabel1.setText("Nome:");
 
@@ -63,6 +69,11 @@ public class TelaLogin extends javax.swing.JFrame {
         txtNomeLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomeLoginActionPerformed(evt);
+            }
+        });
+        txtNomeLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNomeLoginKeyPressed(evt);
             }
         });
 
@@ -188,7 +199,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSenhaLoginActionPerformed
 
     private void BotaoEntrarLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BotaoEntrarLoginKeyPressed
-        int tecla; 
+        
         tecla = evt.getKeyCode();
         if(tecla==KeyEvent.VK_ENTER) {  
              //executa algo se enter for pressionado. 
@@ -222,17 +233,20 @@ public class TelaLogin extends javax.swing.JFrame {
                 return;
              }
             */
-      }
+      }else if(tecla==KeyEvent.VK_ESCAPE) { 
+            System.exit(0);
+        }
         
     }//GEN-LAST:event_BotaoEntrarLoginKeyPressed
 
     private void txtSenhaLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaLoginKeyPressed
         
-        int tecla; 
         tecla = evt.getKeyCode();
         if(tecla==KeyEvent.VK_ENTER) {
+            
+            BotaoEntrarLogin.doClick();
         
-        usuarios = ucontroller.read(" where nomeFunc = '" + txtNomeLogin.getText().trim()  + "'" );
+        /*usuarios = ucontroller.read(" where nomeFunc = '" + txtNomeLogin.getText().trim()  + "'" );
         String nome = txtNomeLogin.getText().trim();
         String senha = txtSenhaLogin.getText().trim();
              if(usuarios.size() > 0 && nome.equals(usuarios.get(0).getNomeUsuario()) && senha.equals(usuarios.get(0).getSenhaUsuario())){
@@ -243,9 +257,26 @@ public class TelaLogin extends javax.swing.JFrame {
                 tela.setVisible(true);
                 dispose();
                 return;
-             }
+             }*/
+        }else if(tecla==KeyEvent.VK_ESCAPE) { 
+            System.exit(0);
         }
     }//GEN-LAST:event_txtSenhaLoginKeyPressed
+
+    private void txtNomeLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeLoginKeyPressed
+        // TODO add your handling code here:
+        tecla = evt.getKeyCode();
+        if(tecla==KeyEvent.VK_ENTER) {
+            txtSenhaLogin.requestFocus();
+        }else if(tecla==KeyEvent.VK_ESCAPE) { 
+            System.exit(0);
+        }
+    }//GEN-LAST:event_txtNomeLoginKeyPressed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_formKeyPressed
 
     /**
      * @param args the command line arguments

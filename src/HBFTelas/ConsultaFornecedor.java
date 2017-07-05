@@ -67,6 +67,7 @@ public class ConsultaFornecedor extends javax.swing.JFrame {
         tabelafornecedor = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Consulta de Fornecedor");
         getContentPane().setLayout(null);
 
         Selecionar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N

@@ -104,7 +104,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Codigo:");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 90, 60, 20);
+        jLabel1.setBounds(20, 90, 60, 20);
 
         codProduto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -117,7 +117,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(codProduto);
-        codProduto.setBounds(60, 90, 90, 29);
+        codProduto.setBounds(70, 90, 90, 29);
 
         descProduto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -130,7 +130,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(descProduto);
-        descProduto.setBounds(230, 90, 249, 29);
+        descProduto.setBounds(240, 90, 249, 29);
 
         pesquisaProduto.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         pesquisaProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Pesquisar.png"))); // NOI18N
@@ -140,31 +140,31 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(pesquisaProduto);
-        pesquisaProduto.setBounds(480, 90, 40, 30);
+        pesquisaProduto.setBounds(490, 90, 40, 30);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Codigo SKU");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(550, 100, 80, 15);
+        jLabel2.setBounds(560, 100, 80, 15);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Preço da Compra");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(0, 210, 110, 15);
+        jLabel3.setBounds(10, 210, 110, 15);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Codigo Fornecedor");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(0, 150, 130, 15);
+        jLabel4.setBounds(10, 150, 130, 15);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("Descrição Fornecedor");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(180, 150, 130, 20);
+        jLabel5.setBounds(190, 150, 130, 20);
 
         codigoSku.setEnabled(false);
         getContentPane().add(codigoSku);
-        codigoSku.setBounds(640, 90, 80, 30);
+        codigoSku.setBounds(650, 90, 80, 30);
 
         precoCompra.setEnabled(false);
         precoCompra.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -173,7 +173,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(precoCompra);
-        precoCompra.setBounds(120, 210, 100, 30);
+        precoCompra.setBounds(130, 210, 100, 30);
 
         codFornecedor.setEnabled(false);
         codFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -187,12 +187,12 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(codFornecedor);
-        codFornecedor.setBounds(120, 150, 60, 30);
+        codFornecedor.setBounds(130, 150, 60, 30);
 
         descFornecedor.setEditable(false);
         descFornecedor.setEnabled(false);
         getContentPane().add(descFornecedor);
-        descFornecedor.setBounds(310, 150, 220, 30);
+        descFornecedor.setBounds(320, 150, 220, 30);
 
         pesquisarCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Pesquisar.png"))); // NOI18N
         pesquisarCategoria.addActionListener(new java.awt.event.ActionListener() {
@@ -201,7 +201,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(pesquisarCategoria);
-        pesquisarCategoria.setBounds(510, 260, 40, 30);
+        pesquisarCategoria.setBounds(520, 260, 40, 30);
 
         botaoNovo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         botaoNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Novo.png"))); // NOI18N
@@ -212,7 +212,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(botaoNovo);
-        botaoNovo.setBounds(10, 20, 100, 31);
+        botaoNovo.setBounds(20, 20, 100, 31);
 
         botaoExcluir.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         botaoExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Excluir.png"))); // NOI18N
@@ -224,7 +224,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(botaoExcluir);
-        botaoExcluir.setBounds(350, 20, 110, 30);
+        botaoExcluir.setBounds(360, 20, 110, 30);
 
         botaoSalvar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         botaoSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Gravar.png"))); // NOI18N
@@ -236,7 +236,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(botaoSalvar);
-        botaoSalvar.setBounds(140, 20, 150, 30);
+        botaoSalvar.setBounds(150, 20, 150, 30);
 
         botaoCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         botaoCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Cancelar.png"))); // NOI18N
@@ -248,17 +248,17 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(botaoCancelar);
-        botaoCancelar.setBounds(560, 20, 120, 30);
+        botaoCancelar.setBounds(570, 20, 120, 30);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Descrição");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(160, 90, 80, 20);
+        jLabel6.setBounds(170, 90, 80, 20);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setText("Codigo Categoria");
         getContentPane().add(jLabel9);
-        jLabel9.setBounds(0, 270, 110, 15);
+        jLabel9.setBounds(10, 270, 110, 15);
 
         codCategoria.setEnabled(false);
         codCategoria.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -272,12 +272,12 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(codCategoria);
-        codCategoria.setBounds(110, 260, 60, 30);
+        codCategoria.setBounds(120, 260, 60, 30);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setText("Descrição Categoria");
         getContentPane().add(jLabel10);
-        jLabel10.setBounds(180, 270, 130, 15);
+        jLabel10.setBounds(190, 270, 130, 15);
 
         descCategoria.setEnabled(false);
         descCategoria.addActionListener(new java.awt.event.ActionListener() {
@@ -286,7 +286,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(descCategoria);
-        descCategoria.setBounds(310, 260, 200, 30);
+        descCategoria.setBounds(320, 260, 200, 30);
 
         pesquisaFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Pesquisar.png"))); // NOI18N
         pesquisaFornecedor.addActionListener(new java.awt.event.ActionListener() {
@@ -295,21 +295,26 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(pesquisaFornecedor);
-        pesquisaFornecedor.setBounds(530, 150, 40, 30);
+        pesquisaFornecedor.setBounds(540, 150, 40, 30);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("Quantidade Inicial");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(260, 210, 120, 20);
+        jLabel7.setBounds(270, 210, 120, 20);
 
         qntdEstoque.setEnabled(false);
+        qntdEstoque.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                qntdEstoqueFocusLost(evt);
+            }
+        });
         qntdEstoque.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 qntdEstoqueActionPerformed(evt);
             }
         });
         getContentPane().add(qntdEstoque);
-        qntdEstoque.setBounds(380, 210, 80, 30);
+        qntdEstoque.setBounds(390, 210, 80, 30);
 
         botaosair.setText("Arquivos");
         botaosair.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -345,7 +350,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
         setJMenuBar(jMenuBar1);
 
-        setBounds(0, 0, 784, 473);
+        setBounds(0, 0, 814, 473);
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoNovoActionPerformed
@@ -395,12 +400,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             
         
         }
-            EstoqueController estq = new EstoqueController();
-            estoque.setQuantidade(Integer.parseInt(qntdEstoque.getText()));
-            estoque.setProdutoId(Integer.parseInt(codProduto.getText()));
-                    
-                    estq.Salvar(estoque);      
-                    
+           
             
                   codigoSku.setEnabled(false);
                   precoCompra.setEnabled(false);
@@ -1018,6 +1018,25 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         
         
     }//GEN-LAST:event_precoCompraFocusLost
+
+    private void qntdEstoqueFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_qntdEstoqueFocusLost
+        
+        EstoqueController contr = new EstoqueController();
+//              if (qntdEstoque.getText().isEmpty()){
+//            JOptionPane.showMessageDialog(null,"A quantidade nao pode ser vazia!");
+//            return;
+//        }
+//               if (Integer.parseInt(qntdEstoque.getText()) < 0){
+//            JOptionPane.showMessageDialog(null,"Quantidade cadastrada não pode ser negativa!");
+//            return;
+//        }
+        est.setQuantidade(Integer.parseInt(qntdEstoque.getText()));
+        est.setProdutoId(Integer.parseInt(codProduto.getText()));
+        contr.Salvar(est);
+        
+        
+        
+    }//GEN-LAST:event_qntdEstoqueFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

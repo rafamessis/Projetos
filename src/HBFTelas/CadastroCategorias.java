@@ -181,7 +181,7 @@ public class CadastroCategorias extends javax.swing.JFrame {
         jScrollPane2.setViewportView(TabelaCategoria);
 
         getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(10, 260, 620, 180);
+        jScrollPane2.setBounds(10, 130, 620, 180);
         getContentPane().add(codCat);
         codCat.setBounds(110, 190, 170, 20);
 
@@ -193,7 +193,7 @@ public class CadastroCategorias extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        setBounds(0, 0, 656, 578);
+        setBounds(0, 0, 656, 381);
     }// </editor-fold>//GEN-END:initComponents
 
     private void nomeCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeCatActionPerformed

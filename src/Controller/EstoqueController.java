@@ -8,6 +8,7 @@ package Controller;
 import Conexao.ConectorMySql;
 import Model.Estoque;
 import Model.Produto;
+import Model.Vendas;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,7 +41,7 @@ public class EstoqueController {
             }
             return estoque;
             } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(null," Erro ao excluir!"+ ex);
+           JOptionPane.showMessageDialog(null," Erro ao encontrar produto!"+ ex);
        }finally{
           ConectorMySql.closeConnection(con, stmt, rs);
        }
@@ -71,5 +72,32 @@ public class EstoqueController {
        }
        
     }
+    
+    public void atualizaQtde (String operador, int qtde, int codProd ) {
+          
+        Connection con = ConectorMySql.getConnection();
+        PreparedStatement stmt = null;
+        
+        
+        try {
+            
+           if((operador).equals("soma")){
+               stmt = con.prepareStatement("update estoque set qtde = qtde + ? where idProduto = ?");
+           }else if((operador).equals("diminui")){
+               stmt = con.prepareStatement("update estoque set qtde = qtde - ? where idProduto = ?");
+           }
+           stmt.setInt(1, qtde);
+           stmt.setInt(2, codProd);
+           
+           stmt.executeUpdate();
+           
+           } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null," Erro ao dar baixa no estoque: "+ ex);
+        }finally{
+           ConectorMySql.closeConnection(con, stmt);
+        }
+              
+      
+      }
     
 }

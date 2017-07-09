@@ -23,7 +23,7 @@ public class TelaLogin extends javax.swing.JFrame {
     UsuarioController ucontroller = new UsuarioController();
     List<Usuario> usuarios = null;
     String NomeTeste = "";
-    int tecla; 
+    private int tecla; 
     
     
     /**

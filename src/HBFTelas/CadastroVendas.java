@@ -8,11 +8,13 @@ package HBFTelas;
 
 import Model.Vendas;
 import Conexao.ConectorMySql;
+import Controller.EstoqueController;
 import Controller.FornecedorController;
 import Controller.ProdutoController;
 import Controller.VendasController;
 import Model.Categorias;
 import Model.Cliente;
+import Model.Estoque;
 import Model.FormaPagto;
 import Model.Fornecedor;
 import Model.Geral;
@@ -20,15 +22,19 @@ import Model.ItemVenda;
 import Model.Produto;
 import Model.TipoVenda;
 import com.mysql.jdbc.StringUtils;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.text.DecimalFormat;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,12 +53,15 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
      */
     
     private int idVendaAtual = 0;
-    private int idProdutoClicado = 0;
+    private int tecla;
     Vendas venda = new Vendas();
     Cliente cliente = new Cliente();
     FormaPagto formapagto = new FormaPagto();
     TipoVenda tipovenda = new TipoVenda();
     Produto produto = new Produto();
+    ItemVenda itemvenda = new ItemVenda();
+    
+    Date data = new Date(System.currentTimeMillis());
     
     List<ItemVenda> item = null;
     DecimalFormat valorFormatado = new DecimalFormat("0.00");
@@ -68,6 +77,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         }
         //Connection con = ConectorMySql.getConnection();
         //PreparedStatement stmt = null;
+        botaoIncluir.requestFocus();
         
     }
     
@@ -112,6 +122,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         campoTotalVenda = new javax.swing.JTextField();
+        campoDataVenda = new org.jdesktop.swingx.JXDatePicker();
         botaoGravarVenda = new javax.swing.JButton();
         botaoIncluir = new javax.swing.JButton();
         botaoExcluir = new javax.swing.JButton();
@@ -137,7 +148,6 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         botaoGravarProduto = new javax.swing.JButton();
         botaoPesquisarProduto = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
-        campoDataVenda = new org.jdesktop.swingx.JXDatePicker();
 
         setClosable(true);
         setIconifiable(true);
@@ -153,6 +163,11 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         campoCodVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoCodVendaActionPerformed(evt);
+            }
+        });
+        campoCodVenda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoCodVendaKeyPressed(evt);
             }
         });
 
@@ -175,6 +190,11 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                 campoCodClienteActionPerformed(evt);
             }
         });
+        campoCodCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoCodClienteKeyPressed(evt);
+            }
+        });
 
         campoTipoVenda.setEnabled(false);
         campoTipoVenda.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -182,11 +202,21 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                 campoTipoVendaFocusLost(evt);
             }
         });
+        campoTipoVenda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoTipoVendaKeyPressed(evt);
+            }
+        });
 
         campoFormaPagto.setEnabled(false);
         campoFormaPagto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 campoFormaPagtoFocusLost(evt);
+            }
+        });
+        campoFormaPagto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoFormaPagtoKeyPressed(evt);
             }
         });
 
@@ -247,6 +277,13 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
             }
         });
 
+        campoDataVenda.setEnabled(false);
+        campoDataVenda.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoDataVendaFocusGained(evt);
+            }
+        });
+
         botaoGravarVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Gravar.png"))); // NOI18N
         botaoGravarVenda.setText("Gravar Venda");
         botaoGravarVenda.setEnabled(false);
@@ -270,6 +307,11 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                 botaoIncluirActionPerformed(evt);
             }
         });
+        botaoIncluir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botaoIncluirKeyPressed(evt);
+            }
+        });
 
         botaoExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Excluir.png"))); // NOI18N
         botaoExcluir.setText("Excluir");
@@ -286,6 +328,11 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         botaoEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoEditarActionPerformed(evt);
+            }
+        });
+        botaoEditar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botaoEditarKeyPressed(evt);
             }
         });
 
@@ -313,7 +360,15 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
             new String [] {
                 "Código", "Descrição", "Quantidade", "Valor Unitário", "Valor Total"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tabelaProdutos.setEnabled(false);
         tabelaProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -335,6 +390,11 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                 campoCodProdutoFocusLost(evt);
             }
         });
+        campoCodProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoCodProdutoKeyPressed(evt);
+            }
+        });
 
         jLabel9.setText("Descrição:");
 
@@ -354,6 +414,11 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                 campoQntProdutoActionPerformed(evt);
             }
         });
+        campoQntProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoQntProdutoKeyPressed(evt);
+            }
+        });
 
         jLabel11.setText("Valor Unitário:");
 
@@ -368,6 +433,11 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                 campoValorUnitProdutoActionPerformed(evt);
             }
         });
+        campoValorUnitProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoValorUnitProdutoKeyPressed(evt);
+            }
+        });
 
         jLabel12.setText("Valor Total:");
 
@@ -377,6 +447,11 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                 campoValorTotalProdutoFocusLost(evt);
             }
         });
+        campoValorTotalProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoValorTotalProdutoKeyPressed(evt);
+            }
+        });
 
         botaoIncluirProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/NovoPequeno.png"))); // NOI18N
         botaoIncluirProduto.setText("Incluir");
@@ -384,6 +459,11 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         botaoIncluirProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoIncluirProdutoActionPerformed(evt);
+            }
+        });
+        botaoIncluirProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botaoIncluirProdutoKeyPressed(evt);
             }
         });
 
@@ -413,6 +493,11 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                 botaoGravarProdutoActionPerformed(evt);
             }
         });
+        botaoGravarProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botaoGravarProdutoKeyPressed(evt);
+            }
+        });
 
         botaoPesquisarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Pesquisar.png"))); // NOI18N
         botaoPesquisarProduto.setContentAreaFilled(false);
@@ -424,8 +509,6 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         });
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/LogoFundo.png"))); // NOI18N
-
-        campoDataVenda.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -682,9 +765,11 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
 
         if(idVendaAtual > 0){
             contr.update(v, idVendaAtual);
+            botaoIncluir.requestFocus();
         }else{
             contr.create(v);
             idVendaAtual = contr.ultimoId();
+            botaoEditar.requestFocus();
         }
         
         campoCodVenda.setText(Integer.toString(idVendaAtual));
@@ -790,6 +875,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         idVendaAtual = 0;
         tabelaProdutos.setEnabled(true);
         preencheTabela(idVendaAtual);
+        campoCodCliente.requestFocus();
         
     }//GEN-LAST:event_botaoIncluirActionPerformed
 
@@ -841,6 +927,8 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         idVendaAtual = 0;
         tabelaProdutos.setEnabled(false);
         preencheTabela(idVendaAtual);
+        
+        botaoIncluir.requestFocus();
         
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
@@ -968,9 +1056,13 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                     campoNomeCliente.setText(dados.getNomeCliente());
                     campoNomeTipoVenda.setText(dados.getNomeTipoVenda());
                     campoNomeFormaPagto.setText(dados.getNomeFormaPagto());
+                    
                     idVendaAtual = venda.getIdVenda();
+                    
                     tabelaProdutos.setEnabled(false);
                     preencheTabela(idVendaAtual);
+                    
+                    botaoEditar.requestFocus();
                 }else{
                     campoCodCliente.setText("");
                     campoNomeCliente.setText("");
@@ -1366,6 +1458,8 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         
         tabelaProdutos.setEnabled(true);
         
+        botaoIncluirProduto.requestFocus();
+        
         
         
     }//GEN-LAST:event_botaoEditarActionPerformed
@@ -1375,7 +1469,19 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir esta venda ?", title, JOptionPane.YES_NO_OPTION);
 
         if (resposta == JOptionPane.YES_OPTION) {
+            
+            List<ItemVenda> dados;
             VendasController contr = new VendasController();
+            Estoque est = new Estoque();
+            EstoqueController contrEst = new EstoqueController();
+            
+            dados = contr.selectItensVenda(idVendaAtual);
+            
+            for(ItemVenda item: dados){
+                est = contrEst.RecuperaEstoqueProduto(item.getCodProduto());
+                contrEst.atualizaQtde("soma", item.getQuantidade(), est.getProdutoId());
+                
+            }
             contr.delete(idVendaAtual);
             contr = null;
             campoCodVenda.setEnabled(true);
@@ -1410,6 +1516,8 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
             
             idVendaAtual = 0;
             preencheTabela(idVendaAtual);
+            
+            botaoIncluir.requestFocus();
         }
         
     }//GEN-LAST:event_botaoExcluirActionPerformed
@@ -1420,13 +1528,19 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
 
     private void botaoExcluirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirProdutoActionPerformed
         // TODO add your handling code here:
-        
+        //JOptionPane.showMessageDialog(null,idProdutoClicado);
         int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir este produto ?\n A exclusão do item será permanente.", title, JOptionPane.YES_NO_OPTION);
 
         if (resposta == JOptionPane.YES_OPTION) {
             
+            Estoque est = new Estoque();
             VendasController contr = new VendasController();
-        
+            EstoqueController contrEst = new EstoqueController();
+            
+            est = contrEst.RecuperaEstoqueProduto(itemvenda.getCodProduto());
+            //JOptionPane.showMessageDialog(null," Código: "+ est.getProdutoId() + "\nQuantidade: " + est.getQuantidade());
+            
+            
             campoCodProduto.setText("");
             campoNomeProduto.setText("");
             campoQntProduto.setText("");
@@ -1444,9 +1558,12 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
             botaoGravarProduto.setEnabled(false);
             botaoPesquisarProduto.setEnabled(false);
             
-            contr.deleteItem(idProdutoClicado);
+            contr.deleteItem(itemvenda.getIdVendaxproduto());
+            contrEst.atualizaQtde("soma", itemvenda.getQuantidade(), est.getProdutoId());
             campoTotalVenda.setText(valorFormatado.format(contr.atualizaTotal(idVendaAtual)));
             preencheTabela(idVendaAtual);
+            
+            botaoIncluirProduto.requestFocus();
         }
         
     }//GEN-LAST:event_botaoExcluirProdutoActionPerformed
@@ -1471,6 +1588,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         botaoGravarProduto.setEnabled(true);
         botaoPesquisarProduto.setEnabled(true);
         
+        campoCodProduto.requestFocus();
         
     }//GEN-LAST:event_botaoIncluirProdutoActionPerformed
 
@@ -1494,6 +1612,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         botaoGravarProduto.setEnabled(false);
         botaoPesquisarProduto.setEnabled(false);
         
+        botaoIncluirProduto.requestFocus();
         
         
     }//GEN-LAST:event_botaoCancelarProdutoActionPerformed
@@ -1504,6 +1623,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         if(!(campoNomeProduto.getText()).isEmpty() && !(campoQntProduto.getText()).isEmpty() && !(campoValorUnitProduto.getText()).isEmpty() && !(campoValorTotalProduto.getText().isEmpty())){
         ItemVenda p = new ItemVenda();
         VendasController contr = new VendasController();
+        EstoqueController contrEst = new EstoqueController();
 
         p.setCodProduto(Integer.parseInt(campoCodProduto.getText()));
         p.setNomeProd(campoNomeProduto.getText());
@@ -1513,6 +1633,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         p.setValorTotal(Float.parseFloat((campoValorTotalProduto.getText()).replaceAll(",", ".")));
 
         contr.createItem(p);
+        contrEst.atualizaQtde("diminui", p.getQuantidade(), p.getCodProduto());
         
         campoCodProduto.setText("");
         campoNomeProduto.setText("");
@@ -1534,6 +1655,8 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         campoTotalVenda.setText(valorFormatado.format(contr.atualizaTotal(idVendaAtual)));
         preencheTabela(idVendaAtual);
         
+        botaoIncluirProduto.requestFocus();
+        
         p = null;
         contr = null;
         
@@ -1548,10 +1671,11 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         
         if(!(campoCodProduto.getText()).isEmpty()){
             Produto dados;
-            Produto p = new Produto();
+            //Produto p = new Produto();
             ProdutoController contr = new ProdutoController();
-            p.setIdProduto(Integer.parseInt(campoCodProduto.getText()));
-            dados = contr.pesquisaProduto(p.getIdProduto());
+            //p.setIdProduto(Integer.parseInt(campoCodProduto.getText()));
+            //dados = contr.pesquisaProduto(p.getIdProduto());
+            dados = contr.pesquisaProduto(Integer.parseInt(campoCodProduto.getText()));
             if( dados != null){
                 campoNomeProduto.setText(dados.getNomeProd());
             }else{
@@ -1559,7 +1683,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null,"Produto não encontrado !");
                 campoCodProduto.requestFocus();
             }
-            p = null;
+            //p = null;
             contr = null;
         }else{
             campoNomeProduto.setText("");
@@ -1617,7 +1741,9 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
          // TODO add your handling code here:
         if (tabelaProdutos.getSelectedRow()!= -1){
             ItemVenda itemClicado = item.get(tabelaProdutos.getSelectedRow());
-            idProdutoClicado = itemClicado.getIdVendaxproduto();
+            itemvenda.setIdVendaxproduto(itemClicado.getIdVendaxproduto());
+            itemvenda.setCodProduto(itemClicado.getCodProduto());
+            itemvenda.setQuantidade(itemClicado.getQuantidade());
             botaoExcluirProduto.setEnabled(true);
             
         }
@@ -1628,7 +1754,9 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (tabelaProdutos.getSelectedRow()!= -1){
             ItemVenda itemClicado = item.get(tabelaProdutos.getSelectedRow());
-            idProdutoClicado = itemClicado.getIdVendaxproduto();
+            itemvenda.setIdVendaxproduto(itemClicado.getIdVendaxproduto());
+            itemvenda.setCodProduto(itemClicado.getCodProduto());
+            itemvenda.setQuantidade(itemClicado.getQuantidade());
             botaoExcluirProduto.setEnabled(true);
         }
         
@@ -1647,10 +1775,11 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         
         if(!(campoCodVenda.getText()).isEmpty()){
             Vendas dados;
-            Vendas v = new Vendas();
+            //Vendas v = new Vendas();
             VendasController contr = new VendasController();
-            v.setIdVenda(Integer.parseInt(campoCodVenda.getText()));
-            dados = contr.pesquisaVenda(v.getIdVenda());
+            //v.setIdVenda(Integer.parseInt(campoCodVenda.getText()));
+            //dados = contr.pesquisaVenda(v.getIdVenda());
+            dados = contr.pesquisaVenda(Integer.parseInt(campoCodVenda.getText()));
             if(dados != null){
                 campoNomeCliente.setEnabled(true);
                 campoNomeTipoVenda.setEnabled(true);
@@ -1667,7 +1796,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                     botaoExcluir.setEnabled(true);
                 }
 
-                campoCodVenda.setText(Integer.toString(v.getIdVenda()));
+                //campoCodVenda.setText(Integer.toString(v.getIdVenda()));
                 campoDataVenda.setDate(dados.getDataVenda());
                 campoCodCliente.setText(Integer.toString(dados.getIdCliente()));
                 campoTotalVenda.setText(valorFormatado.format(dados.getValorTotal()));
@@ -1676,7 +1805,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                 campoNomeCliente.setText(dados.getNomeCliente());
                 campoNomeTipoVenda.setText(dados.getNomeTipoVenda());
                 campoNomeFormaPagto.setText(dados.getNomeFormaPagto());
-                idVendaAtual = venda.getIdVenda();
+                idVendaAtual = Integer.parseInt(campoCodVenda.getText());
                 tabelaProdutos.setEnabled(false);
                 preencheTabela(idVendaAtual);
             }else{
@@ -1709,7 +1838,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                 
                 JOptionPane.showMessageDialog(null,"Código de Venda não localizado");
             }
-            v = null;
+            //v = null;
             contr = null;
         }
         
@@ -1745,6 +1874,7 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
                     if( dados != null){
                         campoNomeProduto.setText(dados.getNomeProd());
                         campoCodProduto.setText(Integer.toString(produto.getIdProduto()));
+                        campoQntProduto.requestFocus();
                     }else{
                         campoNomeProduto.setText("");
                         JOptionPane.showMessageDialog(null,"Produto não encontrado !");
@@ -1775,6 +1905,127 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
         consultaproduto.setVisible(true);
 
     }//GEN-LAST:event_botaoPesquisarProdutoActionPerformed
+
+    private void campoCodVendaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCodVendaKeyPressed
+        // TODO add your handling code here:
+        tecla = evt.getKeyCode();
+        if(tecla==KeyEvent.VK_ENTER) {
+            if(!campoCodVenda.getText().isEmpty()) {
+                botaoEditar.requestFocus();
+            }
+        }else if(tecla==KeyEvent.VK_F2) {
+            campoCodVenda.setText("");
+            botaoPesquisaVenda.doClick();
+        }
+    }//GEN-LAST:event_campoCodVendaKeyPressed
+
+    private void botaoIncluirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botaoIncluirKeyPressed
+        // TODO add your handling code here:
+        tecla = evt.getKeyCode();
+        if(tecla==KeyEvent.VK_ENTER) {
+            botaoIncluir.doClick();
+        }
+    }//GEN-LAST:event_botaoIncluirKeyPressed
+
+    private void campoCodClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCodClienteKeyPressed
+        // TODO add your handling code here:
+        tecla = evt.getKeyCode();
+        if(tecla==KeyEvent.VK_ENTER) {
+            campoTipoVenda.requestFocus();
+        }else if(tecla==KeyEvent.VK_F2) {
+            campoCodCliente.setText("");
+            botaoPesquisaCliente.doClick();
+        }
+    }//GEN-LAST:event_campoCodClienteKeyPressed
+
+    private void campoTipoVendaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTipoVendaKeyPressed
+        // TODO add your handling code here:
+        tecla = evt.getKeyCode();
+        if(tecla==KeyEvent.VK_ENTER) {
+            campoFormaPagto.requestFocus();
+        }else if(tecla==KeyEvent.VK_F2) {
+            campoTipoVenda.setText("");
+            botaoPesquisaTipoVenda.doClick();
+        }
+    }//GEN-LAST:event_campoTipoVendaKeyPressed
+
+    private void campoFormaPagtoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoFormaPagtoKeyPressed
+        // TODO add your handling code here:
+        tecla = evt.getKeyCode();
+        if(tecla==KeyEvent.VK_ENTER) {
+            campoDataVenda.requestFocus();
+        }else if(tecla==KeyEvent.VK_F2) {
+            campoFormaPagto.setText("");
+            botaoPesquisaFormaPagto.doClick();
+        }
+    }//GEN-LAST:event_campoFormaPagtoKeyPressed
+
+    private void campoDataVendaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoDataVendaFocusGained
+        // TODO add your handling code here:
+        if(idVendaAtual == 0){
+            campoDataVenda.setDate(data);
+        }
+    }//GEN-LAST:event_campoDataVendaFocusGained
+
+    private void botaoEditarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botaoEditarKeyPressed
+        // TODO add your handling code here:
+        tecla = evt.getKeyCode();
+        if(tecla==KeyEvent.VK_ENTER) {
+            botaoEditar.doClick();
+        }
+    }//GEN-LAST:event_botaoEditarKeyPressed
+
+    private void campoCodProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCodProdutoKeyPressed
+        // TODO add your handling code here:
+        tecla = evt.getKeyCode();
+        if(tecla==KeyEvent.VK_ENTER) {
+            campoQntProduto.requestFocus();
+        }else if(tecla==KeyEvent.VK_F2) {
+            campoNomeProduto.setText("");
+            campoCodProduto.setText("");
+            botaoPesquisarProduto.doClick();
+        }
+    }//GEN-LAST:event_campoCodProdutoKeyPressed
+
+    private void botaoIncluirProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botaoIncluirProdutoKeyPressed
+        // TODO add your handling code here:
+        tecla = evt.getKeyCode();
+        if(tecla==KeyEvent.VK_ENTER) {
+            botaoIncluirProduto.doClick();
+        }
+    }//GEN-LAST:event_botaoIncluirProdutoKeyPressed
+
+    private void botaoGravarProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botaoGravarProdutoKeyPressed
+        // TODO add your handling code here:
+        tecla = evt.getKeyCode();
+        if(tecla==KeyEvent.VK_ENTER) {
+            botaoGravarProduto.doClick();
+        }
+    }//GEN-LAST:event_botaoGravarProdutoKeyPressed
+
+    private void campoQntProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoQntProdutoKeyPressed
+        // TODO add your handling code here:
+        tecla = evt.getKeyCode();
+        if(tecla==KeyEvent.VK_ENTER) {
+            campoValorUnitProduto.requestFocus();
+        }
+    }//GEN-LAST:event_campoQntProdutoKeyPressed
+
+    private void campoValorUnitProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoValorUnitProdutoKeyPressed
+        // TODO add your handling code here:
+        tecla = evt.getKeyCode();
+        if(tecla==KeyEvent.VK_ENTER) {
+            campoValorTotalProduto.requestFocus();
+        }
+    }//GEN-LAST:event_campoValorUnitProdutoKeyPressed
+
+    private void campoValorTotalProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoValorTotalProdutoKeyPressed
+        // TODO add your handling code here:
+        tecla = evt.getKeyCode();
+        if(tecla==KeyEvent.VK_ENTER) {
+            botaoGravarProduto.requestFocus();
+        }
+    }//GEN-LAST:event_campoValorTotalProdutoKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

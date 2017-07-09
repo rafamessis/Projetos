@@ -19,13 +19,10 @@ import javax.swing.table.TableRowSorter;
 public class CadastroUsuario extends javax.swing.JInternalFrame {
 
     ArrayList valores = new ArrayList();//criação da arrayList para salvar os dados na tabela
-    //int posicao=0;//Criei a posição para reconhecer qual posição da tabela foi selecionada
     UsuarioController ucontroller = new UsuarioController();
     List<Usuario> usuarios = null;
     String NomeTeste = "";
-    //ArrayList valores = new ArrayList();//criação da arrayList para salvar os dados na tabela
-    //int posicao=0;//Criei a posição para reconhecer qual posição da tabela foi selecionada
-    public void preencheTabela(){
+    public void preencheTabela(){//Metodo para preencher a JTable
         
         DefaultTableModel tabela = (DefaultTableModel)tabelaUsuario.getModel();
         tabelaUsuario.setRowSorter(new TableRowSorter(tabela));
@@ -211,12 +208,12 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Por favor insira a senha");
             return;
         }
-        else if(senha.length()<6){
+        else if(senha.length()<6){//Verificando se a senha tem tamanho maior que 6 dígitos
             JOptionPane.showMessageDialog(null, "Senha muito curta, favor inserir uma senha com no mínimo 6 dígitos!");
             return;
         }
         usuarios = ucontroller.read("");
-        for(int i=0;i<usuarios.size();i++){
+        for(int i=0;i<usuarios.size();i++){//Verificando se nome so usuário ja existe
             if(nome.equals(usuarios.get(i).getNomeUsuario())){
                 JOptionPane.showMessageDialog(null, "Nome de usuário já cadastrado, por favor insira outro nome");
                 return;
@@ -284,9 +281,9 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
 
     private void botaoApagarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoApagarUsuarioActionPerformed
         Usuario u = new Usuario();
-        u.setNomeUsuario(campoCadastroNome.getText().trim());
+        u.setNomeUsuario(campoCadastroNome.getText().trim());//Recuperando o nome do usuario que se deseja apagar
         int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir este usuário ?", title, JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
+        if (resposta == JOptionPane.YES_OPTION) {//Apagando ousuário
             ucontroller.delete(u.getNomeUsuario());
             preencheTabela();
             //((DefaultTableModel) tabelaUsuario.getModel()).removeRow(tabelaUsuario.getSelectedRow());

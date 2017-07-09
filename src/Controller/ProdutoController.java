@@ -293,8 +293,40 @@ public class ProdutoController {
 
 
   }
+public int pesquisaCategoriasNome (String categ) { //Ao receber o nome da categoria aqui, está pesquisando na tabela categoria e selecionando o seu nome 
 
-    public void deleteCategorias(Categorias c) {
+    Connection con = ConectorMySql.getConnection();
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    Categorias cat = new Categorias();
+    
+
+    try {
+       stmt = con.prepareStatement("select idCategoria from categoria where nomeCat = ?");
+       stmt.setString(1, categ); //substitui no SELECT o interrogação pelo código que veio por parametro
+       rs = stmt.executeQuery();
+
+       if(rs.next()){
+
+           
+            return rs.getInt("idCategoria");
+            
+
+        }else{
+           return 0; //caso não encontre o código, retorna nulo.
+       }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null," Erro ao encontrar o produto: "+ ex);
+    }finally{
+       ConectorMySql.closeConnection(con, stmt, rs);
+    }
+    return 0; //retorno apenas para satisfazer warning do IDE
+}
+
+  
+  
+   public void deleteCategorias(Categorias c) {
 
        java.sql.Connection con = ConectorMySql.getConnection();
        PreparedStatement stmt = null;

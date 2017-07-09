@@ -158,11 +158,7 @@ public class CadastroEstoque extends javax.swing.JInternalFrame {
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
         
           EstoqueController contr = new EstoqueController();
-      //  if (tipoItem.getSelectedIndex() == 0){
-      //      JOptionPane.showMessageDialog(null,"Escolha um produto");
-      //      return;
-      //  }
-        
+
         if (txtqtd.getText().isEmpty()){
             JOptionPane.showMessageDialog(null,"A quantidade nao pode ser vazia!");
             return;
@@ -219,6 +215,7 @@ public class CadastroEstoque extends javax.swing.JInternalFrame {
                {
                    txtCodProd.setText(String.valueOf(prod.getIdProduto()));
                    lblProduto.setText(prod.getNomeProd());
+                   
                    CarregaEstoqueProduto();
                }
            }

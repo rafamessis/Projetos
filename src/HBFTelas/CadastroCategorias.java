@@ -181,7 +181,7 @@ public class CadastroCategorias extends javax.swing.JFrame {
         jScrollPane2.setViewportView(TabelaCategoria);
 
         getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(10, 130, 620, 180);
+        jScrollPane2.setBounds(10, 260, 620, 180);
         getContentPane().add(codCat);
         codCat.setBounds(110, 190, 170, 20);
 
@@ -193,7 +193,7 @@ public class CadastroCategorias extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        setBounds(0, 0, 656, 381);
+        setBounds(0, 0, 656, 604);
     }// </editor-fold>//GEN-END:initComponents
 
     private void nomeCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeCatActionPerformed
@@ -206,26 +206,29 @@ public class CadastroCategorias extends javax.swing.JFrame {
 
     private void botaoInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoInserirActionPerformed
         
-        if(!(nomeCat.getText()).isEmpty()){
+//        if(!(nomeCat.getText()).isEmpty()){
             Categorias categ;
             Categorias categorias = new Categorias();
             ProdutoController contr = new ProdutoController();
             
             
-            categorias.setNomeCat(nomeCat.getText());
-            categorias.setSetorCat(setorCat.getText());
+           
             
             
             if(!(codCat.getText()).isEmpty()){
-                categorias.setIdCategoria(Integer.parseInt(codCat.getText()));
+                categorias.setIdCategoria(Integer.parseInt(codCat.getText()));  
+                 categorias.setNomeCat(nomeCat.getText());
+                categorias.setSetorCat(setorCat.getText());
                 contr.updateCategorias(categorias);
                 
             }else{
+                 categorias.setNomeCat(nomeCat.getText());
+                categorias.setSetorCat(setorCat.getText());
                 contr.createCategoria(categorias);
                 
             }
             
-        }
+//        }
         
         
         String nome = nomeCat.getText().trim();
@@ -250,6 +253,9 @@ public class CadastroCategorias extends javax.swing.JFrame {
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
 
         dispose();
+        
+        
+       
 
 
     }//GEN-LAST:event_botaoCancelarActionPerformed
@@ -269,6 +275,10 @@ public class CadastroCategorias extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Selecione uma categoria para excluir");
         }
+        
+        nomeCat.setText("");
+        setorCat.setText("");
+        codCat.setText("");
 
 
     }//GEN-LAST:event_botaoExcluirActionPerformed

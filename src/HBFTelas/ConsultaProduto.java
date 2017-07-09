@@ -51,7 +51,8 @@ public class ConsultaProduto extends javax.swing.JFrame {
            p.getCodSKU(),
            p.getPrecoCompra(),
            p.getIdFornecedor(),           
-           p.getIdCategoria()
+           p.getIdCategoria(),
+           p.getQtdmin()
        });
      }
    }
@@ -89,11 +90,11 @@ public class ConsultaProduto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Codigo", "Descrição", "Codigo SKU", "Preço Compra", "Codigo Fornecedor", "Id Categoria"
+                "Codigo", "Descrição", "Codigo SKU", "Preço Compra", "Codigo Fornecedor", "Id Categoria", "Quantidade Minima"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

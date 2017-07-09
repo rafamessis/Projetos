@@ -8,10 +8,12 @@ package HBFTelas;
 import Controller.ProdutoController;
 import Controller.FornecedorController;
 import Controller.EstoqueController;
+import Controller.VendasController;
 import Model.Produto;
 import Model.Categorias;
 import Model.Estoque;
 import Model.Fornecedor;
+import HBFTelas.CadastroProduto;
 import com.oracle.jrockit.jfr.Producer;
 import com.sun.java.accessibility.util.AWTEventMonitor;
 import java.awt.Dialog;
@@ -23,6 +25,8 @@ import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 
 
@@ -57,7 +61,8 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         initComponents();
        
     }
-
+    
+   
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -354,6 +359,10 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoNovoActionPerformed
+      
+ 
+        
+        
       codigoSku.setEnabled(true);
       precoCompra.setEnabled(true);
       codFornecedor.setEnabled(true);
@@ -366,7 +375,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
       botaoCancelar.setEnabled(true);
       
       codProduto.setEnabled(false);
-      pesquisaProduto.setEnabled(false);
+      pesquisaProduto.setEnabled(true);
       botaoNovo.setEnabled(false);
       
         
@@ -379,14 +388,12 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         Produto produto = new Produto();         
         ProdutoController contr = new ProdutoController();
         
-        
-//      
-            
             produto.setNomeProd(descProduto.getText());
             produto.setCodSKU(Integer.parseInt(codigoSku.getText()));
             produto.setIdFornecedor(Integer.parseInt(codFornecedor.getText()));
             produto.setIdCategoria(Integer.parseInt(codCategoria.getText()));
             produto.setPrecoCompra(Float.parseFloat(precoCompra.getText()));
+            produto.setQtdin(Integer.parseInt(qntdEstoque.getText()));
             
             
         
@@ -394,34 +401,29 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             produto.setIdProduto(Integer.parseInt(codProduto.getText()));
             contr.update(produto);
                             
+            
+            
+                            
         }else{
 
                     contr.create(produto);
-            
-        
-        }
-           
-            
-                  codigoSku.setEnabled(false);
-                  precoCompra.setEnabled(false);
-                  codFornecedor.setEnabled(false);
-                  descProduto.setEnabled(false);     
-                  botaoSalvar.setEnabled(false);      
-                  botaoCancelar.setEnabled(false);
-                  
+           }
                   codProduto.setEnabled(true);
-                  pesquisaProduto.setEnabled(true);
-                  botaoNovo.setEnabled(true);
-                 
+                  pesquisaProduto.setEnabled(true);                  
+                  pesquisaFornecedor.setEnabled(true);
+                  pesquisarCategoria.setEnabled(true);
                   
-                  codigoSku.setText("");
-                  precoCompra.setText("");
-                  codFornecedor.setText("");
-                  descFornecedor.setText("");
-                  descProduto.setText("");
+                  descCategoria.setEnabled(true);
+                  descFornecedor.setEnabled(true);
+                  
+                  botaoNovo.setEnabled(true);
+                  precoCompra.setEnabled(true);
+                  qntdEstoque.setEnabled(true);
+                  
+                  codigoSku.setEnabled(true);
+            
         
-       
-        }  
+         }  
     }//GEN-LAST:event_botaoSalvarActionPerformed
         private void pesquisaProduto() {
             
@@ -493,6 +495,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                    codCategoria.setText(String.valueOf(prod.getIdCategoria()));
                    descCategoria.setText(cat.getNomeCat());
                    descProduto.setText(title);
+                   qntdEstoque.setText(String.valueOf(prod.getQtdmin()));
                    
                    pesquisaProduto();
                }
@@ -652,6 +655,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
       botaoExcluir.setEnabled(false);
       botaoCancelar.setEnabled(false);
       pesquisaProduto.setEnabled(true);
+      qntdEstoque.setEnabled(false);
       
       descProduto.setEnabled(true);
       codProduto.setEnabled(true);
@@ -662,7 +666,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
       codCategoria.setEnabled(false);
       descCategoria.setEnabled(false);
       
-        
+      qntdEstoque.setText("");  
       codProduto.setText("");
       codigoSku.setText("");
       precoCompra.setText("");
@@ -699,6 +703,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                    codProduto.setText("");
                    codCategoria.setText("");
                    descCategoria.setText("");
+                   qntdEstoque.setText("");
                    
                    
                    
@@ -715,7 +720,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         ProdutoController contr = new ProdutoController();
         
         p.setIdProduto(Integer.parseInt(codProduto.getText())); //Captura o código digitado no campo de código do tipo de venda
-        prod = contr.pesquisaProduto(p.getIdProduto()); //Chama o método pesquisaTipoVenda passando como parâmetro o que foi capturado do campo de texto e o método retorna o nome pra variavel "dados"
+        prod = contr.pesquisaProduto(p.getIdProduto()); //Chama o método pesquisa produto passando como parâmetro o que foi capturado do campo de texto e o método retorna o nome pra variavel "dados"
         if( prod != null){
             descProduto.setText(prod.getNomeProd()); //Se o retorno da pesquisa for diferente de nulo, seta no campo nome o que foi encontrado no BD
             codProduto.setText(String.valueOf(prod.getIdProduto()));
@@ -941,18 +946,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
     private void qntdEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qntdEstoqueActionPerformed
           
-        EstoqueController contr = new EstoqueController();
-              if (qntdEstoque.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null,"A quantidade nao pode ser vazia!");
-            return;
-        }
-               if (Integer.parseInt(qntdEstoque.getText()) < 0){
-            JOptionPane.showMessageDialog(null,"Quantidade cadastrada não pode ser negativa!");
-            return;
-        }
-        est.setQuantidade(Integer.parseInt(qntdEstoque.getText()));
-        est.setProdutoId(Integer.parseInt(codProduto.getText()));
-        contr.Salvar(est);
+        
         
     }//GEN-LAST:event_qntdEstoqueActionPerformed
 
@@ -1021,19 +1015,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
     private void qntdEstoqueFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_qntdEstoqueFocusLost
         
-        EstoqueController contr = new EstoqueController();
-//              if (qntdEstoque.getText().isEmpty()){
-//            JOptionPane.showMessageDialog(null,"A quantidade nao pode ser vazia!");
-//            return;
-//        }
-//               if (Integer.parseInt(qntdEstoque.getText()) < 0){
-//            JOptionPane.showMessageDialog(null,"Quantidade cadastrada não pode ser negativa!");
-//            return;
-//        }
-        est.setQuantidade(Integer.parseInt(qntdEstoque.getText()));
-        est.setProdutoId(Integer.parseInt(codProduto.getText()));
-        contr.Salvar(est);
-        
+  
         
         
     }//GEN-LAST:event_qntdEstoqueFocusLost

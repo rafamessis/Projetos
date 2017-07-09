@@ -20,6 +20,7 @@ public class Produto {
     private int idFornecedor;
     private String nomeProd;
     private float precoCompra;
+    private int qtdmin;
 
     /**
      * @return the idProduto
@@ -28,16 +29,18 @@ public class Produto {
         return idProduto;
     }
 
-    /**
-     * @param idProduto the idProduto to set
-     */
     public void setIdProduto(int idProduto) {
         this.idProduto = idProduto;
     }
+    
+    public int getQtdmin() {
+        return qtdmin;
+    }
 
-    /**
-     * @return the codSKU
-     */
+    public void setQtdin(int qtdmin) {
+        this.qtdmin = qtdmin;
+    }
+    
     public int getCodSKU() {
         return codSKU;
     }

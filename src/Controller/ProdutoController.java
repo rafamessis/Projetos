@@ -34,13 +34,14 @@ public class ProdutoController {
 
 
     try {
-       stmt = con.prepareStatement("insert into produto (nomeProd,codSKU,idcategoria,precoCompra,idFornecedor) "
-               + "values( ?, ?, ?, ?, ?)");
+       stmt = con.prepareStatement("insert into produto (nomeProd,codSKU,idcategoria,precoCompra,idFornecedor,qtdmin) "
+               + "values( ?, ?, ?, ?, ?, ?)");
        stmt.setString(1,p.getNomeProd());
        stmt.setInt(2,p.getCodSKU());
        stmt.setInt(3,p.getIdCategoria());
        stmt.setFloat(4, p.getPrecoCompra());
        stmt.setInt(5,p.getIdFornecedor());
+       stmt.setInt(6,p.getQtdmin());
 
        stmt.executeUpdate();
        JOptionPane.showMessageDialog(null," Salvo com sucesso!");
@@ -76,6 +77,8 @@ public class ProdutoController {
               prod.setIdCategoria(rs.getInt("idCategoria"));
               prod.setPrecoCompra(rs.getFloat("precoCompra"));
               prod.setIdFornecedor(rs.getInt("idFornecedor"));
+              prod.setQtdin(rs.getInt("qtdmin"));
+              
 
               produtos.add(prod);
 
@@ -134,13 +137,14 @@ public class ProdutoController {
 
     try {
         stmt = con.prepareStatement("update produto set nomeProd = ?,codSKU = ?,idcategoria = ?,"
-                + "precoCompra = ?,idFornecedor = ? where idProduto = ? ");
+                + "precoCompra = ?,idFornecedor = ?, qtdmin = ? where idProduto = ? ");
        stmt.setString(1,p.getNomeProd());
        stmt.setInt(2,p.getCodSKU());
        stmt.setInt(3,p.getIdCategoria());
        stmt.setFloat(4, p.getPrecoCompra());
        stmt.setInt(5,p.getIdFornecedor());
-       stmt.setInt(6,p.getIdProduto());
+       stmt.setInt(6,p.getQtdmin());
+       stmt.setInt(7, p.getIdProduto());
        
        stmt.executeUpdate();
        JOptionPane.showMessageDialog(null," Atualização realizada com sucesso!");
@@ -279,6 +283,7 @@ public class ProdutoController {
        stmt.setString(1,c.getNomeCat());
        stmt.setString(2,c.getSetorCat());
        stmt.setInt(3,c.getIdCategoria());
+       JOptionPane.showMessageDialog(null,"teste: " + stmt);
 
        stmt.executeUpdate();
 

@@ -61,12 +61,11 @@ public class CadastroVendas extends javax.swing.JInternalFrame {
     Produto produto = new Produto();
     ItemVenda itemvenda = new ItemVenda();
     
-    Date data = new Date(System.currentTimeMillis());
-    
     List<ItemVenda> item = null;
     DecimalFormat valorFormatado = new DecimalFormat("0.00");
     SimpleDateFormat dataFormatadaExibir = new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat dataFormatadaSalvar = new SimpleDateFormat("yyMMdd");
+    Date data = new Date(System.currentTimeMillis());
     //DateFormat outputFormat = new SimpleDateFormat("MM/yyyy");
     //DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
     

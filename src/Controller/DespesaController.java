@@ -24,9 +24,9 @@ import javax.swing.JOptionPane;
             PreparedStatement stmt = null;
         
             try {
-                stmt = con.prepareStatement("INSERT INTO despesa(valor,dataVencimento,descricao,status,) VALUES (?,?,?,?) ");
+                stmt = con.prepareStatement("INSERT INTO despesa(valor,dataVencimento,descricao,status) VALUES (?,?,?,?) ");
                 stmt.setDouble(1,d.getValorDespesa());
-                stmt.setString(2,d.getData());
+                stmt.setString(2,dataFormatada.format(d.getData()));
                 //stmt.setString(2,dataFormatada.format(d.getData()));
                 stmt.setString(3,d.getDescricao());
                 stmt.setString(4,d.getStatus());           
@@ -57,7 +57,7 @@ import javax.swing.JOptionPane;
                     
                     d.setCodigo(rs.getInt("idDespesa"));
                     d.setValorDespesa(rs.getDouble("valor"));
-                    d.setData(rs.getString("dataVencimento"));
+                    d.setData(rs.getDate("dataVencimento"));
                     d.setDescricao(rs.getString("descricao"));
                     d.setStatus(rs.getString("status"));
                     
@@ -84,7 +84,7 @@ import javax.swing.JOptionPane;
            stmt = con.prepareStatement("update despesa set valor = ?, dataVencimento = ?,"
                    + " descricao = ?, status = ? where idDespesa = ?");
            stmt.setDouble(1, d.getValorDespesa());
-           stmt.setString(2, d.getData());
+           stmt.setString(2, dataFormatada.format(d.getData()));
            stmt.setString(3, d.getDescricao());
            stmt.setString(4, d.getStatus());
            stmt.setInt(7, codigodespesa);

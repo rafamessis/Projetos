@@ -19,7 +19,9 @@ public class CadastroDespesa extends javax.swing.JInternalFrame {
     private List<Despesa> despesa = new ArrayList<Despesa>();
     DespesaController contr = new DespesaController();
     int codigo=0;
-    DateFormat dataFormatada = new SimpleDateFormat("yyyy-mm-dd.");        
+    SimpleDateFormat dataFormatadaExibir = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat dataFormatadaSalvar = new SimpleDateFormat("yyMMdd");
+    Date data = new Date(System.currentTimeMillis());
 
     public CadastroDespesa() {
         initComponents();
@@ -68,7 +70,7 @@ public class CadastroDespesa extends javax.swing.JInternalFrame {
         campoCodigo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         StatusDespesa = new javax.swing.JTextField();
-        VencimentoDespesa = new javax.swing.JTextField();
+        VencimentoDespesa2 = new org.jdesktop.swingx.JXDatePicker();
 
         setClosable(true);
         setIconifiable(true);
@@ -186,39 +188,38 @@ public class CadastroDespesa extends javax.swing.JInternalFrame {
                                             .addComponent(ValorDespesa, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel4)))))
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(StatusDespesa)
-                            .addComponent(CancelarDespesa)
-                            .addComponent(VencimentoDespesa, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
-                        .addGap(77, 77, 77))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(CancelarDespesa))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(VencimentoDespesa2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(StatusDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(80, 80, 80))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(DescricaoDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ValorDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(campoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(VencimentoDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(StatusDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(DescricaoDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(VencimentoDespesa2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ValorDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(StatusDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(IncluirDespesa)
                     .addComponent(AlterarDespesa)
@@ -240,10 +241,10 @@ public class CadastroDespesa extends javax.swing.JInternalFrame {
         Despesa d= new Despesa();
         DespesaController contr = new DespesaController();
         
-        String descricao = DescricaoDespesa.getText().trim();//gravando o que esta no campo para a variavel senha
-        String valor = ValorDespesa.getText().trim();
-        String data = VencimentoDespesa.getText().trim();
-        String status = StatusDespesa.getText().trim();
+        /*String descricao = .trim();//gravando o que esta no campo para a variavel senha
+        String valor = .trim();
+        d.setData();
+        String status = .trim();*/
 
  //       SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd");   
 //        Date data_desejada = new SimpleDateFormat("dd/MM/yyyy").parse(VencimentoDespesa.getText());  
@@ -254,28 +255,28 @@ public class CadastroDespesa extends javax.swing.JInternalFrame {
         //SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
        // Date vencimento= formato.parse("q");
 
-        if(descricao.isEmpty()){//Verificando se o Campo esta com algum valor
+        if(DescricaoDespesa.getText().isEmpty()){//Verificando se o Campo esta com algum valor
             JOptionPane.showMessageDialog(null, "Por favor insira o Descrição:");
             return;
         }
-        else if(valor.isEmpty()){//Verificando se o Campo esta com algum valor
+        else if(ValorDespesa.getText().isEmpty()){//Verificando se o Campo esta com algum valor
             JOptionPane.showMessageDialog(null, "Por favor insira o Valor:");
             return;
         }
-        else if(valor.isEmpty()){//Verificando se o Campo esta com algum valor
+        else if(VencimentoDespesa2.getDate() == null){//Verificando se o Campo esta com algum valor
             JOptionPane.showMessageDialog(null, "Por favor insira o vencimento:");
             return;
         }
-        else if(status.isEmpty()){//Verificando se o Campo esta com algum valor
+        else if(StatusDespesa.getText().isEmpty()){//Verificando se o Campo esta com algum valor
             JOptionPane.showMessageDialog(null, "Por favor insira o Status:");
             return;
         } 
-        despesa = contr.read();
+        //despesa = contr.read();
         
-        d.setValorDespesa(Double.parseDouble(valor));//passando para o objeto o valor digitado no campo 
-        d.setData(data);
-        d.setDescricao(descricao);//passando para o objeto o valor digitado no campo 
-        d.setStatus(status);
+        d.setValorDespesa(Double.parseDouble(ValorDespesa.getText()));//passando para o objeto o valor digitado no campo 
+        d.setData(VencimentoDespesa2.getDate());
+        d.setDescricao(DescricaoDespesa.getText());//passando para o objeto o valor digitado no campo 
+        d.setStatus(StatusDespesa.getText());
 
         
         //d.setData(VencimentoDespesa.getData());
@@ -292,33 +293,34 @@ public class CadastroDespesa extends javax.swing.JInternalFrame {
         Despesa d = new Despesa();
         
         int posicao = tabelaDespesa.getSelectedRow();//Buscando o numero da posição da tabela que foi clicado no mouse
-        String descricao = DescricaoDespesa.getText().trim();//gravando o que esta no campo para a variavel senha
+        /*String descricao = DescricaoDespesa.getText().trim();//gravando o que esta no campo para a variavel senha
         String valor = ValorDespesa.getText().trim();
         String data = VencimentoDespesa.getText().trim();
-        String status = StatusDespesa.getText().trim();
+        String status = StatusDespesa.getText().trim();*/
         
-        if(descricao.isEmpty()){//Verificando se o Campo esta com algum valor
+        if(DescricaoDespesa.getText().isEmpty()){//Verificando se o Campo esta com algum valor
             JOptionPane.showMessageDialog(null, "Por favor insira o Descrição:");
             return;
         }
-        else if(valor.isEmpty()){//Verificando se o Campo esta com algum valor
+        else if(ValorDespesa.getText().isEmpty()){//Verificando se o Campo esta com algum valor
             JOptionPane.showMessageDialog(null, "Por favor insira o Valor:");
             return;
         }
-        else if(data.isEmpty()){//Verificando se o Campo esta com algum valor
+        else if(VencimentoDespesa2.getDate() == null){//Verificando se o Campo esta com algum valor
             JOptionPane.showMessageDialog(null, "Por favor insira o vencimento:");
             return;
         }
-        else if(status.isEmpty()){//Verificando se o Campo esta com algum valor
+        else if(StatusDespesa.getText().isEmpty()){//Verificando se o Campo esta com algum valor
             JOptionPane.showMessageDialog(null, "Por favor insira o Status:");
             return;
-        } 
-        despesa = contr.read();
+        }  
+        //despesa = contr.read();
         
-        d.setDescricao(descricao);//passando para o objeto o valor digitado no campo 
-        d.setValorDespesa(Double.parseDouble(valor));//passando para o objeto o valor digitado no campo 
-  //      d.setData(fdata(data));//passando para o objeto o valor digitado no campo 
-        d.setStatus(status);
+        d.setDescricao(DescricaoDespesa.getText());//passando para o objeto o valor digitado no campo 
+        d.setValorDespesa(Double.parseDouble(ValorDespesa.getText()));//passando para o objeto o valor digitado no campo 
+        d.setData(VencimentoDespesa2.getDate());
+        //d.setData(fdata(data));//passando para o objeto o valor digitado no campo 
+        d.setStatus(StatusDespesa.getText());
         
        
         contr.update(d,codigo);
@@ -371,7 +373,7 @@ public class CadastroDespesa extends javax.swing.JInternalFrame {
            Despesa despesas = despesa.get(tabelaDespesa.getSelectedRow());
            ValorDespesa.setText(String.valueOf(despesas.getValorDespesa()));//Recuperando da arreylist 
            campoCodigo.setText(String.valueOf(despesas.getCodigo()));
-           VencimentoDespesa.setText(String.valueOf(despesas.getData()));//Recuperando da arreylist 
+           VencimentoDespesa2.setDate(despesas.getData());//Recuperando da arreylist 
            DescricaoDespesa.setText(despesas.getDescricao());
            StatusDespesa.setText(despesas.getStatus());
            codigo =despesas.getCodigo();//Nome parametro para alterar
@@ -383,7 +385,7 @@ public class CadastroDespesa extends javax.swing.JInternalFrame {
         public void limpar(){
             DescricaoDespesa.setText("");
             ValorDespesa.setText("");
-            VencimentoDespesa.setText("");
+            //VencimentoDespesa2.setText("");
             StatusDespesa.setText("");
     }
         public static Date formataData(String data) throws Exception { 
@@ -400,7 +402,7 @@ public class CadastroDespesa extends javax.swing.JInternalFrame {
     private javax.swing.JButton IncluirDespesa;
     private javax.swing.JTextField StatusDespesa;
     private javax.swing.JTextField ValorDespesa;
-    private javax.swing.JTextField VencimentoDespesa;
+    private org.jdesktop.swingx.JXDatePicker VencimentoDespesa2;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField campoCodigo;
     private javax.swing.JLabel jLabel1;

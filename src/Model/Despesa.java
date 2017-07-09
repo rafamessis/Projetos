@@ -16,7 +16,7 @@ public class Despesa {
     protected double valorDespesa;
     protected String descricao;
     protected String status;
-    protected String data;
+    protected Date data;
 
     /**
      * @return the valorDespesa
@@ -63,14 +63,14 @@ public class Despesa {
     /**
      * @return the data
      */
-    public String getData() {
+    public Date getData() {
         return data;
     }
 
     /**
      * @param data the data to set
      */
-    public void setData(String data) {
+    public void setData(Date data) {
         this.data = data;
     }
 

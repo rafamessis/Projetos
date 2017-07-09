@@ -148,4 +148,30 @@ public class EstoqueController {
     }
     return null; //returno apenas para satisfazer warning do IDE
 }
+    public void atualizaQtde (String operador, int qtde, int codProd ) {
+          
+        Connection con = ConectorMySql.getConnection();
+        PreparedStatement stmt = null;
+        
+        
+        try {
+            
+           if((operador).equals("soma")){
+               stmt = con.prepareStatement("update estoque set qtde = qtde + ? where idProduto = ?");
+           }else if((operador).equals("diminui")){
+               stmt = con.prepareStatement("update estoque set qtde = qtde - ? where idProduto = ?");
+           }
+           stmt.setInt(1, qtde);
+           stmt.setInt(2, codProd);
+           
+           stmt.executeUpdate();
+           
+           } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null," Erro ao dar baixa no estoque: "+ ex);
+        }finally{
+           ConectorMySql.closeConnection(con, stmt);
+        }
+              
+      
+      }
 }

@@ -48,6 +48,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         itemMenuRelatorioEstoque = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
+        MenuDespesa = new javax.swing.JMenu();
+        CadastroDespesa = new javax.swing.JMenuItem();
         botaoLogOut = new javax.swing.JMenu();
         MenuSair = new javax.swing.JMenu();
 
@@ -155,6 +157,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu2.add(jMenuItem8);
 
         jMenuBar1.add(jMenu2);
+
+        MenuDespesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/list.png"))); // NOI18N
+        MenuDespesa.setText("Despesa");
+
+        CadastroDespesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/incomes.png"))); // NOI18N
+        CadastroDespesa.setText("Controle Despesa");
+        CadastroDespesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CadastroDespesaActionPerformed(evt);
+            }
+        });
+        MenuDespesa.add(CadastroDespesa);
+
+        jMenuBar1.add(MenuDespesa);
 
         botaoLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/door_out.png"))); // NOI18N
         botaoLogOut.setText("LogOut");
@@ -277,6 +293,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         re.setVisible(true);
     }//GEN-LAST:event_itemMenuRelatorioEstoqueActionPerformed
 
+    private void CadastroDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastroDespesaActionPerformed
+        CadastroDespesa obj = new CadastroDespesa();
+        jdpprincipal.add(obj);
+        obj.setVisible(true);
+    }//GEN-LAST:event_CadastroDespesaActionPerformed
+
     /**     * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -312,6 +334,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem CadastroDespesa;
+    private javax.swing.JMenu MenuDespesa;
     private javax.swing.JMenu MenuSair;
     private javax.swing.JMenu MenuVendas;
     private javax.swing.JMenu botaoLogOut;

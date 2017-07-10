@@ -47,7 +47,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         itemMenuRelatorioEstoque = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        itemMenuRelatorioDeVendas = new javax.swing.JMenuItem();
         MenuDespesa = new javax.swing.JMenu();
         CadastroDespesa = new javax.swing.JMenuItem();
         botaoLogOut = new javax.swing.JMenu();
@@ -148,13 +148,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(itemMenuRelatorioEstoque);
 
-        jMenuItem8.setText("Relatório de Vendas");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        itemMenuRelatorioDeVendas.setText("Relatório de Vendas");
+        itemMenuRelatorioDeVendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                itemMenuRelatorioDeVendasActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem8);
+        jMenu2.add(itemMenuRelatorioDeVendas);
 
         jMenuBar1.add(jMenu2);
 
@@ -281,10 +281,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_botaoLogOutMouseClicked
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
-
     private void itemMenuRelatorioEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuRelatorioEstoqueActionPerformed
         // TODO add your handling code here:
        
@@ -298,6 +294,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jdpprincipal.add(obj);
         obj.setVisible(true);
     }//GEN-LAST:event_CadastroDespesaActionPerformed
+
+    private void itemMenuRelatorioDeVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuRelatorioDeVendasActionPerformed
+        
+        RelatórioVenda rv = new RelatórioVenda();
+        jdpprincipal.add(rv);
+        rv.setVisible(true);
+        
+    }//GEN-LAST:event_itemMenuRelatorioDeVendasActionPerformed
 
     /**     * @param args the command line arguments
      */
@@ -339,6 +343,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu MenuSair;
     private javax.swing.JMenu MenuVendas;
     private javax.swing.JMenu botaoLogOut;
+    private javax.swing.JMenuItem itemMenuRelatorioDeVendas;
     private javax.swing.JMenuItem itemMenuRelatorioEstoque;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -348,7 +353,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JDesktopPane jdpprincipal;
     private javax.swing.JMenu menucadastroProdutos;
     // End of variables declaration//GEN-END:variables

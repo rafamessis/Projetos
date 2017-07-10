@@ -298,7 +298,7 @@ public class ProdutoController {
 
 
   }
-public int pesquisaCategoriasNome (String categ) { //Ao receber o nome da categoria aqui, está pesquisando na tabela categoria e selecionando o seu nome 
+public int pesquisaCategoriasNome (String categ) { //Ao receber o nome da categoria aqui, está pesquisando na tabela categoria e selecionando o seu código 
 
     Connection con = ConectorMySql.getConnection();
     PreparedStatement stmt = null;

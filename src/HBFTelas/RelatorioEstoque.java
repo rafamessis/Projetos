@@ -106,8 +106,7 @@ public class RelatorioEstoque extends javax.swing.JInternalFrame {
             //System.out.println("abrindo.... ");
         try {
             String caminho = System.getProperty("user.dir");
-            caminho = caminho.concat("\\src\\Relatorio\\");//caminho que está os relatório na maquina
-            //String caminho = "C:\\Users\\%USERNAME%\\Documents\\GitHub\\Projetos\\src\\Relatorio\\";//caminho que está os relatório na maquina
+            caminho = caminho.concat("\\src\\Relatorio\\");//caminho que está os relatório na máquina
             String arquivo = "RelatorioEstoque";//nome do arquivo do relatorio
             String categoria = (String)ComboBoxCategoria.getSelectedItem();//buscando do comboBox e setando a categoria
             ProdutoController pc = new ProdutoController();
@@ -123,7 +122,7 @@ public class RelatorioEstoque extends javax.swing.JInternalFrame {
 
     private void CancelarRelatorioEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarRelatorioEstoqueActionPerformed
         // TODO add your handling code here:
-        this.dispose();
+        this.dispose();//Sair da tela
     }//GEN-LAST:event_CancelarRelatorioEstoqueActionPerformed
 
 

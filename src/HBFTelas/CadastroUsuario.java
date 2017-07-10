@@ -233,45 +233,13 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
         ucontroller.create(u);//colocando o objeto no Bando de dados
         
         preencheTabela();
-//      DefaultTableModel val = (DefaultTableModel) tabelaUsuario.getModel();//val = valores da tabela
-//      val.addRow(new Object[]{u.getNomeUsuario(),u.getSenhaUsuario(),u.getTipo()});//((String[]) valores.get(valores.size()-1));
+
         campoCadastroNome.setText("");//apagando o campo nome
         campoSenhaNome.setText("");//apagando o campo Senha
         campoCadastroNome.requestFocus();//Voltar o codigo para o campo nome
         checkBoxUsuario.setSelected(false);//Desmarcando o chechBox
         nome="";
         senha="";
-        
-//        String nome = campoCadastroNome.getText().trim();//gravando o que esta no campo para a variavel senha
-//        String senha = campoSenhaNome.getText().trim();//gravando o que esta no campo para a variavel senha
-//        String tipo = "";
-//        
-//        if(nome.isEmpty()){//Verificando se o Campo nome esta com algum valor
-//            JOptionPane.showMessageDialog(null, "Por favor insira o nome");
-//            return;
-//        }
-//        else if(senha.isEmpty()){//Verificando se o Campo senha esta com algum valor
-//            JOptionPane.showMessageDialog(null, "Por favor insira a senha");
-//            return;
-//        }
-//        
-//        
-//            if (checkBoxUsuario.isSelected()){//verificando se usuário é administrador ou usuário padrão
-//              tipo = "Administrador";
-//            }
-//            else{
-//               tipo = "Usuário";
-//            }
-//            DefaultTableModel val = (DefaultTableModel) tabelaUsuario.getModel();//val = valores da tabela
-//            valores.add(new String[]{nome,tipo,senha});//adicionando os dados na array
-//            val.addRow((String[]) valores.get(valores.size()-1));
-//            campoCadastroNome.setText("");//apagando o campo nome
-//            campoSenhaNome.setText("");//apagando o campo Senha
-//            campoCadastroNome.requestFocus();//Voltar o codigo para o campo nome
-//            checkBoxUsuario.setSelected(false);//Desmarcando o chechBox
-//        
-//        nome="";
-//        senha="";
           
     }//GEN-LAST:event_botaoInserirUsuarioActionPerformed
 
@@ -286,7 +254,6 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
         if (resposta == JOptionPane.YES_OPTION) {//Apagando ousuário
             ucontroller.delete(u.getNomeUsuario());
             preencheTabela();
-            //((DefaultTableModel) tabelaUsuario.getModel()).removeRow(tabelaUsuario.getSelectedRow());
         }
         campoCadastroNome.setText("");//apagando o campo nome
         campoSenhaNome.setText("");//apagando o campo Senha

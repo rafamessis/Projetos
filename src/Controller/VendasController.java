@@ -8,6 +8,7 @@ package Controller;
 import Conexao.ConectorMySql;
 import Model.Categorias;
 import Model.ItemVenda;
+import Model.TipoVenda;
 import Model.Vendas;
 import java.sql.Connection;
 import java.sql.Date;
@@ -176,7 +177,63 @@ public class VendasController {
 
   }
     
-    
+    public int pesquisaTipoVendaNome (String NomeTipoVenda) {
+        
+        Connection con = ConectorMySql.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        TipoVenda tipo = new TipoVenda();
+        
+        try {
+           stmt = con.prepareStatement("select id from tipovenda where nome = ?");
+           stmt.setString(1, NomeTipoVenda);
+           rs = stmt.executeQuery();
+           
+           if(rs.next()){
+                
+                return rs.getInt("id");
+                
+            }else{
+               return 0;
+           }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null," Erro ao encontrar Tipo da Venda: "+ ex);
+        }finally{
+           ConectorMySql.closeConnection(con, stmt, rs);
+        }
+        return 0;
+    }
+    public List<TipoVenda> readTipoVendas(){
+    java.sql.Connection con = ConectorMySql.getConnection();
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+
+
+    List<TipoVenda> tipo = new ArrayList<>();
+
+      try {
+          stmt = con.prepareStatement("select * from tipovenda");
+          rs = stmt.executeQuery();
+
+          while(rs.next()){
+              TipoVenda tipov = new TipoVenda();
+
+              tipov.setIdTipoVenda(rs.getInt("id"));
+              tipov.setNomeTipoVenda(rs.getString("nome"));
+              
+              tipo.add(tipov);
+
+         }
+       } catch (SQLException ex) {
+          java.util.logging.Logger.getLogger(ProdutoController.class.getName()).log(Level.SEVERE, null, ex);
+      }finally{
+       ConectorMySql.closeConnection(con, stmt,rs);
+    }
+
+      return tipo;
+
+  }
     public Vendas pesquisaVenda (int cod) {
         
         Connection con = ConectorMySql.getConnection();

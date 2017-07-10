@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  */
 public class UsuarioController {
     
-    public void create(Usuario u){
+    public void create(Usuario u){//criar um usuáriono Banco de dados
     
         Connection con = ConectorMySql.getConnection();
         PreparedStatement stmt = null;
@@ -45,7 +45,7 @@ public class UsuarioController {
               
     }
     
-    public List<Usuario> read(String filtro){
+    public List<Usuario> read(String filtro){//função para ler todos os usuarios que existem no banco
         java.sql.Connection con = ConectorMySql.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -77,7 +77,7 @@ public class UsuarioController {
           return usuario;
          
       }
-    public void update (Usuario u, String nomeUsuario) {
+    public void update (Usuario u, String nomeUsuario) {//função para atualizar o usuario
           
         Connection con = ConectorMySql.getConnection();
         PreparedStatement stmt = null;
@@ -100,7 +100,7 @@ public class UsuarioController {
         }
          
       }
-    public void delete(String nomeUsuario){
+    public void delete(String nomeUsuario){//função para deletar o usuário
         
         Connection con = ConectorMySql.getConnection();
         PreparedStatement stmt = null;

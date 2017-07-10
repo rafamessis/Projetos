@@ -87,11 +87,11 @@ import javax.swing.JOptionPane;
            stmt.setString(2, dataFormatada.format(d.getData()));
            stmt.setString(3, d.getDescricao());
            stmt.setString(4, d.getStatus());
-           stmt.setInt(7, codigodespesa);
+           stmt.setInt(5, codigodespesa);
            
                 
            stmt.executeUpdate();
-           JOptionPane.showMessageDialog(null," Fornecedor Atualizado !");
+           JOptionPane.showMessageDialog(null," Despesa Atualizada !");
             
            } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null," Erro ao atualizar: "+ ex);

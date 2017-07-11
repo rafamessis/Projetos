@@ -9,6 +9,7 @@ import Conexao.TestandoRelatorios;
 import Controller.EstoqueController;
 import Model.Estoque;
 import Model.Geral;
+import Model.Notificacao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -21,7 +22,7 @@ import net.sf.jasperreports.engine.JRException;
  * @author Rafael
  */
 public class TelaPrincipal extends javax.swing.JFrame {
-    ArrayList<Estoque> arraylist;
+    ArrayList<Notificacao> arraylist;
     EstoqueController estoqueController = new EstoqueController();
 
     /**
@@ -340,7 +341,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         //this.evt = evt;
         try {
-            ArrayList<Estoque> arraylist = estoqueController.getListaAviso();
+            ArrayList<Notificacao> arraylist = estoqueController.getListaAviso();
                 jdpprincipal.add(obj);
                 
                 obj.setVisible(true);

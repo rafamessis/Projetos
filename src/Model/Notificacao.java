@@ -12,6 +12,8 @@ package Model;
 public class Notificacao {
     private int produtoId;
     private int quantidade;
+    private String descricao;
+    private int qtdeMin;
 
     /**
      * @return the produtoId
@@ -22,4 +24,32 @@ public class Notificacao {
     public int getQuantidade(){
         return quantidade;
     }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public int getQtdeMin() {
+        return qtdeMin;
+    }
+
+    public void setQtdeMin(int qtdeMin) {
+        this.qtdeMin = qtdeMin;
+    }
+
+    public void setProdutoId(int produtoId) {
+        this.produtoId = produtoId;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+    
+    
+    
+    
 }

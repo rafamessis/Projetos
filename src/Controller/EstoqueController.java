@@ -7,6 +7,7 @@ package Controller;
 
 import Conexao.ConectorMySql;
 import Model.Estoque;
+import Model.Notificacao;
 import Model.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -177,9 +178,9 @@ public class EstoqueController {
       
       }
     
-        public ArrayList<Estoque> getListaAviso() throws SQLException{
-        ArrayList<Estoque> listamodelCliente = new ArrayList();
-        Estoque estoque = new Estoque();
+        public ArrayList<Notificacao> getListaAviso() throws SQLException{
+        ArrayList<Notificacao> listaAviso = new ArrayList();
+        Notificacao notificacao = new Notificacao();
         
        Connection con = ConectorMySql.getConnection();
        Statement stmt = null;
@@ -190,17 +191,17 @@ public class EstoqueController {
         rs = Pstmt.executeQuery();
 
             while(rs.next()){
-                estoque = new Estoque();
-                estoque.setProdutoId(rs.getInt(1));
-                estoque.setQuantidade(rs.getInt(2));
-                estoque.setLdescricao(rs.getString(3));
-                estoque.setLqtdemin(rs.getInt(4));
+                //Notificacao notificacao = new Notificacao();
+                notificacao.setProdutoId(rs.getInt(1));
+                notificacao.setQuantidade(rs.getInt(2));
+                notificacao.setDescricao(rs.getString(3));
+                notificacao.setQtdeMin(rs.getInt(4));
                 
-                listamodelCliente.add(estoque);
+                listaAviso.add(notificacao);
               
             }
             
-            return listamodelCliente;
+            return listaAviso;
         
     }
 }

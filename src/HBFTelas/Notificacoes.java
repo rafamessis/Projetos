@@ -7,6 +7,7 @@ package HBFTelas;
 
 import Controller.EstoqueController;
 import Model.Estoque;
+import Model.Notificacao;
 import java.awt.Dimension;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class Notificacoes extends javax.swing.JInternalFrame {
     }
     
             private void carregarAviso() throws SQLException{
-        ArrayList<Estoque> estoqueArrayList = new ArrayList<>();
+        ArrayList<Notificacao> estoqueArrayList = new ArrayList<>();
 
         JDesktopPane desk = new JDesktopPane();
         
@@ -45,9 +46,9 @@ public class Notificacoes extends javax.swing.JInternalFrame {
         for(int i=0; i<count; i++) {
             modelo.addRow(new Object[]{
                 estoqueArrayList.get(i).getProdutoId(),
-                estoqueArrayList.get(i).getLdescricao(),
+                estoqueArrayList.get(i).getDescricao(),
                 estoqueArrayList.get(i).getQuantidade()+" unidades",
-                estoqueArrayList.get(i).getLqtdemin()+" unidades"
+                estoqueArrayList.get(i).getQtdeMin()+" unidades"
   
             });
 

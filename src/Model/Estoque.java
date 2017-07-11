@@ -13,10 +13,31 @@ public class Estoque {
     
     private int produtoId;
     private int quantidade;
+    private String ldescricao;
+    private int lqtdemin;
+
+    
+    
+    
+    public String getLdescricao() {
+        return ldescricao;
+    }
+
+    public void setLdescricao(String ldescricao) {
+        this.ldescricao = ldescricao;
+    }
+
+    public int getLqtdemin() {
+        return lqtdemin;
+    }
 
     /**
      * @return the produtoId
      */
+    public void setLqtdemin(int lqtdemin) {
+        this.lqtdemin = lqtdemin;
+    }
+
     public int getProdutoId() {
         return produtoId;
     }

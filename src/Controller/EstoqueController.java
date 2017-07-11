@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -174,4 +176,31 @@ public class EstoqueController {
               
       
       }
+    
+        public ArrayList<Estoque> getListaAviso() throws SQLException{
+        ArrayList<Estoque> listamodelCliente = new ArrayList();
+        Estoque estoque = new Estoque();
+        
+       Connection con = ConectorMySql.getConnection();
+       Statement stmt = null;
+       PreparedStatement Pstmt = null;
+       ResultSet rs = null;
+       
+        Pstmt = con.prepareStatement("select estoque.idProduto, estoque.qtde, produto.nomeProd, produto.qtdmin from estoque INNER JOIN produto ON estoque.idProduto = produto.idProduto where estoque.qtde < produto.qtdmin;");
+        rs = Pstmt.executeQuery();
+
+            while(rs.next()){
+                estoque = new Estoque();
+                estoque.setProdutoId(rs.getInt(1));
+                estoque.setQuantidade(rs.getInt(2));
+                estoque.setLdescricao(rs.getString(3));
+                estoque.setLqtdemin(rs.getInt(4));
+                
+                listamodelCliente.add(estoque);
+              
+            }
+            
+            return listamodelCliente;
+        
+    }
 }

@@ -6,8 +6,11 @@
 package HBFTelas;
 
 import Conexao.TestandoRelatorios;
+import Controller.EstoqueController;
+import Model.Estoque;
 import Model.Geral;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -18,12 +21,21 @@ import net.sf.jasperreports.engine.JRException;
  * @author Rafael
  */
 public class TelaPrincipal extends javax.swing.JFrame {
+    ArrayList<Estoque> arraylist;
+    EstoqueController estoqueController = new EstoqueController();
 
     /**
      * Creates new form TelaPrincipal
      */
     public TelaPrincipal() {
+        try {
+            arraylist = estoqueController.getListaAviso();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         initComponents();
+        this.iniciarBotaoAviso();        
     }
 
     /**
@@ -51,6 +63,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuDespesa = new javax.swing.JMenu();
         CadastroDespesa = new javax.swing.JMenuItem();
         botaoLogOut = new javax.swing.JMenu();
+        menuAviso = new javax.swing.JMenu();
         MenuSair = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -187,6 +200,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenuBar1.add(botaoLogOut);
 
+        menuAviso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/aviso.png"))); // NOI18N
+        menuAviso.setText("Aviso");
+        menuAviso.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuAvisoMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(menuAviso);
+
         MenuSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Sair.png"))); // NOI18N
         MenuSair.setText("Sair");
         MenuSair.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -303,6 +325,32 @@ public class TelaPrincipal extends javax.swing.JFrame {
         rv.setVisible(true);
         
     }//GEN-LAST:event_itemMenuRelatorioDeVendasActionPerformed
+        public void iniciarBotaoAviso() {
+            
+            if (arraylist.size() > 0) {
+                menuAviso.setEnabled(true);
+            } else {
+                menuAviso.setEnabled(false);
+            }
+          
+    }
+    private void menuAvisoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuAvisoMouseClicked
+    if (arraylist.size() > 0) {
+        Notificacoes obj = new Notificacoes(); 
+
+        //this.evt = evt;
+        try {
+            ArrayList<Estoque> arraylist = estoqueController.getListaAviso();
+                jdpprincipal.add(obj);
+                
+                obj.setVisible(true);
+                obj.setPosicao();
+                
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }}        // TODO add your handling code here:
+    }//GEN-LAST:event_menuAvisoMouseClicked
 
     /**     * @param args the command line arguments
      */
@@ -355,6 +403,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JDesktopPane jdpprincipal;
+    private javax.swing.JMenu menuAviso;
     private javax.swing.JMenu menucadastroProdutos;
     // End of variables declaration//GEN-END:variables
 }

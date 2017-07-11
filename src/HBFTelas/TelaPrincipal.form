@@ -114,6 +114,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuRelatorioDeVendas">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Imagens/Sales.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Vendas"/>
               </Properties>
               <Events>

@@ -148,6 +148,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(itemMenuRelatorioEstoque);
 
+        itemMenuRelatorioDeVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Sales.png"))); // NOI18N
         itemMenuRelatorioDeVendas.setText("Relatório de Vendas");
         itemMenuRelatorioDeVendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

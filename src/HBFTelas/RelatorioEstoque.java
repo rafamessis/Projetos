@@ -105,8 +105,9 @@ public class RelatorioEstoque extends javax.swing.JInternalFrame {
          TestandoRelatorios teste = new TestandoRelatorios();
             //System.out.println("abrindo.... ");
         try {
-            String caminho = System.getProperty("user.dir");
-            caminho = caminho.concat("\\src\\Relatorio\\");//caminho que está os relatório na máquina
+            //String caminho = System.getProperty("user.dir");
+            //caminho = caminho.concat("\\src\\Relatorio\\");//caminho que está os relatório na máquina
+            String caminho = "C:\\Users\\andre\\OneDrive\\Documentos\\GitHub\\Projetos\\src\\Relatorio\\";
             String arquivo = "RelatorioEstoque";//nome do arquivo do relatorio
             String categoria = (String)ComboBoxCategoria.getSelectedItem();//buscando do comboBox e setando a categoria
             ProdutoController pc = new ProdutoController();

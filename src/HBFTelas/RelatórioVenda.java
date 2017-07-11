@@ -113,8 +113,8 @@ public class RelatórioVenda extends javax.swing.JInternalFrame {
         TestandoRelatorios teste = new TestandoRelatorios();
         //System.out.println("abrindo.... ");
        try {
-           String caminho = "C:\\Users\\Rafael\\Documents\\GitHub\\Projetos\\src\\Relatorio\\";//caminho que está os relatório na maquina
-            String arquivo = "RelatorioDeVendas";//nome do arquivo do relatorio
+           String caminho = "C:\\Users\\andre\\OneDrive\\Documentos\\GitHub\\Projetos\\src\\Relatorio\\";//caminho que está os relatório na maquina
+           String arquivo = "RelatorioDeVendas";//nome do arquivo do relatorio
            String tipoVenda = (String)ComboBoxTipoVenda.getSelectedItem();//buscando do comboBox e setando a categoria
            VendasController venda = new VendasController();
            int tipoVendas = venda.pesquisaTipoVendaNome(tipoVenda);

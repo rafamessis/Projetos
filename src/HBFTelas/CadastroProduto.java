@@ -408,19 +408,31 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
                     contr.create(produto);
            }
-                  codProduto.setEnabled(true);
-                  pesquisaProduto.setEnabled(true);                  
-                  pesquisaFornecedor.setEnabled(true);
-                  pesquisarCategoria.setEnabled(true);
-                  
-                  descCategoria.setEnabled(true);
-                  descFornecedor.setEnabled(true);
-                  
                   botaoNovo.setEnabled(true);
-                  precoCompra.setEnabled(true);
-                  qntdEstoque.setEnabled(true);
-                  
-                  codigoSku.setEnabled(true);
+                  botaoSalvar.setEnabled(false);
+                  botaoExcluir.setEnabled(false);
+                  botaoCancelar.setEnabled(false);
+                  pesquisaProduto.setEnabled(true);
+                  qntdEstoque.setEnabled(false);
+      
+                  descProduto.setEnabled(true);
+                  codProduto.setEnabled(true);
+                  codigoSku.setEnabled(false);
+                  precoCompra.setEnabled(false);
+                  codFornecedor.setEnabled(false);
+                  descFornecedor.setEnabled(false);
+                  codCategoria.setEnabled(false);
+                  descCategoria.setEnabled(false);
+      
+                  qntdEstoque.setText("");  
+                  codProduto.setText("");
+                  codigoSku.setText("");
+                  precoCompra.setText("");
+                  codFornecedor.setText("");
+                  descFornecedor.setText("");
+                  descProduto.setText("");
+                  codCategoria.setText("");
+                  descCategoria.setText("");
             
         
          }  
@@ -695,15 +707,31 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                    
                    produto.deleteproduto(prod);
                    
+                   botaoNovo.setEnabled(true);
+                   botaoSalvar.setEnabled(false);
+                   botaoExcluir.setEnabled(false);
+                   botaoCancelar.setEnabled(false);
+                   pesquisaProduto.setEnabled(true);
+                   qntdEstoque.setEnabled(false);
+      
+                   descProduto.setEnabled(true);
+                   codProduto.setEnabled(true);
+                   codigoSku.setEnabled(false);
+                   precoCompra.setEnabled(false);
+                   codFornecedor.setEnabled(false);
+                   descFornecedor.setEnabled(false);
+                   codCategoria.setEnabled(false);
+                   descCategoria.setEnabled(false);
+      
+                   qntdEstoque.setText("");  
+                   codProduto.setText("");
                    codigoSku.setText("");
                    precoCompra.setText("");
                    codFornecedor.setText("");
                    descFornecedor.setText("");
                    descProduto.setText("");
-                   codProduto.setText("");
                    codCategoria.setText("");
                    descCategoria.setText("");
-                   qntdEstoque.setText("");
                    
                    
                    

@@ -60,7 +60,6 @@ public class CadastroEstoque extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
         setTitle("Cadastro de Estoque");
 
         jLabel1.setText("Produto:");
@@ -187,7 +186,7 @@ public class CadastroEstoque extends javax.swing.JInternalFrame {
      // tipoItem.setSelectedIndex(1);
      txtCodProd.setText(""); 
      txtqtd.setText(""); 
-      this.dispose();
+      
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void txtqtdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtqtdActionPerformed

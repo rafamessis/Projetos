@@ -178,9 +178,9 @@ public class EstoqueController {
       
       }
     
-        public ArrayList<Notificacao> getListaAviso() throws SQLException{
-        ArrayList<Notificacao> listaAviso = new ArrayList();
-        Notificacao notificacao = new Notificacao();
+        public ArrayList<Estoque> getListaAviso() throws SQLException{
+        ArrayList<Estoque> listaAviso = new ArrayList();
+        Estoque estoque = new Estoque();
         
        Connection con = ConectorMySql.getConnection();
        Statement stmt = null;
@@ -191,13 +191,13 @@ public class EstoqueController {
         rs = Pstmt.executeQuery();
 
             while(rs.next()){
-                //Notificacao notificacao = new Notificacao();
-                notificacao.setProdutoId(rs.getInt(1));
-                notificacao.setQuantidade(rs.getInt(2));
-                notificacao.setDescricao(rs.getString(3));
-                notificacao.setQtdeMin(rs.getInt(4));
+                estoque = new Estoque();
+                estoque.setProdutoId(rs.getInt(1));
+                estoque.setQuantidade(rs.getInt(2));
+                estoque.setLdescricao(rs.getString(3));
+                estoque.setQtdemin(rs.getInt(4));
                 
-                listaAviso.add(notificacao);
+                listaAviso.add(estoque);
               
             }
             

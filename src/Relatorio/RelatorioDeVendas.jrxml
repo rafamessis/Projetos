@@ -50,10 +50,6 @@ where tipovenda.`id`=$P{TipoVenda}]]>
 				<textElement/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<image>
-				<reportElement uuid="c5bd7240-6ab6-43e9-b717-5a5178f937b1" x="421" y="31" width="120" height="56"/>
-				<imageExpression><![CDATA["C:\\Users\\andre\\OneDrive\\Documentos\\GitHub\\Projetos\\src\\Imagens\\Logo.jpg"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement uuid="cd47e32c-da5f-4f68-99d0-5df910e55290" x="325" y="0" width="58" height="20"/>
 				<textElement textAlignment="Right"/>
@@ -64,6 +60,10 @@ where tipovenda.`id`=$P{TipoVenda}]]>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[-]]></text>
 			</staticText>
+			<image>
+				<reportElement uuid="5eb51a29-b73a-4fe0-8b3e-22c943f2a55e" x="435" y="31" width="105" height="56"/>
+				<imageExpression><![CDATA["C:\\Users\\User\\Documents\\GitHub\\Projetos\\src\\Imagens\\Logo.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>

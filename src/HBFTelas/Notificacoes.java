@@ -36,7 +36,7 @@ public class Notificacoes extends javax.swing.JInternalFrame {
     }
     
             private void carregarAviso() throws SQLException{
-        ArrayList<Notificacao> estoqueArrayList = new ArrayList<>();
+        ArrayList<Estoque> estoqueArrayList = new ArrayList<>();
 
         JDesktopPane desk = new JDesktopPane();
         
@@ -46,9 +46,9 @@ public class Notificacoes extends javax.swing.JInternalFrame {
         for(int i=0; i<count; i++) {
             modelo.addRow(new Object[]{
                 estoqueArrayList.get(i).getProdutoId(),
-                estoqueArrayList.get(i).getDescricao(),
+                estoqueArrayList.get(i).getLdescricao(),
                 estoqueArrayList.get(i).getQuantidade()+" unidades",
-                estoqueArrayList.get(i).getQtdeMin()+" unidades"
+                estoqueArrayList.get(i).getQtdemin()+" unidades"
   
             });
 
@@ -76,7 +76,6 @@ public class Notificacoes extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
 
         jtVendas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

@@ -22,7 +22,7 @@ import net.sf.jasperreports.engine.JRException;
  * @author Rafael
  */
 public class TelaPrincipal extends javax.swing.JFrame {
-    ArrayList<Notificacao> arraylist;
+    ArrayList<Estoque> arraylist;
     EstoqueController estoqueController = new EstoqueController();
 
     /**
@@ -314,6 +314,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemMenuRelatorioEstoqueActionPerformed
 
     private void CadastroDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastroDespesaActionPerformed
+        
+        if(Geral.UsuarioLogado.getTipo().equals("Usuário"))
+        {
+            JOptionPane.showMessageDialog(null, "Usuario sem permissao.");
+            return;
+        }
+        
         CadastroDespesa obj = new CadastroDespesa();
         jdpprincipal.add(obj);
         obj.setVisible(true);
@@ -341,7 +348,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         //this.evt = evt;
         try {
-            ArrayList<Notificacao> arraylist = estoqueController.getListaAviso();
+            ArrayList<Estoque> arraylist = estoqueController.getListaAviso();
                 jdpprincipal.add(obj);
                 
                 obj.setVisible(true);
